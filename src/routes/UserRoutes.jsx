@@ -8,13 +8,13 @@ export const UserRoutes = () => {
     <>
       <Routes>
         <Route path="/" element={<NavBar></NavBar>}>
-          <Route path="users" element={<UserPage></UserPage>}></Route>
+          <Route path="users" element={<UserPage></UserPage>} />
           <Route
             path="users/register"
             element={<RegisterPage></RegisterPage>}
-          ></Route>
+          />
 
-          <Route path="/" element={<Navigate to={"/users"}></Navigate>}></Route>
+          <Route path="/" element={<Navigate to={"/users"}></Navigate>} />
         </Route>
       </Routes>
     </>

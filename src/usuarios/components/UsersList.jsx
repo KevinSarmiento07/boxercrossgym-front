@@ -15,7 +15,6 @@ import { useUsers } from "../../hooks/useUsers";
 /* eslint-disable react/prop-types */
 export const UsersList = () => {
   const { users } = useUsers();
-  console.log(users);
 
   return (
     <>
@@ -36,7 +35,6 @@ export const UsersList = () => {
               </TableHead>
               <TableBody>
                 {users.map((user) => {
-                  console.log(user);
                   return (
                     <TableRow key={user.email}>
                       <TableCell sx={{ padding: 1 }}>
