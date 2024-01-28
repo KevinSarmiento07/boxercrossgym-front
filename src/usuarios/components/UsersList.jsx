@@ -11,6 +11,8 @@ import {
   TableRow,
 } from "@mui/material";
 import { useUsers } from "../../hooks/useUsers";
+import { NavLink } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 
 /* eslint-disable react/prop-types */
 export const UsersList = () => {
@@ -36,7 +38,7 @@ export const UsersList = () => {
               <TableBody>
                 {users.map((user) => {
                   return (
-                    <TableRow key={user.email}>
+                    <TableRow key={user.id}>
                       <TableCell sx={{ padding: 1 }}>
                         {user.foto ? (
                           <Avatar
@@ -56,7 +58,11 @@ export const UsersList = () => {
                       <TableCell align="right">{user.apellido}</TableCell>
                       <TableCell align="right">{user.email}</TableCell>
                       <TableCell align="right">{user.telefono}</TableCell>
-                      <TableCell align="right">Update</TableCell>
+                      <TableCell align="right">
+                        <NavLink to={`/users/edit/${user.id}`}>
+                          <EditIcon />
+                        </NavLink>
+                      </TableCell>
                       <TableCell align="right">Temove</TableCell>
                     </TableRow>
                   );

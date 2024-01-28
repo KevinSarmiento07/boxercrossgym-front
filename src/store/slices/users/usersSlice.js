@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const initialUserForm = {
-  foto: "",
+  id: 0,
   nombre: "",
   apellido: "",
   email: "",
@@ -10,7 +10,8 @@ export const initialUserForm = {
   fechaInscripcion: null,
   sexo: "",
   telefono: "",
-  documento: "",
+  cedula: "",
+  foto: "",
 };
 
 export const usersSlice = createSlice({
@@ -24,10 +25,21 @@ export const usersSlice = createSlice({
       state.users = [...state.users, { ...action.payload }];
       state.userSelected = initialUserForm;
     },
+    updateUser: (state, action) => {
+      state.users = state.users.map((user) => {
+        if (user.id == action.payload.id) {
+          return {
+            ...action.payload,
+          };
+        }
+        return user;
+      });
+      state.userSelected = initialUserForm;
+    },
     loadingUsers: (state, action) => {
       state.users = action.payload;
     },
   },
 });
 
-export const { addUser, loadingUsers } = usersSlice.actions;
+export const { addUser, loadingUsers, updateUser } = usersSlice.actions;

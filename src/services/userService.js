@@ -10,3 +10,21 @@ export const findAll = async () => {
     throw error;
   }
 };
+
+export const saveUser = async (user) => {
+  try {
+    return await axios.post(BASE_URL, user);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const updateUserS = async (user) => {
+  try {
+    return await axios.put(`${BASE_URL}/${user.id}`, user);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

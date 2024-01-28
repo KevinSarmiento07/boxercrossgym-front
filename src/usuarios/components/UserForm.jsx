@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Button,
@@ -12,49 +13,48 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useUsers } from "../../hooks/useUsers";
 
-const initialUserForm = {
-  foto: "",
-  nombre: "",
-  apellido: "",
-  email: "",
-  password: "",
-  fechaNacimiento: null,
-  fechaInscripcion: null,
-  sexo: "",
-  telefono: "",
-  documento: "",
-};
-
-export const UserForm = () => {
+export const UserForm = ({ userSelected }) => {
+  const { initialUserForm, handlerAddUser } = useUsers();
   const [userForm, setUserForm] = useState(initialUserForm);
   const {
     nombre,
     apellido,
     email,
+    telefono,
     password,
     fechaNacimiento,
     fechaInscripcion,
+    cedula,
     sexo,
-    telefono,
-    documento,
   } = userForm;
+
+  useEffect(() => {
+    setUserForm({
+      ...userSelected,
+      password: "",
+    });
+  }, [userSelected]);
+
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setUserForm({ ...userForm, [name]: value });
   };
+
   const onDateChange = (value, context, name) => {
-    const fecha = dayjs(value).format("YYYY/MM/DD");
+    const fecha = dayjs(value).format("YYYY-MM-DD");
     setUserForm({
       ...userForm,
       [name]: fecha,
     });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(userForm);
-
+    handlerAddUser(userForm);
     setUserForm(initialUserForm);
   };
   return (
@@ -120,11 +120,11 @@ export const UserForm = () => {
                 label="Fecha de nacimiento"
                 fullWidth
                 name="fechaNacimiento"
-                value={fechaNacimiento}
+                value={fechaNacimiento == null ? null : dayjs(fechaNacimiento)}
                 onChange={(value, context) =>
                   onDateChange(value, context, "fechaNacimiento")
                 }
-                format="YYYY/MM/DD"
+                format="YYYY-MM-DD"
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -134,11 +134,13 @@ export const UserForm = () => {
                 defaultValue={dayjs(new Date())}
                 selectedSections={"day" | "month" | "year"}
                 name="fechaInscripcion"
-                value={fechaInscripcion}
+                value={
+                  fechaInscripcion == null ? null : dayjs(fechaInscripcion)
+                }
                 onChange={(value, context) =>
                   onDateChange(value, context, "fechaInscripcion")
                 }
-                format="YYYY/MM/DD"
+                format="YYYY-MM-DD"
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -174,8 +176,8 @@ export const UserForm = () => {
                 variant="outlined"
                 label="Numero de documento"
                 type="text"
-                name="documento"
-                value={documento}
+                name="cedula"
+                value={cedula}
                 onChange={onInputChange}
               />
             </Grid>

@@ -13,6 +13,10 @@ export const UserRoutes = () => {
             path="users/register"
             element={<RegisterPage></RegisterPage>}
           />
+          <Route
+            path="users/edit/:id"
+            element={<RegisterPage></RegisterPage>}
+          />
 
           <Route path="/" element={<Navigate to={"/users"}></Navigate>} />
         </Route>
