@@ -22,10 +22,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export const PagoForm = () => {
   const { users, getUsers } = useUsers();
-  const { initialPayForm, getPlanes } = usePagos();
+  const { initialPayForm, getPlanes, handlerAddPago } = usePagos();
 
   const [payForm, setPayForm] = useState(initialPayForm);
   const [planes, setPlanes] = useState([{ id: 0 }]);
+  const [seletedUser, setSelectedUser] = useState(null);
 
   const { id, fechaPago, plan, tipoPago, valorPagado } = payForm;
 
@@ -62,6 +63,9 @@ export const PagoForm = () => {
     e.preventDefault();
     console.log(e);
     console.log(payForm);
+    handlerAddPago(payForm);
+    setPayForm(initialPayForm);
+    setSelectedUser(null);
   };
   return (
     <>
@@ -89,7 +93,10 @@ export const PagoForm = () => {
                       {users.nombre} {users.apellido}
                     </Box>
                   )}
+                  value={seletedUser}
                   onChange={(event, newValue) => {
+                    console.log(newValue);
+                    setSelectedUser(newValue);
                     setPayForm(
                       newValue?.id != null
                         ? {

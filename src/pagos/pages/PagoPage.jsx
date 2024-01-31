@@ -4,11 +4,10 @@ import { usePagos } from "../../hooks/usePagos";
 import { useEffect } from "react";
 
 export const PagoPage = () => {
-  const { pagos, getPagos } = usePagos();
+  const { getPagos } = usePagos();
   useEffect(() => {
     getPagos();
   }, []);
-  console.log(pagos);
   return (
     <>
       <Typography align="center" variant="h3">

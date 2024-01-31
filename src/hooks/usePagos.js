@@ -1,7 +1,13 @@
+/* eslint-disable no-useless-catch */
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { findAll, findAllPlan } from "../services/pagoService";
-import { loadingPagos, initialPayForm } from "../store/slices/pagos/pagoSlice";
+import { findAll, findAllPlan, savePago } from "../services/pagoService";
+import {
+  loadingPagos,
+  initialPayForm,
+  addPago,
+} from "../store/slices/pagos/pagoSlice";
+import Swal from "sweetalert2";
 
 export const usePagos = () => {
   const { pagos } = useSelector((state) => state.pagos);
@@ -13,7 +19,6 @@ export const usePagos = () => {
   const getPagos = async () => {
     try {
       const res = await findAll();
-      console.log(res);
       dispatch(loadingPagos(res.data));
     } catch (error) {
       console.log(error);
@@ -25,10 +30,24 @@ export const usePagos = () => {
     return await findAllPlan();
   };
 
+  const handlerAddPago = async (pago) => {
+    try {
+      const res = await savePago(pago);
+      dispatch(addPago(res.data));
+
+      Swal.fire("Pago Creado", "El pago ha sido creado con exito!", "success");
+
+      navigate("/payments");
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     pagos,
     getPagos,
     initialPayForm,
     getPlanes,
+    handlerAddPago,
   };
 };

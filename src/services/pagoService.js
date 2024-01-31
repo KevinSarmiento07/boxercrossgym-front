@@ -19,3 +19,12 @@ export const findAllPlan = async () => {
     throw error;
   }
 };
+
+export const savePago = async (pago) => {
+  try {
+    return await axios.post(BASE_URL, pago);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
