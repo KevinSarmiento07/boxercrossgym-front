@@ -62,11 +62,9 @@ export const PagoList = () => {
                       <TableCell sx={{ padding: 1 }}>
                         {pago.usuario.nombre}
                       </TableCell>
-                      <TableCell align="right">{pago.nombre}</TableCell>
                       <TableCell align="right">{pago.plan.nombre}</TableCell>
-                      <TableCell align="right">
-                        {pago.tipoPago.descripcion}
-                      </TableCell>
+                      <TableCell align="right">{pago.tipoPago}</TableCell>
+                      <TableCell align="right">{pago.valorPagado}</TableCell>
                       <TableCell align="right">{pago.fechaPago}</TableCell>
                       <TableCell align="right">
                         {pago.fechaVencimiento}
