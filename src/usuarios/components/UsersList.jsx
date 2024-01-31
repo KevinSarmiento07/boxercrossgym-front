@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Container,
   Grid,
   Paper,
   Table,
@@ -9,36 +8,55 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  tableCellClasses,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
 import { useUsers } from "../../hooks/useUsers";
 import { NavLink } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import Alert from "@mui/material/Alert";
 
 /* eslint-disable react/prop-types */
 export const UsersList = () => {
   const { users } = useUsers();
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
 
   return (
     <>
-      <Container>
+      {users.length > 0 ? (
         <Grid marginTop={3}>
           <TableContainer component={Paper} elevation={3}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Foto</TableCell>
-                  <TableCell align="right">Nombre</TableCell>
-                  <TableCell align="right">Apellido</TableCell>
-                  <TableCell align="right">Email</TableCell>
-                  <TableCell align="right">Telefono</TableCell>
-                  <TableCell align="right">Update</TableCell>
-                  <TableCell align="right">Temove</TableCell>
+                  <StyledTableCell>Foto</StyledTableCell>
+                  <StyledTableCell align="right">Nombre</StyledTableCell>
+                  <StyledTableCell align="right">Apellido</StyledTableCell>
+                  <StyledTableCell align="right">Email</StyledTableCell>
+                  <StyledTableCell align="right">Telefono</StyledTableCell>
+                  <StyledTableCell align="right">Update</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {users.map((user) => {
                   return (
-                    <TableRow key={user.id}>
+                    <StyledTableRow hover key={user.id}>
                       <TableCell sx={{ padding: 1 }}>
                         {user.foto ? (
                           <Avatar
@@ -63,15 +81,18 @@ export const UsersList = () => {
                           <EditIcon />
                         </NavLink>
                       </TableCell>
-                      <TableCell align="right">Temove</TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   );
                 })}
               </TableBody>
             </Table>
           </TableContainer>
         </Grid>
-      </Container>
+      ) : (
+        <Alert variant="filled" severity="warning">
+          No hay usuarios en el sistema
+        </Alert>
+      )}
     </>
   );
 };

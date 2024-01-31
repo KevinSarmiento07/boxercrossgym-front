@@ -29,6 +29,7 @@ export const UserForm = ({ userSelected }) => {
     fechaInscripcion,
     cedula,
     sexo,
+    antecedente,
   } = userForm;
 
   useEffect(() => {
@@ -76,6 +77,7 @@ export const UserForm = ({ userSelected }) => {
                 name="nombre"
                 value={nombre}
                 onChange={onInputChange}
+                required
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -88,6 +90,7 @@ export const UserForm = ({ userSelected }) => {
                 name="apellido"
                 value={apellido}
                 onChange={onInputChange}
+                required
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -100,6 +103,7 @@ export const UserForm = ({ userSelected }) => {
                 name="email"
                 value={email}
                 onChange={onInputChange}
+                required
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -179,6 +183,19 @@ export const UserForm = ({ userSelected }) => {
                 name="cedula"
                 value={cedula}
                 onChange={onInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Información personal adicional"
+                type="text"
+                name="antecedente"
+                value={antecedente}
+                onChange={onInputChange}
+                multiline
               />
             </Grid>
           </Grid>

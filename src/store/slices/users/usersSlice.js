@@ -12,6 +12,7 @@ export const initialUserForm = {
   telefono: "",
   cedula: "",
   foto: "",
+  antecedente: "",
 };
 
 export const usersSlice = createSlice({

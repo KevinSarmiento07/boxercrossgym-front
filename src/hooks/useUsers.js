@@ -21,7 +21,6 @@ export const useUsers = () => {
   const getUsers = async () => {
     try {
       const result = await findAll();
-      console.log(result);
       dispatch(loadingUsers(result.data));
     } catch (error) {
       console.log(error);

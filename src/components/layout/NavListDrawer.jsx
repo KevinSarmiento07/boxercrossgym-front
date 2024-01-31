@@ -25,10 +25,10 @@ export const NavListDrawer = ({
   const drawerWidth = 240;
   const [open, setOpen] = useState({});
 
-  const handleClick = (id) => {
+  const handleClick = (id, name) => {
+    console.log(name);
     setOpen({
-      ...open,
-      [id]: !open[id],
+      [name]: !open[name],
     });
   };
 
@@ -62,12 +62,16 @@ export const NavListDrawer = ({
               if (item.child?.length > 0) {
                 return (
                   <div key={i}>
-                    <ListItemButton onClick={() => handleClick(i)}>
+                    <ListItemButton onClick={() => handleClick(i, item.tittle)}>
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText primary={item.tittle} />
-                      {open[i] ? <ExpandLess /> : <ExpandMore />}
+                      {open[item.tittle] ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse in={open[i]} timeout="auto" unmountOnExit>
+                    <Collapse
+                      in={open[item.tittle]}
+                      timeout="auto"
+                      unmountOnExit
+                    >
                       <List component="div" disablePadding>
                         {item.child.map((itemChild, j) => {
                           return (
@@ -76,6 +80,7 @@ export const NavListDrawer = ({
                               key={j}
                               component={NavLink}
                               to={itemChild.path}
+                              onClick={() => setOpen({ [item.title]: !open })}
                             >
                               <ListItemIcon>{itemChild.icon}</ListItemIcon>
                               <ListItemText primary={itemChild.tittle} />
@@ -87,20 +92,19 @@ export const NavListDrawer = ({
                   </div>
                 );
               } else {
-                <ListItem key={i}>
-                  <ListItemButton component={NavLink} to={item.path}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.tittle} />
-                  </ListItemButton>
-                </ListItem>;
+                return (
+                  <ListItem key={i} disablePadding>
+                    <ListItemButton component={NavLink} to={item.path}>
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.tittle} />
+                    </ListItemButton>
+                  </ListItem>
+                );
               }
             })}
           </List>
         </nav>
         <Divider />
-        <nav>
-          <List>{/*Aqui puede ir otra seccion de menus*/}</List>
-        </nav>
       </Drawer>
       <Drawer
         variant="permanent"
@@ -121,12 +125,16 @@ export const NavListDrawer = ({
               if (item.child?.length > 0) {
                 return (
                   <div key={i}>
-                    <ListItemButton onClick={() => handleClick(i)}>
+                    <ListItemButton onClick={() => handleClick(i, item.tittle)}>
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText primary={item.tittle} />
-                      {open[i] ? <ExpandLess /> : <ExpandMore />}
+                      {open[item.tittle] ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse in={open[i]} timeout="auto" unmountOnExit>
+                    <Collapse
+                      in={open[item.tittle]}
+                      timeout="auto"
+                      unmountOnExit
+                    >
                       <List component="div" disablePadding>
                         {item.child.map((itemChild, j) => {
                           return (
@@ -135,6 +143,7 @@ export const NavListDrawer = ({
                               key={j}
                               component={NavLink}
                               to={itemChild.path}
+                              onClick={() => setOpen({ [item.title]: !open })}
                             >
                               <ListItemIcon>{itemChild.icon}</ListItemIcon>
                               <ListItemText primary={itemChild.tittle} />
@@ -146,20 +155,19 @@ export const NavListDrawer = ({
                   </div>
                 );
               } else {
-                <ListItem key={i}>
-                  <ListItemButton component={NavLink} to={item.path}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.tittle} />
-                  </ListItemButton>
-                </ListItem>;
+                return (
+                  <ListItem key={i} disablePadding>
+                    <ListItemButton component={NavLink} to={item.path}>
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.tittle} />
+                    </ListItemButton>
+                  </ListItem>
+                );
               }
             })}
           </List>
         </nav>
         <Divider />
-        <nav>
-          <List>{/*Aqui puede ir otra seccion de menus*/}</List>
-        </nav>
       </Drawer>
     </Box>
   );

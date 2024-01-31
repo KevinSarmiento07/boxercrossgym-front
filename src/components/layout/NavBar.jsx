@@ -13,6 +13,8 @@ import { NavListDrawer } from "./NavListDrawer";
 import { Button } from "@mui/material";
 import { Group } from "@mui/icons-material";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import PaidIcon from "@mui/icons-material/Paid";
+import AddCardIcon from "@mui/icons-material/AddCard";
 
 const drawerWidth = 240;
 const navLinks = [
@@ -34,9 +36,21 @@ const navLinks = [
     ],
   },
   {
-    tittle: "Registro",
-    path: "/users/register",
-    icon: <GroupAddIcon />,
+    tittle: "Finanzas",
+    path: "",
+    icon: <PaidIcon />,
+    child: [
+      {
+        tittle: "Pagos",
+        path: "/payments",
+        icon: <PaidIcon />,
+      },
+      {
+        tittle: "Nuevo Pago",
+        path: "/payments/register",
+        icon: <AddCardIcon />,
+      },
+    ],
   },
 ];
 
