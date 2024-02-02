@@ -110,7 +110,12 @@ export const PagoForm = () => {
                     );
                   }}
                   renderInput={(params) => (
-                    <TextField {...params} label="Cliente" name="cliente" />
+                    <TextField
+                      {...params}
+                      label="Cliente"
+                      name="cliente"
+                      required
+                    />
                   )}
                 />
               </Grid>
@@ -118,6 +123,7 @@ export const PagoForm = () => {
                 <FormControl fullWidth>
                   <InputLabel id="plan">Plan a escoger</InputLabel>
                   <Select
+                    required
                     labelId="plan"
                     id="plan-select"
                     label="Plan a escoger"
@@ -156,6 +162,7 @@ export const PagoForm = () => {
                     Valor a pagar
                   </InputLabel>
                   <OutlinedInput
+                    required
                     id="outlined-adornment-amount"
                     startAdornment={
                       <InputAdornment position="start">$</InputAdornment>
@@ -175,6 +182,7 @@ export const PagoForm = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DatePicker
+                  required
                   sx={{ width: "100%" }}
                   label="Fecha de pago"
                   selectedSections={"day" | "month" | "year"}
@@ -196,6 +204,7 @@ export const PagoForm = () => {
                     name="tipoPago"
                     value={tipoPago}
                     onChange={onInputChange}
+                    required
                   >
                     <MenuItem value="" hidden></MenuItem>
                     <MenuItem value={"NEQUI"}>Nequi</MenuItem>

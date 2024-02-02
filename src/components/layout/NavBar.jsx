@@ -15,6 +15,9 @@ import { Group } from "@mui/icons-material";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import PaidIcon from "@mui/icons-material/Paid";
 import AddCardIcon from "@mui/icons-material/AddCard";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import { useAuth } from "../../hooks/useAuth";
+import AddIcon from "@mui/icons-material/Add";
 
 const drawerWidth = 240;
 const navLinks = [
@@ -52,11 +55,29 @@ const navLinks = [
       },
     ],
   },
+  {
+    tittle: "Entrenamiento",
+    path: "",
+    icon: <FitnessCenterIcon />,
+    child: [
+      {
+        tittle: "Registrados",
+        path: "/training",
+        icon: <FitnessCenterIcon />,
+      },
+      {
+        tittle: "Nuevo Entrenamiento",
+        path: "/training/register",
+        icon: <AddIcon />,
+      },
+    ],
+  },
 ];
 
 export const NavBar = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const { login, handlerLogout } = useAuth();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -96,7 +117,12 @@ export const NavBar = () => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Responsive drawer
           </Typography>
-          <Button variant="contained" color="error" sx={{}}>
+          <Button
+            onClick={handlerLogout}
+            variant="contained"
+            color="error"
+            sx={{}}
+          >
             Logout
           </Button>
         </Toolbar>

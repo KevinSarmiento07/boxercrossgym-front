@@ -60,7 +60,7 @@ export const PagoList = () => {
                   return (
                     <StyledTableRow hover key={pago.id}>
                       <TableCell sx={{ padding: 1 }}>
-                        {pago.usuario.nombre}
+                        {pago.usuario.nombre} {pago.usuario.apellido}
                       </TableCell>
                       <TableCell align="right">{pago.plan.nombre}</TableCell>
                       <TableCell align="right">{pago.tipoPago}</TableCell>
@@ -70,7 +70,7 @@ export const PagoList = () => {
                         {pago.fechaVencimiento}
                       </TableCell>
                       <TableCell align="right">
-                        <NavLink to={`/payments/edit/${pago.id}`}>
+                        <NavLink to={`#`}>
                           <EditIcon />
                         </NavLink>
                       </TableCell>
