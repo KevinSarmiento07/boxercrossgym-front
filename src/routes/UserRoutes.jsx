@@ -4,6 +4,8 @@ import { RegisterPage } from "../usuarios/pages/RegisterPage";
 import NavBar from "../components/layout/NavBar";
 import { PagoPage } from "../pagos/pages/PagoPage";
 import { PagoRegisterPage } from "../pagos/pages/PagoRegisterPage";
+import { EntrenamientoPage } from "../entrenamientos/pages/EntrenamientoPage";
+import { EntrenamientoRegisterPage } from "../entrenamientos/pages/EntrenamientoRegisterPage";
 
 export const UserRoutes = () => {
   return (
@@ -27,6 +29,12 @@ export const UserRoutes = () => {
           <Route
             path="/payments/register"
             element={<PagoRegisterPage></PagoRegisterPage>}
+          />
+
+          <Route path="/training" element={<EntrenamientoPage />} />
+          <Route
+            path="/training/register"
+            element={<EntrenamientoRegisterPage />}
           />
 
           <Route path="/" element={<Navigate to={"/users"}></Navigate>} />
