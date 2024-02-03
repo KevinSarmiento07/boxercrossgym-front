@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
@@ -52,6 +53,7 @@ export const CalendarioEntrenamiento = () => {
   const { login } = useAuth();
   const [entrenoOpen, setEntrenoOpen] = useState(false);
   const [entrenoFormOpen, setEntrenoFormOpen] = useState(false);
+  const [dateSelected, setDateSelected] = useState(undefined);
   const [entrenoArray, setEntrenoArray] = useState([]);
   const { getDaysForDate, getEntrenamientosByDate } = useEntrenamiento();
   const [open, setOpen] = React.useState(true);
@@ -84,14 +86,13 @@ export const CalendarioEntrenamiento = () => {
   };
 
   const handleOnChange = (value, props) => {
-    console.log(value);
     const date = dayjs(value).format("YYYY-MM-DD");
-    console.log(date);
-    console.log(props);
     getEntrenamientosByDate(date).then((res) => {
       console.log(res);
       console.log(res.length);
       if (res.length == 0) {
+        console.log(date);
+        setDateSelected(date);
         setEntrenoFormOpen(true);
       } else {
         setEntrenoArray(res);
@@ -138,7 +139,14 @@ export const CalendarioEntrenamiento = () => {
           </Box>
         </Modal>
       )}
-      {entrenoFormOpen ? <EntrenamientoForm></EntrenamientoForm> : ""}
+      {entrenoFormOpen ? (
+        <EntrenamientoForm
+          dateSelected={dateSelected}
+          setDateSelected={setDateSelected}
+        ></EntrenamientoForm>
+      ) : (
+        ""
+      )}
       {!entrenoOpen || (
         <EntrenamientoView entrenoArray={entrenoArray}></EntrenamientoView>
       )}

@@ -56,21 +56,10 @@ export const EntrenamientoView = ({ entrenoArray = [] }) => {
               </Typography>
               <Box component={"div"} marginTop={5} justifyContent={"center"}>
                 <Grid container>
-                  {item.bloques > 0 || (
-                    <Grid item xs={12} textAlign={"center"}>
-                      <Alert
-                        variant="filled"
-                        severity="warning"
-                        sx={{ justifyContent: "center" }}
-                      >
-                        No hay bloques en este entrenamiento
-                      </Alert>
-                    </Grid>
-                  )}
-                  {item.bloques.map((bloque, indexB) => {
-                    return (
-                      <Grid item xs={12} marginBottom={2} key={indexB}>
-                        <Box component={"div"}>
+                  {item.bloques.length > 0 ? (
+                    item.bloques.map((bloque, indexB) => {
+                      return (
+                        <Grid item xs={12} marginBottom={2} key={indexB}>
                           <Typography
                             variant="h6"
                             textAlign={"center"}
@@ -81,10 +70,21 @@ export const EntrenamientoView = ({ entrenoArray = [] }) => {
                           <Typography component={"pre"} textAlign={"center"}>
                             {bloque.descripcion}
                           </Typography>
-                        </Box>
-                      </Grid>
-                    );
-                  })}
+                        </Grid>
+                      );
+                    })
+                  ) : (
+                    <Grid item xs={12} textAlign={"center"}>
+                      <Alert
+                        variant="filled"
+                        severity="warning"
+                        sx={{ justifyContent: "center" }}
+                      >
+                        No hay bloques en este entrenamiento
+                      </Alert>
+                    </Grid>
+                  )}
+                  {}
                 </Grid>
               </Box>
             </CardContent>

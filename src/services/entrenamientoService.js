@@ -12,6 +12,7 @@ export const findAllBloques = async () => {
 };
 
 export const saveEntrenamiento = async (entrenamiento) => {
+  console.log(entrenamiento);
   try {
     return await axios.post(BASE_URL, entrenamiento);
   } catch (error) {
