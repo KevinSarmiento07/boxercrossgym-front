@@ -1,3 +1,5 @@
+import { CalendarioEntrenamiento } from "../components/CalendarioEntrenamiento";
+
 export const EntrenamientoPage = () => {
-  return <div>EntrenamientoPage</div>;
+  return <CalendarioEntrenamiento></CalendarioEntrenamiento>;
 };
