@@ -6,12 +6,22 @@ import { PagoPage } from "../pagos/pages/PagoPage";
 import { PagoRegisterPage } from "../pagos/pages/PagoRegisterPage";
 import { EntrenamientoPage } from "../entrenamientos/pages/EntrenamientoPage";
 import { EntrenamientoRegisterPage } from "../entrenamientos/pages/EntrenamientoRegisterPage";
+import { DashboardPage } from "../pages/DashboardPage";
+import { HorarioPage } from "../horarios/pages/HorarioPage";
+import { HorarioAsistenciaPage } from "../horarios/pages/HorarioAsistenciaPage";
 
 export const UserRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<NavBar></NavBar>}>
+          <Route path="/dashboard" element={<DashboardPage></DashboardPage>} />
+
+          <Route path="/class/schedule" element={<HorarioPage></HorarioPage>} />
+          <Route
+            path="/class/presence"
+            element={<HorarioAsistenciaPage></HorarioAsistenciaPage>}
+          />
           <Route path="users" element={<UserPage></UserPage>} />
           <Route
             path="users/register"
@@ -41,7 +51,7 @@ export const UserRoutes = () => {
             element={<EntrenamientoRegisterPage />}
           />
 
-          <Route path="/" element={<Navigate to={"/users"}></Navigate>} />
+          <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>
       </Routes>
     </>

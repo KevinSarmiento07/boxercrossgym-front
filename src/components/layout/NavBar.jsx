@@ -18,9 +18,17 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useAuth } from "../../hooks/useAuth";
 import AddIcon from "@mui/icons-material/Add";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 
 const drawerWidth = 240;
 const navLinks = [
+  {
+    tittle: "Dashboard",
+    path: "/Dashboard",
+    icon: <DashboardIcon />,
+  },
   {
     tittle: "Usuarios",
     path: "",
@@ -69,6 +77,23 @@ const navLinks = [
         tittle: "Nuevo Entrenamiento",
         path: "/training/register",
         icon: <AddIcon />,
+      },
+    ],
+  },
+  {
+    tittle: "Clases",
+    path: "",
+    icon: <ScheduleIcon />,
+    child: [
+      {
+        tittle: "Horarios",
+        path: "/class/schedule",
+        icon: <ScheduleIcon />,
+      },
+      {
+        tittle: "Asistencia",
+        path: "/class/presence",
+        icon: <PermContactCalendarIcon />,
       },
     ],
   },
