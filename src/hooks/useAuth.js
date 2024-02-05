@@ -43,7 +43,7 @@ export const useAuth = () => {
         timer: 1500,
       });
 
-      navigate("/users");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
       throw error;

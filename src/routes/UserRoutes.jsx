@@ -19,16 +19,20 @@ export const UserRoutes = () => {
 
           <Route path="/class/schedule" element={<HorarioPage></HorarioPage>} />
           <Route
+            path="/class/schedule/:id"
+            element={<HorarioPage></HorarioPage>}
+          />
+          <Route
             path="/class/presence"
             element={<HorarioAsistenciaPage></HorarioAsistenciaPage>}
           />
-          <Route path="users" element={<UserPage></UserPage>} />
+          <Route path="/users" element={<UserPage></UserPage>} />
           <Route
-            path="users/register"
+            path="/users/register"
             element={<RegisterPage></RegisterPage>}
           />
           <Route
-            path="users/edit/:id"
+            path="/users/edit/:id"
             element={<RegisterPage></RegisterPage>}
           />
           <Route path="/payments" element={<PagoPage></PagoPage>} />

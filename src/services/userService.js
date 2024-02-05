@@ -1,10 +1,10 @@
-import axios from "axios";
+import usersApi from "../apis/usersApi";
 
 const BASE_URL = "http://localhost:8080/users";
 
 export const findAll = async () => {
   try {
-    return await axios.get(BASE_URL);
+    return await usersApi.get(BASE_URL);
   } catch (error) {
     console.log(error);
     throw error;
@@ -13,7 +13,7 @@ export const findAll = async () => {
 
 export const saveUser = async (user) => {
   try {
-    return await axios.post(BASE_URL, user);
+    return await usersApi.post(BASE_URL, user);
   } catch (error) {
     console.log(error);
     throw error;
@@ -22,7 +22,7 @@ export const saveUser = async (user) => {
 
 export const updateUserS = async (user) => {
   try {
-    return await axios.put(`${BASE_URL}/${user.id}`, user);
+    return await usersApi.put(`${BASE_URL}/${user.id}`, user);
   } catch (error) {
     console.log(error);
     throw error;
