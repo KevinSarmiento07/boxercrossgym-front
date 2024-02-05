@@ -216,7 +216,8 @@ export const EntrenamientoForm = ({
                 </Grid>
                 <Grid item xs={10} textAlign={"center"}>
                   <Button
-                    variant={"outlined"}
+                    variant={"contained"}
+                    color="error"
                     onClick={(e) => onClickAddBloque(e, nombre, descripcion)}
                   >
                     Añadir Bloque
@@ -282,14 +283,14 @@ export const EntrenamientoForm = ({
                 ) : (
                   <Alert
                     variant="filled"
-                    severity="warning"
+                    severity="error"
                     sx={{ marginBottom: 5 }}
                   >
                     No hay bloques en la lista
                   </Alert>
                 )}
                 <Grid item xs={10} textAlign={"center"}>
-                  <Button variant={"outlined"} type="submit">
+                  <Button variant={"outlined"} type="submit" color="error">
                     submit
                   </Button>
                 </Grid>

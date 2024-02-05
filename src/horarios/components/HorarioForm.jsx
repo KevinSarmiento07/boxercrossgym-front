@@ -67,7 +67,7 @@ export const HorarioForm = ({ claseSelected }) => {
             <Button
               variant="outlined"
               type="submit"
-              color="secondary"
+              color="error"
               size="large"
               sx={{ textTransform: "none" }}
             >

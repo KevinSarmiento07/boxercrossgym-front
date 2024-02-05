@@ -18,7 +18,7 @@ export const RegisterPage = () => {
 
   return (
     <>
-      <Typography align="center" variant="h3">
+      <Typography align="center" variant="h3" fontWeight={"bold"}>
         {id > 0 ? "Editar Usuario" : "Registrar nuevo usuario"}
       </Typography>
       <UserForm userSelected={userSelected}></UserForm>

@@ -123,7 +123,12 @@ export const CalendarioEntrenamiento = () => {
     <>
       {!open ? (
         <Grid display={"flex"} alignItems={"center"} justifyContent={"center"}>
-          <Button size="large" onClick={handleOpen} variant="outlined">
+          <Button
+            size="large"
+            onClick={handleOpen}
+            variant="outlined"
+            color="error"
+          >
             Buscar fecha
           </Button>
         </Grid>

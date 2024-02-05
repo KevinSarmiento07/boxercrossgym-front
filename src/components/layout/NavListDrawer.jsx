@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Box, Collapse } from "@mui/material";
+import { Box, Collapse, TextField } from "@mui/material";
 import {
   ListItem,
   List,
@@ -55,7 +55,9 @@ export const NavListDrawer = ({
         }}
       >
         <nav>
-          <Toolbar />
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <img src="/images/logo.png" style={{ width: 100 }}></img>
+          </Toolbar>
           <Divider />
           <List>
             {navLinks.map((item, i) => {
@@ -118,7 +120,9 @@ export const NavListDrawer = ({
         open
       >
         <nav>
-          <Toolbar />
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <img src="/images/logo.png" style={{ width: 100 }}></img>
+          </Toolbar>
           <Divider />
           <List>
             {navLinks.map((item, i) => {

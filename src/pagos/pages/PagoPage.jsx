@@ -10,7 +10,7 @@ export const PagoPage = () => {
   }, []);
   return (
     <>
-      <Typography align="center" variant="h3">
+      <Typography align="center" variant="h3" fontWeight={"bold"}>
         Lista de pagos
       </Typography>
       <PagoList></PagoList>

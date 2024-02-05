@@ -1,5 +1,6 @@
 import * as React from "react";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 
 import { Box } from "@mui/material";
@@ -23,6 +24,11 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 
 const drawerWidth = 240;
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -122,43 +128,51 @@ export const NavBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Responsive drawer
-          </Typography>
-          <Button
-            onClick={handlerLogout}
-            variant="contained"
-            color="error"
-            sx={{}}
-          >
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <ThemeProvider theme={darkTheme}>
+        <AppBar
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+            backgroundColor: "black",
+          }}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1 }}
+            >
+              BOXERCROSSGYM APP
+            </Typography>
+            <Button
+              onClick={handlerLogout}
+              variant="contained"
+              color="error"
+              sx={{}}
+            >
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-      <NavListDrawer
-        mobileOpen={mobileOpen}
-        handleDrawerTransitionEnd={handleDrawerTransitionEnd}
-        handleDrawerClose={handleDrawerClose}
-        navLinks={navLinks}
-      ></NavListDrawer>
+        <NavListDrawer
+          mobileOpen={mobileOpen}
+          handleDrawerTransitionEnd={handleDrawerTransitionEnd}
+          handleDrawerClose={handleDrawerClose}
+          navLinks={navLinks}
+        ></NavListDrawer>
+      </ThemeProvider>
       <Box
         component="main"
         sx={{

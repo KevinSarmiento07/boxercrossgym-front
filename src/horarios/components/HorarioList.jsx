@@ -55,7 +55,7 @@ export const HorarioList = () => {
           <TableContainer
             component={Paper}
             elevation={3}
-            sx={{ maxWidth: 800 }}
+            sx={{ maxWidth: 1200 }}
           >
             <Table padding="normal">
               <TableHead>
@@ -85,7 +85,7 @@ export const HorarioList = () => {
                       </TableCell>
                       <TableCell align="right">
                         <Switch
-                          color="info"
+                          color="error"
                           checked={clase.enabled}
                           value={clase.id}
                           onChange={({ target }) =>
