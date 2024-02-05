@@ -27,7 +27,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const EntrenamientoForm = ({
   dateSelected,
-  setDateSelected,
   entrenamientoSeleccionado,
 }) => {
   const initialEntreno = {
@@ -36,7 +35,6 @@ export const EntrenamientoForm = ({
     titulo: "",
   };
   const {
-    initialEntrenamiento,
     handleLoadBloque,
     initialEntrenamientoForm,
     handleSaveEntrenamiento,

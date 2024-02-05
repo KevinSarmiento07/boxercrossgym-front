@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Chip,
   Grid,
   Paper,
   Table,
@@ -51,6 +52,7 @@ export const UsersList = () => {
                   <StyledTableCell align="right">Apellido</StyledTableCell>
                   <StyledTableCell align="right">Email</StyledTableCell>
                   <StyledTableCell align="right">Telefono</StyledTableCell>
+                  <StyledTableCell align="right">Estado</StyledTableCell>
                   <StyledTableCell align="right">Update</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -77,6 +79,12 @@ export const UsersList = () => {
                       <TableCell align="right">{user.apellido}</TableCell>
                       <TableCell align="right">{user.email}</TableCell>
                       <TableCell align="right">{user.telefono}</TableCell>
+                      <TableCell align="right">
+                        <Chip
+                          label={user.enabled ? "Activo" : "Inactivo"}
+                          color={user.enabled ? "success" : "error"}
+                        ></Chip>
+                      </TableCell>
                       <TableCell align="right">
                         <NavLink to={`/users/edit/${user.id}`}>
                           <EditIcon />
