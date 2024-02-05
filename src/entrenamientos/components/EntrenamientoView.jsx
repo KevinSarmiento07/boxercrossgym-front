@@ -10,13 +10,14 @@ import { Alert, Grid } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const EntrenamientoView = ({ entrenoArray = [] }) => {
-  console.log(entrenoArray);
-
+export const EntrenamientoView = () => {
+  const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
   return (
     <>
-      {entrenoArray.map((item, index) => {
+      {entrenamientosByDay.map((item, index) => {
         dayjs.locale("es");
         const dateIng = item.fechaEntreno;
         const fecha = dayjs(dateIng).format("dddd, D [de] MMMM YYYY");
@@ -89,9 +90,11 @@ export const EntrenamientoView = ({ entrenoArray = [] }) => {
               </Box>
             </CardContent>
             <CardActions>
-              <Button>
-                <EditIcon size="small" sx={{ color: "black" }}></EditIcon>
-              </Button>
+              <NavLink to={`/training/edit/${item.id}`}>
+                <Button>
+                  <EditIcon size="small" sx={{ color: "black" }}></EditIcon>
+                </Button>
+              </NavLink>
             </CardActions>
           </Card>
         );

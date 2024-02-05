@@ -7,6 +7,7 @@ import {
   CardContent,
   CardHeader,
   Container,
+  Divider,
   Grid,
   TextField,
   Typography,
@@ -21,9 +22,14 @@ import Swal from "sweetalert2";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 /* eslint-disable react/prop-types */
 
-export const EntrenamientoForm = ({ dateSelected, setDateSelected }) => {
+export const EntrenamientoForm = ({
+  dateSelected,
+  setDateSelected,
+  entrenamientoSeleccionado,
+}) => {
   const initialEntreno = {
     id: 0,
     fechaEntreno: "",
@@ -34,14 +40,17 @@ export const EntrenamientoForm = ({ dateSelected, setDateSelected }) => {
     handleLoadBloque,
     initialEntrenamientoForm,
     handleSaveEntrenamiento,
+    handleDeleteBloqueById,
   } = useEntrenamiento();
 
   const [entrenamiento, setEntrenamiento] = useState(initialEntreno);
+  console.log(entrenamiento);
   const { bloques } = useSelector((state) => state.entrenamientos);
+
   const [entrenamientoForm, setEntrenamientoForm] = useState(
     initialEntrenamientoForm
   );
-  const { fechaEntreno, titulo, nombre, descripcion } = entrenamientoForm;
+  const { fechaEntreno, titulo, nombre, descripcion, id } = entrenamientoForm;
   useEffect(() => {
     setEntrenamientoForm({
       ...entrenamientoForm,
@@ -50,21 +59,51 @@ export const EntrenamientoForm = ({ dateSelected, setDateSelected }) => {
   }, [dateSelected]);
 
   useEffect(() => {
+    console.log(entrenamientoSeleccionado);
+    if (entrenamientoSeleccionado) {
+      setEntrenamientoForm({
+        ...entrenamientoForm,
+        id: entrenamientoSeleccionado.id,
+        fechaEntreno: entrenamientoSeleccionado.fechaEntreno,
+        titulo: entrenamientoSeleccionado.titulo,
+      });
+      setEntrenamiento({
+        ...entrenamiento,
+        id: entrenamientoSeleccionado.id,
+      });
+      entrenamientoSeleccionado.bloques?.map((bloque) =>
+        handleLoadBloque(bloque)
+      );
+    }
+  }, [entrenamientoSeleccionado]);
+
+  useEffect(() => {
     setEntrenamiento({
+      ...entrenamiento,
       fechaEntreno,
       titulo,
+      id,
     });
   }, [fechaEntreno, titulo]);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (bloques.length === 0) {
+      Swal.fire(
+        "Error",
+        "Debe haber al menos un bloque en el entrenamiento.",
+        "error"
+      );
+      return;
+    }
     console.log(e);
     console.log("entro al submit");
     console.log(entrenamiento);
     console.log(bloques);
+    console.log(entrenamientoForm);
     handleSaveEntrenamiento({ entrenamiento, bloques });
     setEntrenamiento(initialEntreno);
-    setDateSelected(undefined);
+    //setDateSelected(undefined);
     setEntrenamientoForm(initialEntrenamientoForm);
   };
 
@@ -97,6 +136,20 @@ export const EntrenamientoForm = ({ dateSelected, setDateSelected }) => {
       [name]: fecha,
     });
   };
+
+  const onClickEditBloque = (index, nombre, descripcion) => {
+    handleDeleteBloqueById(index);
+    setEntrenamientoForm({
+      ...entrenamientoForm,
+      nombre,
+      descripcion,
+    });
+  };
+
+  const onClickDeleteBloque = (index) => {
+    handleDeleteBloqueById(index);
+  };
+
   return (
     <>
       <Container>
@@ -183,7 +236,13 @@ export const EntrenamientoForm = ({ dateSelected, setDateSelected }) => {
                         marginBottom={3}
                         key={index}
                       >
-                        <Card>
+                        <Card
+                          sx={{
+                            backgroundColor: "#F2F2F2",
+                          }}
+                          raised
+                          elevation={12}
+                        >
                           <CardHeader
                             title={bloque.nombre}
                             action={
@@ -192,14 +251,30 @@ export const EntrenamientoForm = ({ dateSelected, setDateSelected }) => {
                               </IconButton>
                             }
                           />
+                          <Divider />
                           <CardContent>
                             <Typography component={"pre"}>
                               {bloque.descripcion}
                             </Typography>
                           </CardContent>
+                          <Divider />
                           <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
+                            <IconButton
+                              aria-label="add to favorites"
+                              onClick={() =>
+                                onClickEditBloque(
+                                  index,
+                                  bloque.nombre,
+                                  bloque.descripcion
+                                )
+                              }
+                            >
                               <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              onClick={() => onClickDeleteBloque(index)}
+                            >
+                              <DeleteIcon />
                             </IconButton>
                           </CardActions>
                         </Card>

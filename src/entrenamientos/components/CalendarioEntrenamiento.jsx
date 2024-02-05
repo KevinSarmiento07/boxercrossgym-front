@@ -10,10 +10,11 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 import { Alert, Box, Button, Grid, Modal, Typography } from "@mui/material";
 import { useEntrenamiento } from "../../hooks/useEntrenamiento";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EntrenamientoForm } from "./EntrenamientoForm";
 import { EntrenamientoView } from "./EntrenamientoView";
 import { useAuth } from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 const initialValue = dayjs();
 
@@ -50,20 +51,36 @@ const style = {
   borderRadius: 10,
 };
 export const CalendarioEntrenamiento = () => {
+  const {
+    getDaysForDate,
+    getEntrenamientosByDate,
+    handleCleanBloques,
+    initialEntrenamiento,
+  } = useEntrenamiento();
+  const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
+  console.log(entrenamientosByDay);
   const { login } = useAuth();
   const [entrenoOpen, setEntrenoOpen] = useState(false);
   const [entrenoFormOpen, setEntrenoFormOpen] = useState(false);
   const [dateSelected, setDateSelected] = useState(undefined);
-  const [entrenoArray, setEntrenoArray] = useState([]);
-  const { getDaysForDate, getEntrenamientosByDate } = useEntrenamiento();
+  const [entrenoSelected, setEntrenoSelected] = useState(initialEntrenamiento);
+
   const [open, setOpen] = React.useState(true);
+  console.log(open);
   const navigate = useNavigate();
+
+  const { id } = useParams();
+  console.log(id);
+
   const handleOpen = () => {
     setOpen(true);
     setEntrenoFormOpen(false);
     setEntrenoOpen(false);
   };
-  const handleClose = () => setOpen(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState([]);
 
@@ -89,13 +106,12 @@ export const CalendarioEntrenamiento = () => {
     const date = dayjs(value).format("YYYY-MM-DD");
     getEntrenamientosByDate(date).then((res) => {
       console.log(res);
-      console.log(res.length);
       if (res.length == 0) {
+        handleCleanBloques();
         console.log(date);
         setDateSelected(date);
         setEntrenoFormOpen(true);
       } else {
-        setEntrenoArray(res);
         setEntrenoOpen(true);
       }
 
@@ -147,9 +163,7 @@ export const CalendarioEntrenamiento = () => {
       ) : (
         ""
       )}
-      {!entrenoOpen || (
-        <EntrenamientoView entrenoArray={entrenoArray}></EntrenamientoView>
-      )}
+      {!entrenoOpen || <EntrenamientoView></EntrenamientoView>}
     </>
   );
 };

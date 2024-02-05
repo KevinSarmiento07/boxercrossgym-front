@@ -22,8 +22,12 @@ export const saveEntrenamiento = async (entrenamiento) => {
 };
 
 export const updateEntrenamiento = async (entrenamiento) => {
+  console.log(entrenamiento);
   try {
-    return await axios.put(`${BASE_URL}/${entrenamiento.id}`, entrenamiento);
+    return await axios.put(
+      `${BASE_URL}/${entrenamiento.entrenamiento.id}`,
+      entrenamiento
+    );
   } catch (error) {
     console.logo(error);
     throw error;

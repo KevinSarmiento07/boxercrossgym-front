@@ -20,6 +20,7 @@ import Alert from "@mui/material/Alert";
 /* eslint-disable react/prop-types */
 export const UsersList = () => {
   const { users } = useUsers();
+  console.log(users);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,

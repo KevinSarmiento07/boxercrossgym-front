@@ -33,6 +33,10 @@ export const UserRoutes = () => {
 
           <Route path="/training" element={<EntrenamientoPage />} />
           <Route
+            path="/training/edit/:id"
+            element={<EntrenamientoRegisterPage />}
+          />
+          <Route
             path="/training/register"
             element={<EntrenamientoRegisterPage />}
           />

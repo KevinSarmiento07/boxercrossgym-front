@@ -24,6 +24,7 @@ export const entrenamientoSlice = createSlice({
     entrenamientoSelected: initialEntrenamiento,
     bloques: [],
     entrenamientos: [initialEntrenamiento],
+    entrenamientosByDay: [],
   },
   reducers: {
     loadingDays(state, action) {
@@ -37,8 +38,25 @@ export const entrenamientoSlice = createSlice({
       state.entrenamientoSelected = initialEntrenamientoForm;
       state.bloques = [];
     },
+    cleanBloques(state) {
+      state.bloques = [];
+    },
+    deleteBloque(state, action) {
+      state.bloques = state.bloques.filter(
+        (bloque, index) => index !== action.payload
+      );
+    },
+    loadEntrenamientosByDay(state, action) {
+      state.entrenamientosByDay = [...action.payload];
+    },
   },
 });
 
-export const { loadingDays, loadBloques, addEntrenamiento } =
-  entrenamientoSlice.actions;
+export const {
+  loadingDays,
+  loadBloques,
+  addEntrenamiento,
+  cleanBloques,
+  deleteBloque,
+  loadEntrenamientosByDay,
+} = entrenamientoSlice.actions;
