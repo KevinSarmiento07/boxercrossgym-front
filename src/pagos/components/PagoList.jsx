@@ -1,4 +1,4 @@
-import { Alert } from "@mui/material";
+import { Alert, Chip } from "@mui/material";
 import { usePagos } from "../../hooks/usePagos";
 import { styled } from "@mui/material/styles";
 import {
@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export const PagoList = () => {
   const { pagos } = usePagos();
+  console.log(pagos);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -52,6 +53,9 @@ export const PagoList = () => {
                   <StyledTableCell align="right">
                     Fecha de Vencimiento
                   </StyledTableCell>
+                  <StyledTableCell align="right">
+                    Estado del pago
+                  </StyledTableCell>
                   <StyledTableCell align="right">Editar</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -68,6 +72,12 @@ export const PagoList = () => {
                       <TableCell align="right">{pago.fechaPago}</TableCell>
                       <TableCell align="right">
                         {pago.fechaVencimiento}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Chip
+                          label={pago.estado ? "Vigente" : "Vencido"}
+                          color={pago.estado ? "success" : "error"}
+                        ></Chip>
                       </TableCell>
                       <TableCell align="right">
                         <NavLink to={`#`}>
