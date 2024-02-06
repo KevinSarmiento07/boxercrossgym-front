@@ -17,6 +17,7 @@ import {
   SvgIcon,
 } from "@mui/material";
 import { es } from "date-fns/locale";
+import { NavLink } from "react-router-dom";
 
 export const OverviewLNewUsers = (props) => {
   const { users = [], sx } = props;
@@ -74,18 +75,20 @@ export const OverviewLNewUsers = (props) => {
       </List>
       <Divider />
       <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button
-          color="inherit"
-          endIcon={
-            <SvgIcon fontSize="small">
-              <ArrowRightIcon />
-            </SvgIcon>
-          }
-          size="small"
-          variant="text"
-        >
-          View all
-        </Button>
+        <NavLink to={"/users"}>
+          <Button
+            color="inherit"
+            endIcon={
+              <SvgIcon fontSize="small">
+                <ArrowRightIcon />
+              </SvgIcon>
+            }
+            size="small"
+            variant="text"
+          >
+            View all
+          </Button>
+        </NavLink>
       </CardActions>
     </Card>
   );

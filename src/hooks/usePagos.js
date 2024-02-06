@@ -5,6 +5,7 @@ import {
   findAll,
   findAllPlan,
   getDifferenceMonthCurrentAndBefore,
+  getLatestPayments,
   getTotalEntry,
   getTotalEntryByMonthAndYearBefore,
   getTotalEntryByMonthAndYearCurrent,
@@ -87,6 +88,15 @@ export const usePagos = () => {
     }
   };
 
+  const getOverviewNewPayments = async () => {
+    try {
+      const res = await getLatestPayments();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     pagos,
     getPagos,
@@ -97,5 +107,6 @@ export const usePagos = () => {
     getOverviewTotalCustomers,
     getOverviewSalesYearCurrent,
     getOverviewSalesYearBefore,
+    getOverviewNewPayments,
   };
 };

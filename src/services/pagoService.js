@@ -64,3 +64,12 @@ export const getTotalEntryByMonthAndYearBefore = async () => {
     throw error;
   }
 };
+
+export const getLatestPayments = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/ultimos-pagos`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
