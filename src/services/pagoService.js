@@ -46,3 +46,21 @@ export const getTotalEntry = async () => {
     throw error;
   }
 };
+
+export const getTotalEntryByMonthAndYearCurrent = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/total/meses-ano-actual`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getTotalEntryByMonthAndYearBefore = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/total/meses-ano-anterior`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

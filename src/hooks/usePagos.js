@@ -6,6 +6,8 @@ import {
   findAllPlan,
   getDifferenceMonthCurrentAndBefore,
   getTotalEntry,
+  getTotalEntryByMonthAndYearBefore,
+  getTotalEntryByMonthAndYearCurrent,
   savePago,
 } from "../services/pagoService";
 import {
@@ -67,6 +69,24 @@ export const usePagos = () => {
     }
   };
 
+  const getOverviewSalesYearCurrent = async () => {
+    try {
+      const res = await getTotalEntryByMonthAndYearCurrent();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getOverviewSalesYearBefore = async () => {
+    try {
+      const res = await getTotalEntryByMonthAndYearBefore();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     pagos,
     getPagos,
@@ -75,5 +95,7 @@ export const usePagos = () => {
     handlerAddPago,
     getOverviewBudget,
     getOverviewTotalCustomers,
+    getOverviewSalesYearCurrent,
+    getOverviewSalesYearBefore,
   };
 };

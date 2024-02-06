@@ -5,8 +5,7 @@ import { OverviewTotalCustomers } from "../components/dashboard/OverviewTotalCus
 import { OverviewUsersActive } from "../components/dashboard/OverviewUsersActive";
 import { OverviewUsersInactive } from "../components/dashboard/OverviewUsersInactive";
 import { OverviewSales } from "../components/dashboard/OverviewSales";
-import { OverviewTraffic } from "../components/dashboard/OverviewTraffic";
-import { OverviewLatestProducts } from "../components/dashboard/OverviewLatestProducts";
+import { OverviewLNewUsers } from "../components/dashboard/OverviewLNewUsers";
 import { OverviewLatestOrders } from "../components/dashboard/OverviewLatestOrders";
 import { usePagos } from "../hooks/usePagos";
 import { useEffect, useState } from "react";
@@ -20,8 +19,17 @@ const initialPropsViewBudget = {
 };
 
 export const DashboardPage = () => {
-  const { getOverviewBudget, getOverviewTotalCustomers } = usePagos();
-  const { getTotalUsersViewActive, getTotalUsersViewInactive } = useUsers();
+  const {
+    getOverviewBudget,
+    getOverviewTotalCustomers,
+    getOverviewSalesYearCurrent,
+    getOverviewSalesYearBefore,
+  } = usePagos();
+  const {
+    getTotalUsersViewActive,
+    getTotalUsersViewInactive,
+    getViewNewUsers,
+  } = useUsers();
 
   const [propsViewBudget, setPropsViewBudget] = useState(
     initialPropsViewBudget
@@ -32,6 +40,13 @@ export const DashboardPage = () => {
   const [propsViewUsersActive, setPropsViewUsersActive] = useState(0);
 
   const [propsViewUsersInactive, setPropsViewUsersInactive] = useState(0);
+
+  const [propsViewSales, setPropsViewSales] = useState([]);
+
+  const [propsViewSalesBefore, setPropsViewSalesBefore] = useState([]);
+
+  const [propsViewNewUsers, setPropsViewNewUsers] = useState([]);
+
   useEffect(() => {
     getOverviewBudget().then((res) => {
       setPropsViewBudget({ ...res });
@@ -44,6 +59,19 @@ export const DashboardPage = () => {
     });
     getTotalUsersViewInactive().then((res) => {
       setPropsViewUsersInactive(res);
+    });
+
+    getOverviewSalesYearCurrent().then((res) => {
+      setPropsViewSales(res);
+    });
+
+    getOverviewSalesYearBefore().then((res) => {
+      setPropsViewSalesBefore(res);
+    });
+
+    getViewNewUsers().then((res) => {
+      console.log(res);
+      setPropsViewNewUsers(res);
     });
   }, []);
   return (
@@ -85,62 +113,25 @@ export const DashboardPage = () => {
                 value={propsViewUsersInactive}
               />
             </Grid>
-            <Grid xs={12} lg={8}>
+            <Grid xs={12}>
               <OverviewSales
                 chartSeries={[
                   {
                     name: "This year",
-                    data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20],
+                    data: propsViewSales,
                   },
                   {
                     name: "Last year",
-                    data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
+                    data: propsViewSalesBefore,
                   },
                 ]}
                 sx={{ height: "100%" }}
               />
             </Grid>
+
             <Grid xs={12} md={6} lg={4}>
-              <OverviewTraffic
-                chartSeries={[63, 15, 22]}
-                labels={["Desktop", "Tablet", "Phone"]}
-                sx={{ height: "100%" }}
-              />
-            </Grid>
-            <Grid xs={12} md={6} lg={4}>
-              <OverviewLatestProducts
-                products={[
-                  {
-                    id: "5ece2c077e39da27658aa8a9",
-                    image: "/assets/products/product-1.png",
-                    name: "Healthcare Erbology",
-                    updatedAt: subHours(now, 6).getTime(),
-                  },
-                  {
-                    id: "5ece2c0d16f70bff2cf86cd8",
-                    image: "/assets/products/product-2.png",
-                    name: "Makeup Lancome Rouge",
-                    updatedAt: subDays(subHours(now, 8), 2).getTime(),
-                  },
-                  {
-                    id: "b393ce1b09c1254c3a92c827",
-                    image: "/assets/products/product-5.png",
-                    name: "Skincare Soja CO",
-                    updatedAt: subDays(subHours(now, 1), 1).getTime(),
-                  },
-                  {
-                    id: "a6ede15670da63f49f752c89",
-                    image: "/assets/products/product-6.png",
-                    name: "Makeup Lipstick",
-                    updatedAt: subDays(subHours(now, 3), 3).getTime(),
-                  },
-                  {
-                    id: "bcad5524fe3a2f8f8620ceda",
-                    image: "/assets/products/product-7.png",
-                    name: "Healthcare Ritual",
-                    updatedAt: subDays(subHours(now, 5), 6).getTime(),
-                  },
-                ]}
+              <OverviewLNewUsers
+                users={propsViewNewUsers}
                 sx={{ height: "100%" }}
               />
             </Grid>

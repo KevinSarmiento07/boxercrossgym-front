@@ -46,3 +46,12 @@ export const getTotalUsersInactives = async () => {
     throw error;
   }
 };
+
+export const getNewUsers = async () => {
+  try {
+    return await usersApi.get(`${BASE_URL}/nuevos`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
