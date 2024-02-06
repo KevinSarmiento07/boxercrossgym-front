@@ -28,3 +28,21 @@ export const savePago = async (pago) => {
     throw error;
   }
 };
+
+export const getDifferenceMonthCurrentAndBefore = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/porcentaje`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getTotalEntry = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/total/ventas`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

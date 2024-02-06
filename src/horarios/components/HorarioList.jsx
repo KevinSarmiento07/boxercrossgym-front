@@ -57,7 +57,7 @@ export const HorarioList = () => {
             elevation={3}
             sx={{ maxWidth: 1200 }}
           >
-            <Table padding="normal">
+            <Table padding="normal" size="small">
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Horario</StyledTableCell>

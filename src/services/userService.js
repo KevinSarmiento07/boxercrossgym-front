@@ -28,3 +28,21 @@ export const updateUserS = async (user) => {
     throw error;
   }
 };
+
+export const getTotalUsersActives = async () => {
+  try {
+    return await usersApi.get(`${BASE_URL}/activos`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getTotalUsersInactives = async () => {
+  try {
+    return await usersApi.get(`${BASE_URL}/inactivos`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

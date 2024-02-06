@@ -40,7 +40,7 @@ export const PagoList = () => {
       {pagos.length > 0 ? (
         <Grid marginTop={3}>
           <TableContainer component={Paper} elevation={3}>
-            <Table>
+            <Table size="small">
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Usuario</StyledTableCell>

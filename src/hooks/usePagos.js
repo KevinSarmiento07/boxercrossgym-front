@@ -1,7 +1,13 @@
 /* eslint-disable no-useless-catch */
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { findAll, findAllPlan, savePago } from "../services/pagoService";
+import {
+  findAll,
+  findAllPlan,
+  getDifferenceMonthCurrentAndBefore,
+  getTotalEntry,
+  savePago,
+} from "../services/pagoService";
 import {
   loadingPagos,
   initialPayForm,
@@ -43,11 +49,31 @@ export const usePagos = () => {
     }
   };
 
+  const getOverviewBudget = async () => {
+    try {
+      const res = await getDifferenceMonthCurrentAndBefore();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getOverviewTotalCustomers = async () => {
+    try {
+      const res = await getTotalEntry();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     pagos,
     getPagos,
     initialPayForm,
     getPlanes,
     handlerAddPago,
+    getOverviewBudget,
+    getOverviewTotalCustomers,
   };
 };

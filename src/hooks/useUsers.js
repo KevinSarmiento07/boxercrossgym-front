@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
-import { findAll, saveUser, updateUserS } from "../services/userService";
+import {
+  findAll,
+  getTotalUsersActives,
+  getTotalUsersInactives,
+  saveUser,
+  updateUserS,
+} from "../services/userService";
 import {
   addUser,
   loadingUsers,
@@ -53,10 +59,30 @@ export const useUsers = () => {
     }
   };
 
+  const getTotalUsersViewActive = async () => {
+    try {
+      const res = await getTotalUsersActives();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTotalUsersViewInactive = async () => {
+    try {
+      const res = await getTotalUsersInactives();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getUsers,
     users,
     initialUserForm,
     handlerAddUser,
+    getTotalUsersViewActive,
+    getTotalUsersViewInactive,
   };
 };
