@@ -3,6 +3,7 @@ import {
   createClase,
   deleteClaseById,
   findAllClases,
+  getBookings,
   updateClase,
   updateEnabled,
 } from "../services/clasesService";
@@ -72,6 +73,15 @@ export const useClases = () => {
     }
   };
 
+  const getBookingsData = async () => {
+    try {
+      const res = await getBookings();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     clases,
     getClases,
@@ -79,5 +89,6 @@ export const useClases = () => {
     initialClaseForm,
     handlerUpdateEnabled,
     handlerDeleteClase,
+    getBookingsData,
   };
 };

@@ -47,3 +47,12 @@ export const deleteClaseById = async (id) => {
     throw error;
   }
 };
+
+export const getBookings = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/reserva`);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
