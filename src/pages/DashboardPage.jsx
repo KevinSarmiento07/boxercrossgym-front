@@ -71,12 +71,10 @@ export const DashboardPage = () => {
     });
 
     getViewNewUsers().then((res) => {
-      console.log(res);
       setPropsViewNewUsers(res);
     });
 
     getOverviewNewPayments().then((res) => {
-      console.log(res);
       setPropsViewNewPayments(res);
     });
   }, []);

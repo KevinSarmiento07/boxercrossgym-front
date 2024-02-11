@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import * as React from "react";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
-
 import { Box } from "@mui/material";
-
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,16 +12,7 @@ import Typography from "@mui/material/Typography";
 import { Outlet } from "react-router-dom";
 import { NavListDrawer } from "./NavListDrawer";
 import { Button } from "@mui/material";
-import { Group } from "@mui/icons-material";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import PaidIcon from "@mui/icons-material/Paid";
-import AddCardIcon from "@mui/icons-material/AddCard";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useAuth } from "../../hooks/useAuth";
-import AddIcon from "@mui/icons-material/Add";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 
 const drawerWidth = 240;
 const darkTheme = createTheme({
@@ -29,83 +20,9 @@ const darkTheme = createTheme({
     mode: "dark",
   },
 });
-const navLinks = [
-  {
-    tittle: "Dashboard",
-    path: "/Dashboard",
-    icon: <DashboardIcon />,
-  },
-  {
-    tittle: "Usuarios",
-    path: "",
-    icon: <Group />,
-    child: [
-      {
-        tittle: "Usuarios",
-        path: "/users",
-        icon: <Group />,
-      },
-      {
-        tittle: "Registro",
-        path: "/users/register",
-        icon: <GroupAddIcon />,
-      },
-    ],
-  },
-  {
-    tittle: "Finanzas",
-    path: "",
-    icon: <PaidIcon />,
-    child: [
-      {
-        tittle: "Pagos",
-        path: "/payments",
-        icon: <PaidIcon />,
-      },
-      {
-        tittle: "Nuevo Pago",
-        path: "/payments/register",
-        icon: <AddCardIcon />,
-      },
-    ],
-  },
-  {
-    tittle: "Entrenamiento",
-    path: "",
-    icon: <FitnessCenterIcon />,
-    child: [
-      {
-        tittle: "Registrados",
-        path: "/training",
-        icon: <FitnessCenterIcon />,
-      },
-      {
-        tittle: "Nuevo Entrenamiento",
-        path: "/training/register",
-        icon: <AddIcon />,
-      },
-    ],
-  },
-  {
-    tittle: "Clases",
-    path: "",
-    icon: <ScheduleIcon />,
-    child: [
-      {
-        tittle: "Horarios",
-        path: "/class/schedule",
-        icon: <ScheduleIcon />,
-      },
-      {
-        tittle: "Asistencia",
-        path: "/class/presence",
-        icon: <PermContactCalendarIcon />,
-      },
-    ],
-  },
-];
 
-export const NavBar = () => {
+export const NavBar = ({ navLinks = [] }) => {
+  console.log(navLinks);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const { login, handlerLogout } = useAuth();

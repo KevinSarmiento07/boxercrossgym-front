@@ -9,12 +9,95 @@ import { EntrenamientoRegisterPage } from "../entrenamientos/pages/Entrenamiento
 import { DashboardPage } from "../pages/DashboardPage";
 import { HorarioPage } from "../horarios/pages/HorarioPage";
 import { HorarioAsistenciaPage } from "../horarios/pages/HorarioAsistenciaPage";
-
+import { Group } from "@mui/icons-material";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import PaidIcon from "@mui/icons-material/Paid";
+import AddCardIcon from "@mui/icons-material/AddCard";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import AddIcon from "@mui/icons-material/Add";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+const navLinks = [
+  {
+    tittle: "Dashboard",
+    path: "/Dashboard",
+    icon: <DashboardIcon />,
+  },
+  {
+    tittle: "Usuarios",
+    path: "",
+    icon: <Group />,
+    child: [
+      {
+        tittle: "Usuarios",
+        path: "/users",
+        icon: <Group />,
+      },
+      {
+        tittle: "Registro",
+        path: "/users/register",
+        icon: <GroupAddIcon />,
+      },
+    ],
+  },
+  {
+    tittle: "Finanzas",
+    path: "",
+    icon: <PaidIcon />,
+    child: [
+      {
+        tittle: "Pagos",
+        path: "/payments",
+        icon: <PaidIcon />,
+      },
+      {
+        tittle: "Nuevo Pago",
+        path: "/payments/register",
+        icon: <AddCardIcon />,
+      },
+    ],
+  },
+  {
+    tittle: "Entrenamiento",
+    path: "",
+    icon: <FitnessCenterIcon />,
+    child: [
+      {
+        tittle: "Registrados",
+        path: "/training",
+        icon: <FitnessCenterIcon />,
+      },
+      {
+        tittle: "Nuevo Entrenamiento",
+        path: "/training/register",
+        icon: <AddIcon />,
+      },
+    ],
+  },
+  {
+    tittle: "Clases",
+    path: "",
+    icon: <ScheduleIcon />,
+    child: [
+      {
+        tittle: "Horarios",
+        path: "/class/schedule",
+        icon: <ScheduleIcon />,
+      },
+      {
+        tittle: "Asistencia",
+        path: "/class/presence",
+        icon: <PermContactCalendarIcon />,
+      },
+    ],
+  },
+];
 export const UserRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<NavBar></NavBar>}>
+        <Route path="/" element={<NavBar navLinks={navLinks}></NavBar>}>
           <Route path="/dashboard" element={<DashboardPage></DashboardPage>} />
 
           <Route path="/class/schedule" element={<HorarioPage></HorarioPage>} />

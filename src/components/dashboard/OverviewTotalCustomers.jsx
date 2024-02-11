@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 
 export const OverviewTotalCustomers = (props) => {
-  console.log(props);
   const { sx, value } = props;
   return (
     <Card sx={sx}>
