@@ -17,9 +17,11 @@ import {
   addPago,
 } from "../store/slices/pagos/pagoSlice";
 import Swal from "sweetalert2";
+import { useAuth } from "./useAuth";
 
 export const usePagos = () => {
   const { pagos } = useSelector((state) => state.pagos);
+  const { handlerLogout } = useAuth();
 
   const dispatch = useDispatch();
 
@@ -31,7 +33,9 @@ export const usePagos = () => {
       dispatch(loadingPagos(res.data));
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -48,7 +52,9 @@ export const usePagos = () => {
 
       navigate("/payments");
     } catch (error) {
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -58,6 +64,9 @@ export const usePagos = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -67,6 +76,9 @@ export const usePagos = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -76,6 +88,9 @@ export const usePagos = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -85,6 +100,9 @@ export const usePagos = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -94,6 +112,9 @@ export const usePagos = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 

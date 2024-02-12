@@ -16,11 +16,13 @@ import {
 } from "../store/slices/clases/clasesSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useAuth } from "./useAuth";
 
 export const useClases = () => {
   const { clases } = useSelector((state) => state.clases);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { handlerLogout } = useAuth();
 
   const getClases = async () => {
     try {
@@ -28,7 +30,9 @@ export const useClases = () => {
       dispatch(loadingClases(res.data));
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -44,6 +48,9 @@ export const useClases = () => {
       }
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
     Swal.fire(
       "Horario añadito con éxito",
@@ -59,6 +66,9 @@ export const useClases = () => {
       dispatch(updateClaseSlice(res.data));
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -70,6 +80,9 @@ export const useClases = () => {
       Swal.fire("Horario Eliminado", "Horario eliminado con exito", "success");
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -79,6 +92,9 @@ export const useClases = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 

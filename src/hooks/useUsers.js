@@ -16,9 +16,12 @@ import {
 } from "../store/slices/users/usersSlice";
 import { initialUserForm } from "../store/slices/users/usersSlice";
 import Swal from "sweetalert2";
+import { useAuth } from "./useAuth";
 
 export const useUsers = () => {
   const { users } = useSelector((state) => state.users);
+
+  const { handlerLogout } = useAuth();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,6 +34,9 @@ export const useUsers = () => {
       dispatch(loadingUsers(result.data));
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -56,7 +62,9 @@ export const useUsers = () => {
       navigate("/users");
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -66,6 +74,9 @@ export const useUsers = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -75,6 +86,9 @@ export const useUsers = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -84,6 +98,9 @@ export const useUsers = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 

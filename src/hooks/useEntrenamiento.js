@@ -17,12 +17,14 @@ import {
 } from "../store/slices/entrenamiento/entrenamentoSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./useAuth";
 
 export const useEntrenamiento = () => {
   const { days, entrenamientosByDay } = useSelector(
     (state) => state.entrenamientos
   );
 
+  const { handlerLogout } = useAuth();
   const dispath = useDispatch();
   const navigate = useNavigate();
   const getDaysForDate = async (date) => {
@@ -33,7 +35,9 @@ export const useEntrenamiento = () => {
       return res.data;
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -44,7 +48,9 @@ export const useEntrenamiento = () => {
       return res.data;
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
@@ -76,7 +82,9 @@ export const useEntrenamiento = () => {
       navigate("/users");
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
     }
   };
 
