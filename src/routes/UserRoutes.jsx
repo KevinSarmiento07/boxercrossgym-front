@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import { BookingPage } from "../booking/pages/BookingPage";
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -90,6 +91,11 @@ const navLinks = [
         path: "/class/presence",
         icon: <PermContactCalendarIcon />,
       },
+      {
+        tittle: "Reserva",
+        path: "/class/booking",
+        icon: <PermContactCalendarIcon />,
+      },
     ],
   },
 ];
@@ -109,6 +115,7 @@ export const UserRoutes = () => {
             path="/class/presence"
             element={<HorarioAsistenciaPage></HorarioAsistenciaPage>}
           />
+          <Route path="/class/booking" element={<BookingPage />} />
           <Route path="/users" element={<UserPage></UserPage>} />
           <Route
             path="/users/register"

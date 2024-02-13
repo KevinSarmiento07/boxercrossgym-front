@@ -6,9 +6,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import { EntrenamientoPage } from "../entrenamientos/pages/EntrenamientoPage";
-import { HorarioAsistenciaPage } from "../horarios/pages/HorarioAsistenciaPage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ProfilePage } from "../pages/ProfilePage";
+import { BookingPage } from "../booking/pages/BookingPage";
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -33,13 +33,8 @@ const navLinks = [
     icon: <ScheduleIcon />,
     child: [
       {
-        tittle: "Horarios",
-        path: "/class/schedule",
-        icon: <ScheduleIcon />,
-      },
-      {
-        tittle: "Asistencia",
-        path: "/class/presence",
+        tittle: "Reserva",
+        path: "/class/booking",
         icon: <PermContactCalendarIcon />,
       },
     ],
@@ -58,7 +53,7 @@ export const RoleUserRoute = () => {
           <Route path="/dashboard" element={<DashboardUserPage />}></Route>
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
           <Route path="/training" element={<EntrenamientoPage />} />
-          <Route path="/class/presence" element={<HorarioAsistenciaPage />} />
+          <Route path="/class/booking" element={<BookingPage />} />
           <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
           <Route></Route>
         </Route>

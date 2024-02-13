@@ -9,6 +9,7 @@ clasesApi.interceptors.request.use((config) => {
     ...config.headers,
     Authorization: sessionStorage.getItem("token"),
   };
+  return config;
 });
 
 export default clasesApi;
