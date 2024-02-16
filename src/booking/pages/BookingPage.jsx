@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Alert, Divider, Grid } from "@mui/material";
 import { BookingForm } from "../components/BookingForm";
 import { BookingList } from "../components/BookingList";

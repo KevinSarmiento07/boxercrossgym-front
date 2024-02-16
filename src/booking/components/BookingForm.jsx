@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useBooking } from "../../hooks/useBooking";
 import { useClases } from "../../hooks/useClases";
