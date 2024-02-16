@@ -28,7 +28,15 @@ export const bookingSlice = createSlice({
     loadingBookings: (state, action) => {
       state.bookings = action.payload;
     },
+    deleteBooking: (state, action) => {
+      state.bookings = state.bookings.filter((booking) => {
+        if (booking.id !== action.payload) {
+          return booking;
+        }
+      });
+    },
   },
 });
 
-export const { addBooking, loadingBookings } = bookingSlice.actions;
+export const { addBooking, loadingBookings, deleteBooking } =
+  bookingSlice.actions;
