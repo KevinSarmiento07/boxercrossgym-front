@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 import {
   findAll,
+  getInfoUserAuthenticate,
   getNewUsers,
   getTotalUsersActives,
   getTotalUsersInactives,
@@ -104,6 +105,17 @@ export const useUsers = () => {
     }
   };
 
+  const getInfoUser = async () => {
+    try {
+      return await getInfoUserAuthenticate();
+    } catch (error) {
+      console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
   return {
     getUsers,
     users,
@@ -112,5 +124,6 @@ export const useUsers = () => {
     getTotalUsersViewActive,
     getTotalUsersViewInactive,
     getViewNewUsers,
+    getInfoUser,
   };
 };

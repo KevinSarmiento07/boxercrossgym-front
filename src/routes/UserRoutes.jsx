@@ -18,7 +18,9 @@ import AddIcon from "@mui/icons-material/Add";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { BookingPage } from "../booking/pages/BookingPage";
+import { ProfilePage } from "../pages/ProfilePage";
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -98,6 +100,11 @@ const navLinks = [
       },
     ],
   },
+  {
+    tittle: "Perfil",
+    path: "/profile",
+    icon: <AccountCircleIcon />,
+  },
 ];
 export const UserRoutes = () => {
   return (
@@ -144,6 +151,8 @@ export const UserRoutes = () => {
             path="/training/register"
             element={<EntrenamientoRegisterPage />}
           />
+
+          <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
 
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>

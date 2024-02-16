@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import usersApi from "../apis/usersApi";
 
 const BASE_URL = "http://localhost:8080/users";
@@ -52,6 +53,14 @@ export const getNewUsers = async () => {
     return await usersApi.get(`${BASE_URL}/nuevos`);
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const getInfoUserAuthenticate = async () => {
+  try {
+    return await usersApi.get(`${BASE_URL}/info`);
+  } catch (error) {
     throw error;
   }
 };
