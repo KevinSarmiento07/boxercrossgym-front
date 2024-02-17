@@ -54,8 +54,8 @@ export const ProfilePage = () => {
       return;
     }
     if (selectedFile.type.indexOf("image") < 0) {
-      Swal.fire("Error upload: ", "Debe seleccionar una foto o video", "error");
-      setFotoSelected(null);
+      Swal.fire("Error upload: ", "Debe seleccionar una foto", "error");
+      return;
     }
     setFotoSelected(selectedFile);
   };
