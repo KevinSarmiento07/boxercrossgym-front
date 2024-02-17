@@ -9,6 +9,7 @@ import {
   getTotalUsersInactives,
   saveUser,
   updateUserS,
+  uploadUserPhoto,
 } from "../services/userService";
 import {
   addUser,
@@ -116,6 +117,23 @@ export const useUsers = () => {
     }
   };
 
+  const handlerUploadUserPhoto = async (archivo, id) => {
+    try {
+      const res = await uploadUserPhoto(archivo, id);
+      Swal.fire(
+        "Foto Subida",
+        "La foto de perfil fue subida con exíto",
+        "success"
+      );
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
   return {
     getUsers,
     users,
@@ -125,5 +143,6 @@ export const useUsers = () => {
     getTotalUsersViewInactive,
     getViewNewUsers,
     getInfoUser,
+    handlerUploadUserPhoto,
   };
 };

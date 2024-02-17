@@ -64,3 +64,14 @@ export const getInfoUserAuthenticate = async () => {
     throw error;
   }
 };
+
+export const uploadUserPhoto = async (archivo, id) => {
+  let formData = new FormData();
+  formData.append("archivo", archivo);
+  formData.append("id", id);
+  try {
+    return await usersApi.post(`${BASE_URL}/upload`, formData);
+  } catch (error) {
+    throw error;
+  }
+};
