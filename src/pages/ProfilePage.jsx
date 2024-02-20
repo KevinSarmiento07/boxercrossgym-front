@@ -28,7 +28,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export const ProfilePage = () => {
-  const { user } = useSelector((state) => state.auth);
+  //const { user } = useSelector((state) => state.auth);
   const [fotoSelected, setFotoSelected] = useState({});
   console.log(fotoSelected);
   console.log(fotoSelected.name);
@@ -67,6 +67,9 @@ export const ProfilePage = () => {
   };
   return (
     <>
+      <Typography variant="h2" fontWeight="bold" textAlign="center">
+        Perfil Personal
+      </Typography>
       {infoUser.id > 0 ? (
         <Grid container columnSpacing={1} rowSpacing={2} marginTop={3}>
           <Grid item xs={12} sm={4}>
