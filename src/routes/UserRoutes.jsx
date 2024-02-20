@@ -21,6 +21,12 @@ import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { BookingPage } from "../booking/pages/BookingPage";
 import { ProfilePage } from "../pages/ProfilePage";
+import SportsScoreIcon from "@mui/icons-material/SportsScore";
+import ScoreboardIcon from "@mui/icons-material/Scoreboard";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { TestPage } from "../tests/pages/TestPage";
+import { TestRegisterPage } from "../tests/pages/TestRegisterPage";
+import { TestResultPage } from "../tests/pages/TestResultPage";
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -101,6 +107,28 @@ const navLinks = [
     ],
   },
   {
+    tittle: "Test",
+    path: "",
+    icon: <SportsScoreIcon />,
+    child: [
+      {
+        tittle: "Nuevo Test",
+        path: "/test/register",
+        icon: <SportsScoreIcon />,
+      },
+      {
+        tittle: "Test registrados",
+        path: "/tests",
+        icon: <FormatListBulletedIcon />,
+      },
+      {
+        tittle: "Mis resultados",
+        path: "/test/my-results",
+        icon: <ScoreboardIcon />,
+      },
+    ],
+  },
+  {
     tittle: "Perfil",
     path: "/profile",
     icon: <AccountCircleIcon />,
@@ -153,6 +181,10 @@ export const UserRoutes = () => {
           />
 
           <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+
+          <Route path="/tests" element={<TestPage />}></Route>
+          <Route path="/test/register" element={<TestRegisterPage />} />
+          <Route path="/test/my-results" element={<TestResultPage />} />
 
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>
