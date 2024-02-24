@@ -68,7 +68,7 @@ export const TestForm = () => {
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 rowSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
-                <Grid item xs={12} sm={8}>
+                <Grid item xs={12} sm={12}>
                   <TextField
                     fullWidth
                     multiline
@@ -81,7 +81,7 @@ export const TestForm = () => {
                     onChange={onChangeForm}
                   />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={12}>
                   <FormControl fullWidth>
                     <InputLabel id="medicion">Tipo de medición</InputLabel>
                     <Select
