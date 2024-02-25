@@ -34,7 +34,7 @@ export const TestList = () => {
           {tests.length > 0 ? (
             tests.map((test) => {
               return (
-                <Grid item xs={12} sm={6} md={4} marginBottom={2} key={test.id} minWidth={200}>
+                <Grid item xs={12} sm={12} md={6} lg={4} marginBottom={2} key={test.id} minWidth={200}>
                   <Paper elevation={8} sx={{ height: "100%" }}>
                     {!login.isAdmin || (
                       <IconButton aria-label="delete" sx={{ marginBottom: 0 }} color="error" onClick={() => handlerDeleteTest(test.id)}>

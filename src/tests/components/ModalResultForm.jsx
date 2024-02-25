@@ -44,12 +44,21 @@ export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
     setResultForm({ ...resultForm, [name]: value });
   };
 
+  const onDateChange = (value, context, name) => {
+    const fecha = dayjs(value).format("YYYY-MM-DD");
+    setResultForm({
+      ...resultForm,
+      [name]: fecha,
+    });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(resultForm);
 
     setResultForm(initialResultForm);
     setIdTest(0);
+    handleClose();
   };
   return (
     <div>
@@ -64,7 +73,15 @@ export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
                 <TextField variant="outlined" label="Digite su resultado" fullWidth name="valor" value={resultForm.valor} onChange={onInputChange} />
               </Grid>
               <Grid item xs={12}>
-                <DatePicker sx={{ width: "100%" }} label="Fecha" name="fecha" value={resultForm.fecha === "" ? null : dayjs(resultForm.fecha)} format="YYYY-MM-DD" required />
+                <DatePicker
+                  sx={{ width: "100%" }}
+                  label="Fecha"
+                  name="fecha"
+                  value={resultForm.fecha === "" ? null : dayjs(resultForm.fecha)}
+                  format="YYYY-MM-DD"
+                  required
+                  onChange={(value, context) => onDateChange(value, context, "fecha")}
+                />
               </Grid>
               <Grid item xs={12} textAlign={"center"}>
                 <Button variant={"outlined"} type="submit" color="error">
