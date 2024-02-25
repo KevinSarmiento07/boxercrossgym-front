@@ -8,6 +8,7 @@ import Modal from "@mui/material/Modal";
 import { Grid, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 const style = {
   position: "absolute",
@@ -55,7 +56,10 @@ export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(resultForm);
-
+    if (resultForm.fecha === "" && resultForm.valor === "") {
+      Swal.fire("Error", "Todos los campos son obligatorios", "error");
+      return;
+    }
     setResultForm(initialResultForm);
     setIdTest(0);
     handleClose();
@@ -70,7 +74,7 @@ export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
             </Typography>
             <Grid container rowSpacing={2}>
               <Grid item xs={12}>
-                <TextField variant="outlined" label="Digite su resultado" fullWidth name="valor" value={resultForm.valor} onChange={onInputChange} />
+                <TextField variant="outlined" label="Digite su resultado" fullWidth name="valor" value={resultForm.valor} onChange={onInputChange} required />
               </Grid>
               <Grid item xs={12}>
                 <DatePicker
