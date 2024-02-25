@@ -1,21 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addTest,
-  initialTestForm,
-  loadingTests,
-  onCloseForm,
-  onOpenForm,
-  removeTest,
-} from "../store/slices/test/testSlice";
+import { addTest, initialTestForm, loadingTests, onCloseForm, onOpenForm, removeTest } from "../store/slices/test/testSlice";
 import { useAuth } from "./useAuth";
 import { deleteTest, findAll, saveTest } from "../services/testService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { getUserTestAuth, saveUserTest } from "../services/usertestService";
+import { addUserTest, loadingUserTest } from "../store/slices/test/usertestSlice";
 
 export const useTests = () => {
-  const { tests, visibleForm, testSelected } = useSelector(
-    (state) => state.tests
-  );
+  const { tests, visibleForm, testSelected } = useSelector((state) => state.tests);
+
+  const { usertests } = useSelector((state) => state.usertests);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,11 +56,7 @@ export const useTests = () => {
         try {
           await deleteTest(id);
           dispatch(removeTest(id));
-          Swal.fire(
-            "Test Eliminado!",
-            "El test ha sido eliminado con exito!",
-            "success"
-          );
+          Swal.fire("Test Eliminado!", "El test ha sido eliminado con exito!", "success");
         } catch (error) {
           if (error.response?.status == 401) {
             handlerLogout();
@@ -82,6 +73,31 @@ export const useTests = () => {
     dispatch(onOpenForm());
   };
 
+  //UserTest
+  const handlerSaveUserTest = async (usuarioTest) => {
+    try {
+      const res = await saveUserTest(usuarioTest);
+      dispatch(addUserTest(res.data));
+      Swal.fire("Resultado guardado", "El resultado ha sido guardado satisfactoriamente", "success");
+      navigate("/test/my-results");
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
+  const getUserTest = async () => {
+    try {
+      const res = await getUserTestAuth();
+      dispatch(loadingUserTest(res.data));
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
   return {
     initialTestForm,
     tests,
@@ -92,5 +108,8 @@ export const useTests = () => {
     handlerCloseForm,
     getTests,
     handlerDeleteTest,
+    usertests,
+    handlerSaveUserTest,
+    getUserTest,
   };
 };

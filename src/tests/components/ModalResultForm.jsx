@@ -9,6 +9,7 @@ import { Grid, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
+import { useTests } from "../../hooks/useTests";
 
 const style = {
   position: "absolute",
@@ -32,6 +33,8 @@ const initialResultForm = {
 };
 export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
   console.log(idTest);
+  const { handlerSaveUserTest, usertests } = useTests();
+  console.log(usertests);
   useEffect(() => {
     setResultForm({
       ...resultForm,
@@ -60,6 +63,7 @@ export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
       Swal.fire("Error", "Todos los campos son obligatorios", "error");
       return;
     }
+    handlerSaveUserTest(resultForm);
     setResultForm(initialResultForm);
     setIdTest(0);
     handleClose();
