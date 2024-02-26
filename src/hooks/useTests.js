@@ -4,7 +4,7 @@ import { useAuth } from "./useAuth";
 import { deleteTest, findAll, saveTest } from "../services/testService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { getUserTestAuth, saveUserTest } from "../services/usertestService";
+import { getUserTestAuth, getUserTestByIdTest, saveUserTest } from "../services/usertestService";
 import { addUserTest, loadingUserTest } from "../store/slices/test/usertestSlice";
 
 export const useTests = () => {
@@ -98,6 +98,16 @@ export const useTests = () => {
     }
   };
 
+  const getResultTestById = async (id) => {
+    try {
+      return await getUserTestByIdTest(id);
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
   return {
     initialTestForm,
     tests,
@@ -111,5 +121,6 @@ export const useTests = () => {
     usertests,
     handlerSaveUserTest,
     getUserTest,
+    getResultTestById,
   };
 };

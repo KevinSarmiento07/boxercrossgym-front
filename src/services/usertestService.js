@@ -18,3 +18,11 @@ export const getUserTestAuth = async () => {
     throw error;
   }
 };
+
+export const getUserTestByIdTest = async (id) => {
+  try {
+    return await usertestApi.get(`${BASE_URL}/test/${id}`);
+  } catch (error) {
+    throw error;
+  }
+};

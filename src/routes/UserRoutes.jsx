@@ -113,11 +113,6 @@ const navLinks = [
     icon: <SportsScoreIcon />,
     child: [
       {
-        tittle: "Nuevo Test",
-        path: "/test/register",
-        icon: <SportsScoreIcon />,
-      },
-      {
         tittle: "Test registrados",
         path: "/tests",
         icon: <FormatListBulletedIcon />,
