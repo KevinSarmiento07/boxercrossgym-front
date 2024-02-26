@@ -5,6 +5,7 @@ import { useTests } from "../../hooks/useTests";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { ModalResultForm } from "./ModalResultForm";
+import { NavLink } from "react-router-dom";
 
 export const TestList = () => {
   const { handlerOpenForm, visibleForm, tests, getTests, handlerDeleteTest } = useTests();
@@ -44,9 +45,11 @@ export const TestList = () => {
                     <IconButton aria-label="register" onClick={() => handleOpen(test.id)}>
                       <AppRegistrationIcon />
                     </IconButton>
-                    <Typography component={"pre"} variant="h6" textAlign={"center"} sx={{ whiteSpace: "pre-wrap" }} fontFamily={"monospace"}>
-                      {test.descripcion}
-                    </Typography>
+                    <NavLink to={`/tests/${test.id}`}>
+                      <Typography component={"pre"} variant="h6" textAlign={"center"} sx={{ whiteSpace: "pre-wrap" }} fontFamily={"monospace"}>
+                        {test.descripcion}
+                      </Typography>
+                    </NavLink>
                   </Paper>
                 </Grid>
               );
