@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Chip, TableBody } from "@mui/material";
+import { Alert, TableBody } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useTests } from "../../hooks/useTests";
 import { Box, Grid, Paper, Table, TableContainer, TableHead, TableRow, Typography, tableCellClasses, TableCell } from "@mui/material";
@@ -53,6 +53,7 @@ export const TestResultGeneralPage = () => {
               <Table size="small">
                 <TableHead>
                   <TableRow>
+                    <StyledTableCell>Count</StyledTableCell>
                     <StyledTableCell>Nombre</StyledTableCell>
                     <StyledTableCell>Apellido</StyledTableCell>
                     <StyledTableCell align="right">Fecha</StyledTableCell>
@@ -60,9 +61,10 @@ export const TestResultGeneralPage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.results.map((result) => {
+                  {data.results.map((result, index) => {
                     return (
                       <StyledTableRow hover key={result.id}>
+                        <TableCell>{++index}</TableCell>
                         <TableCell sx={{ padding: 1 }}>{result.usuario.nombre}</TableCell>
                         <TableCell>{result.usuario.apellido}</TableCell>
                         <TableCell align="right">{result.fecha}</TableCell>

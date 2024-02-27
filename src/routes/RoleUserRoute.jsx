@@ -9,6 +9,12 @@ import { EntrenamientoPage } from "../entrenamientos/pages/EntrenamientoPage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ProfilePage } from "../pages/ProfilePage";
 import { BookingPage } from "../booking/pages/BookingPage";
+import SportsScoreIcon from "@mui/icons-material/SportsScore";
+import ScoreboardIcon from "@mui/icons-material/Scoreboard";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { TestPage } from "../tests/pages/TestPage";
+import { TestResultPage } from "../tests/pages/TestResultPage";
+import { TestResultGeneralPage } from "../tests/pages/TestResultGeneralPage";
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -40,6 +46,23 @@ const navLinks = [
     ],
   },
   {
+    tittle: "Test",
+    path: "",
+    icon: <SportsScoreIcon />,
+    child: [
+      {
+        tittle: "Test registrados",
+        path: "/tests",
+        icon: <FormatListBulletedIcon />,
+      },
+      {
+        tittle: "Mis resultados",
+        path: "/test/my-results",
+        icon: <ScoreboardIcon />,
+      },
+    ],
+  },
+  {
     tittle: "Perfil",
     path: "/profile",
     icon: <AccountCircleIcon />,
@@ -55,6 +78,9 @@ export const RoleUserRoute = () => {
           <Route path="/training" element={<EntrenamientoPage />} />
           <Route path="/class/booking" element={<BookingPage />} />
           <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+          <Route path="/tests" element={<TestPage />}></Route>
+          <Route path="/test/my-results" element={<TestResultPage />} />
+          <Route path="tests/:id" element={<TestResultGeneralPage />} />
           <Route></Route>
         </Route>
       </Routes>

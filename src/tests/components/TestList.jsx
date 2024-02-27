@@ -37,27 +37,31 @@ export const TestList = () => {
               return (
                 <Grid item xs={12} sm={12} md={6} lg={4} marginBottom={2} key={test.id} minWidth={200}>
                   <Paper elevation={8} sx={{ height: "100%" }}>
-                    {!login.isAdmin || (
-                      <IconButton aria-label="delete" sx={{ marginBottom: 0 }} color="error" onClick={() => handlerDeleteTest(test.id)}>
-                        <DeleteIcon />
+                    <div>
+                      {!login.isAdmin || (
+                        <IconButton aria-label="delete" sx={{ marginBottom: 0 }} color="error" onClick={() => handlerDeleteTest(test.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                      <IconButton aria-label="register" onClick={() => handleOpen(test.id)}>
+                        <AppRegistrationIcon />
                       </IconButton>
-                    )}
-                    <IconButton aria-label="register" onClick={() => handleOpen(test.id)}>
-                      <AppRegistrationIcon />
-                    </IconButton>
-                    <NavLink to={`/tests/${test.id}`}>
-                      <Typography component={"pre"} variant="h6" textAlign={"center"} sx={{ whiteSpace: "pre-wrap" }} fontFamily={"monospace"}>
-                        {test.descripcion}
-                      </Typography>
-                    </NavLink>
+                      <NavLink to={`/tests/${test.id}`}>
+                        <Typography component={"pre"} variant="h6" textAlign={"center"} sx={{ whiteSpace: "pre-wrap" }} fontFamily={"monospace"}>
+                          {test.descripcion}
+                        </Typography>
+                      </NavLink>
+                    </div>
                   </Paper>
                 </Grid>
               );
             })
           ) : (
-            <Alert variant="filled" severity="error" sx={{ justifyContent: "center" }}>
-              No hay bloques en este entrenamiento
-            </Alert>
+            <Grid item xs={12}>
+              <Alert variant="filled" severity="error" sx={{ justifyContent: "center" }}>
+                No hay test registrados
+              </Alert>
+            </Grid>
           )}
         </Grid>
       </Box>
