@@ -13,6 +13,8 @@ export const initialUserForm = {
   cedula: "",
   foto: "",
   antecedente: "",
+  admin: false,
+  entrenador: false,
 };
 
 export const usersSlice = createSlice({
