@@ -38,7 +38,7 @@ export const TestListResult = () => {
                 <Grid container rowSpacing={1} columnSpacing={1} marginBottom={1}>
                   <Grid item xs={12} sm={12} md={4}>
                     <Typography component={"pre"} variant="h6" textAlign={"center"} sx={{ whiteSpace: "pre-wrap" }} fontFamily={"monospace"}>
-                      {resultado.test.descripcion}
+                      {resultado.test?.descripcion}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={8}>
@@ -52,7 +52,7 @@ export const TestListResult = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {resultado.resultados.map((result, index) => {
+                          {resultado.resultados?.map((result, index) => {
                             return (
                               <StyledTableRow hover key={result.id}>
                                 <TableCell>{++index}</TableCell>
