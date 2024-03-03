@@ -1,16 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteBookingById,
-  getAvailableDays,
-  listBookingByUser,
-  saveBooking,
-} from "../services/bookingService";
-import {
-  addBooking,
-  deleteBooking,
-  initialBookingsState,
-  loadingBookings,
-} from "../store/slices/booking/bookingSlice";
+import { deleteBookingById, getAvailableDays, getQuantityClientByClass, listBookingByUser, saveBooking } from "../services/bookingService";
+import { addBooking, deleteBooking, initialBookingsState, loadingBookings } from "../store/slices/booking/bookingSlice";
 import { useAuth } from "./useAuth";
 import Swal from "sweetalert2";
 
@@ -74,11 +64,17 @@ export const useBooking = () => {
     try {
       const res = await saveBooking(booking);
       dispatch(addBooking(res.data));
-      Swal.fire(
-        "Reserva añadida con éxito",
-        "La reserva se agregó correctamente",
-        "success"
-      );
+      Swal.fire("Reserva añadida con éxito", "La reserva se agregó correctamente", "success");
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
+  const getQuantityClientPerClass = async (data) => {
+    try {
+      return await getQuantityClientByClass(data);
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
@@ -93,5 +89,6 @@ export const useBooking = () => {
     handlerDeleteBookingById,
     getAvailableDaysByUser,
     handlerAddBooking,
+    getQuantityClientPerClass,
   };
 };

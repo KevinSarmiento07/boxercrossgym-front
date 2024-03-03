@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTests } from "../../hooks/useTests";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useSelector } from "react-redux";
-import { Alert, Container, Grid, IconButton, Paper, Table, Typography, TableContainer, TableHead, TableRow, tableCellClasses, TableCell, TableBody } from "@mui/material";
+import { Alert, Container, Grid, Paper, Table, Typography, TableContainer, TableHead, TableRow, tableCellClasses, TableCell, TableBody } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

@@ -35,3 +35,13 @@ export const saveBooking = async (booking) => {
     throw error;
   }
 };
+
+export const getQuantityClientByClass = async (data) => {
+  try {
+    return await bookingsApi.get(`${URL_B}/reserved`, {
+      params: { ...data },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
