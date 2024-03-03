@@ -5,6 +5,7 @@ import { useClases } from "../../hooks/useClases";
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
 import "dayjs/locale/es";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 const initialBookingForm = {
   id: 0,
@@ -64,6 +65,10 @@ export const BookingForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (quantity == 16) {
+      Swal.fire("Error", "La clase está llena, agenda en otro horario", "error");
+      return;
+    }
     handlerAddBooking(bookingForm);
     setBookingForm(initialBookingForm);
     setQuantity(0);
