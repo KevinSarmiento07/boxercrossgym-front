@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -35,31 +34,15 @@ export const EntrenamientoView = () => {
               elevation={24}
             >
               <CardContent>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  textAlign={"center"}
-                >
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom textAlign={"center"}>
                   BoxerCrossGym
                 </Typography>
                 <Divider />
-                <Typography
-                  variant="h3"
-                  component="div"
-                  textAlign={"center"}
-                  fontWeight={"bold"}
-                >
+                <Typography variant="h3" component="div" textAlign={"center"} fontWeight={"bold"}>
                   {item.titulo}
                 </Typography>
 
-                <Typography
-                  sx={{ mb: 1.5 }}
-                  color="black"
-                  fontWeight={"bold"}
-                  textAlign={"center"}
-                  variant="h5"
-                >
+                <Typography sx={{ mb: 1.5 }} color="black" fontWeight={"bold"} textAlign={"center"} variant="h5">
                   {fecha}
                 </Typography>
                 <Divider />
@@ -69,11 +52,7 @@ export const EntrenamientoView = () => {
                       item.bloques.map((bloque, indexB) => {
                         return (
                           <Grid item xs={12} marginBottom={2} key={indexB}>
-                            <Typography
-                              variant="h6"
-                              textAlign={"center"}
-                              fontWeight={"600"}
-                            >
+                            <Typography variant="h6" textAlign={"center"} fontWeight={"600"}>
                               {bloque.nombre}
                             </Typography>
                             <Typography component={"pre"} textAlign={"center"}>
@@ -84,11 +63,7 @@ export const EntrenamientoView = () => {
                       })
                     ) : (
                       <Grid item xs={12} textAlign={"center"}>
-                        <Alert
-                          variant="filled"
-                          severity="error"
-                          sx={{ justifyContent: "center" }}
-                        >
+                        <Alert variant="filled" severity="error" sx={{ justifyContent: "center" }}>
                           No hay bloques en este entrenamiento
                         </Alert>
                       </Grid>

@@ -3,8 +3,20 @@ import { OverviewDaysToExpire } from "../components/OverviewDaysToExpire";
 import { OverviewDateExpire } from "../components/OverviewDateExpire";
 import { OverviewTrainingDay } from "../components/OverviewTrainingDay";
 import { OverviewListPayment } from "../components/OverviewListPayment";
+import { useEffect, useState } from "react";
+import { useEntrenamiento } from "../../hooks/useEntrenamiento";
+import dayjs from "dayjs";
 
 export const DashboardUserPage = () => {
+  const { getEntrenamientosByDate } = useEntrenamiento();
+  const [arrTraining, setArrTraining] = useState([]);
+  console.log(arrTraining);
+  useEffect(() => {
+    getEntrenamientosByDate(dayjs(new Date()).format("YYYY-MM-DD")).then((res) => {
+      console.log(res);
+      setArrTraining(res);
+    });
+  }, []);
   return (
     <>
       <Box
@@ -23,10 +35,10 @@ export const DashboardUserPage = () => {
               <OverviewDateExpire date={"2024-03-03"} sx={{ height: "100%" }} progress={10} />
             </Grid>
             <Grid item xs={12} md={4}>
-              <OverviewTrainingDay sx={{ height: "100%" }} training={""} />
+              <OverviewTrainingDay sx={{ height: "100%" }} training={arrTraining} />
             </Grid>
             <Grid item xs={12} md={8}>
-              <OverviewListPayment sx={{ height: "100%" }} data={["test", "test2"]} />
+              <OverviewListPayment sx={{ height: "100%" }} data={[]} />
             </Grid>
           </Grid>
         </Container>
