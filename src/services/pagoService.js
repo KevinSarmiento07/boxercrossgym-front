@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import pagosApi from "../apis/pagosApi";
 
 const BASE_URL = "http://localhost:8080/pago";
@@ -70,6 +71,14 @@ export const getLatestPayments = async () => {
     return await pagosApi.get(`${BASE_URL}/ultimos-pagos`);
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const getLastPaymentAuth = async () => {
+  try {
+    return await pagosApi.get(`${BASE_URL}/last-payment-auth`);
+  } catch (error) {
     throw error;
   }
 };

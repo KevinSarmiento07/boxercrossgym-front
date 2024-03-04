@@ -6,15 +6,24 @@ import { OverviewListPayment } from "../components/OverviewListPayment";
 import { useEffect, useState } from "react";
 import { useEntrenamiento } from "../../hooks/useEntrenamiento";
 import dayjs from "dayjs";
+import { usePagos } from "../../hooks/usePagos";
 
 export const DashboardUserPage = () => {
   const { getEntrenamientosByDate } = useEntrenamiento();
+  const { getLastPaymentUserAuth } = usePagos();
   const [arrTraining, setArrTraining] = useState([]);
+  const [arrPayments, setArrPayments] = useState([]);
+
   console.log(arrTraining);
+  console.log(arrPayments);
   useEffect(() => {
     getEntrenamientosByDate(dayjs(new Date()).format("YYYY-MM-DD")).then((res) => {
       console.log(res);
       setArrTraining(res);
+    });
+    getLastPaymentUserAuth().then((res) => {
+      console.log(res);
+      setArrPayments(res.data);
     });
   }, []);
   return (
@@ -38,7 +47,7 @@ export const DashboardUserPage = () => {
               <OverviewTrainingDay sx={{ height: "100%" }} training={arrTraining} />
             </Grid>
             <Grid item xs={12} md={8}>
-              <OverviewListPayment sx={{ height: "100%" }} data={[]} />
+              <OverviewListPayment sx={{ height: "100%" }} data={arrPayments} />
             </Grid>
           </Grid>
         </Container>

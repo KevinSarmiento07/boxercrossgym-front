@@ -17,20 +17,24 @@ export const OverviewListPayment = (props) => {
                 <TableCell>Plan</TableCell>
                 <TableCell>Valor</TableCell>
                 <TableCell>Fecha de Pago</TableCell>
-                <TableCell>Date</TableCell>
+                <TableCell>Fecha de vencimiento</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow hover>
-                <TableCell>Mensualidad</TableCell>
-                <TableCell>180000</TableCell>
-                <TableCell>2024-03-04</TableCell>
-                <TableCell>2024-04-03</TableCell>
-                <TableCell>
-                  <Chip label={"Vigente"} color={"success"}></Chip>
-                </TableCell>
-              </TableRow>
+              {data.map((pay, index) => {
+                return (
+                  <TableRow hover key={index}>
+                    <TableCell>{pay.plan.nombre}</TableCell>
+                    <TableCell>{pay.valorPagado}</TableCell>
+                    <TableCell>{pay.fechaPago}</TableCell>
+                    <TableCell>{pay.fechaVencimiento}</TableCell>
+                    <TableCell>
+                      <Chip label={pay.estado ? "Vigente" : "Vencido"} color={pay.estado ? "success" : "error"}></Chip>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

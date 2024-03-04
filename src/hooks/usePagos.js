@@ -5,17 +5,14 @@ import {
   findAll,
   findAllPlan,
   getDifferenceMonthCurrentAndBefore,
+  getLastPaymentAuth,
   getLatestPayments,
   getTotalEntry,
   getTotalEntryByMonthAndYearBefore,
   getTotalEntryByMonthAndYearCurrent,
   savePago,
 } from "../services/pagoService";
-import {
-  loadingPagos,
-  initialPayForm,
-  addPago,
-} from "../store/slices/pagos/pagoSlice";
+import { loadingPagos, initialPayForm, addPago } from "../store/slices/pagos/pagoSlice";
 import Swal from "sweetalert2";
 import { useAuth } from "./useAuth";
 
@@ -118,6 +115,16 @@ export const usePagos = () => {
     }
   };
 
+  const getLastPaymentUserAuth = async () => {
+    try {
+      return await getLastPaymentAuth();
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
   return {
     pagos,
     getPagos,
@@ -129,5 +136,6 @@ export const usePagos = () => {
     getOverviewSalesYearCurrent,
     getOverviewSalesYearBefore,
     getOverviewNewPayments,
+    getLastPaymentUserAuth,
   };
 };

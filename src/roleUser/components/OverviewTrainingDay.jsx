@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 /* eslint-disable react/prop-types */
 export const OverviewTrainingDay = (props) => {
   const { training = [], sx } = props;
-  const fecha = dayjs(training[0].fechaEntreno).format("dddd, D [de] MMMM YYYY");
+  const fecha = dayjs(training[0]?.fechaEntreno).format("dddd, D [de] MMMM YYYY");
   console.log(fecha);
   console.log(training[0]);
   return (
