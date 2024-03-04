@@ -13,6 +13,9 @@ export const DashboardUserPage = () => {
   const { getLastPaymentUserAuth } = usePagos();
   const [arrTraining, setArrTraining] = useState([]);
   const [arrPayments, setArrPayments] = useState([]);
+  const [daysToFinish, setDaysToFinish] = useState(0);
+  const [date, setDate] = useState("");
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     getEntrenamientosByDate(dayjs(new Date()).format("YYYY-MM-DD")).then((res) => {
@@ -20,8 +23,22 @@ export const DashboardUserPage = () => {
     });
     getLastPaymentUserAuth().then((res) => {
       setArrPayments(res.data);
+      if (res.data.length > 0) {
+        setProgress(getProgress(dayjs(res.data[0].fechaPago), dayjs(res.data[0].fechaVencimiento)));
+      }
+      setDate(res.data[0].fechaVencimiento);
     });
   }, []);
+
+  const getProgress = (fechaPago = null, fechaVencimiento = null) => {
+    if (fechaPago !== null && fechaVencimiento !== null) {
+      const diasTotales = fechaVencimiento.diff(fechaPago, "day");
+      const hoy = dayjs();
+      const diasTranscurridos = hoy.diff(fechaPago, "day");
+      setDaysToFinish(diasTotales - diasTranscurridos);
+      return (diasTranscurridos / diasTotales) * 100;
+    }
+  };
   return (
     <>
       <Box
@@ -34,10 +51,10 @@ export const DashboardUserPage = () => {
         <Container maxWidth="xl">
           <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={6}>
-              <OverviewDaysToExpire value={0} sx={{ height: "100%" }} />
+              <OverviewDaysToExpire value={daysToFinish} sx={{ height: "100%" }} />
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
-              <OverviewDateExpire date={"2024-03-03"} sx={{ height: "100%" }} progress={10} />
+              <OverviewDateExpire date={date} sx={{ height: "100%" }} progress={progress} />
             </Grid>
             <Grid item xs={12} md={4}>
               <OverviewTrainingDay sx={{ height: "100%" }} training={arrTraining} />
