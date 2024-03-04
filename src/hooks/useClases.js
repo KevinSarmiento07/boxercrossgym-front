@@ -1,19 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createClase,
-  deleteClaseById,
-  findAllClases,
-  getBookings,
-  updateClase,
-  updateEnabled,
-} from "../services/clasesService";
-import {
-  addClase,
-  loadingClases,
-  initialClaseForm,
-  updateClaseSlice,
-  deleteClase,
-} from "../store/slices/clases/clasesSlice";
+import { createClase, deleteClaseById, findAllClases, getBookings, updateClase, updateEnabled } from "../services/clasesService";
+import { addClase, loadingClases, initialClaseForm, updateClaseSlice, deleteClase } from "../store/slices/clases/clasesSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "./useAuth";
@@ -29,7 +16,6 @@ export const useClases = () => {
       const res = await findAllClases();
       dispatch(loadingClases(res.data));
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -47,16 +33,11 @@ export const useClases = () => {
         dispatch(updateClaseSlice(res.data));
       }
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
     }
-    Swal.fire(
-      "Horario añadito con éxito",
-      "El horario se agregó correctamente",
-      "success"
-    );
+    Swal.fire("Horario añadito con éxito", "El horario se agregó correctamente", "success");
     navigate("/class/schedule");
   };
 
@@ -65,7 +46,6 @@ export const useClases = () => {
       const res = await updateEnabled(id);
       dispatch(updateClaseSlice(res.data));
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -79,7 +59,6 @@ export const useClases = () => {
 
       Swal.fire("Horario Eliminado", "Horario eliminado con exito", "success");
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -91,7 +70,6 @@ export const useClases = () => {
       const res = await getBookings();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }

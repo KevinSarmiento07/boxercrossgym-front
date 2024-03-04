@@ -32,7 +32,6 @@ const initialResultForm = {
   },
 };
 export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
-  console.log(idTest);
   const { handlerSaveUserTest, usertests } = useTests();
   console.log(usertests);
   useEffect(() => {
@@ -58,7 +57,6 @@ export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(resultForm);
     if (resultForm.fecha === "" && resultForm.valor === "") {
       Swal.fire("Error", "Todos los campos son obligatorios", "error");
       return;

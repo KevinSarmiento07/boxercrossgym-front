@@ -22,7 +22,6 @@ const darkTheme = createTheme({
 });
 
 export const NavBar = ({ navLinks = [] }) => {
-  console.log(navLinks);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const { login, handlerLogout } = useAuth();
@@ -55,40 +54,19 @@ export const NavBar = ({ navLinks = [] }) => {
           }}
         >
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
-            >
+            <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: "none" } }}>
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
+            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
               BOXERCROSSGYM APP
             </Typography>
-            <Button
-              onClick={handlerLogout}
-              variant="contained"
-              color="error"
-              sx={{}}
-            >
+            <Button onClick={handlerLogout} variant="contained" color="error" sx={{}}>
               Logout
             </Button>
           </Toolbar>
         </AppBar>
 
-        <NavListDrawer
-          mobileOpen={mobileOpen}
-          handleDrawerTransitionEnd={handleDrawerTransitionEnd}
-          handleDrawerClose={handleDrawerClose}
-          navLinks={navLinks}
-        ></NavListDrawer>
+        <NavListDrawer mobileOpen={mobileOpen} handleDrawerTransitionEnd={handleDrawerTransitionEnd} handleDrawerClose={handleDrawerClose} navLinks={navLinks}></NavListDrawer>
       </ThemeProvider>
       <Box
         component="main"

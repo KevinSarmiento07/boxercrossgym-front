@@ -23,7 +23,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export const TestListResult = () => {
   const { getUserTest } = useTests();
   const { usertests } = useSelector((state) => state.usertests);
-  console.log(usertests);
   useEffect(() => {
     getUserTest();
   }, []);

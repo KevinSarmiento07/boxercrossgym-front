@@ -20,7 +20,6 @@ export const EntrenamientoView = () => {
         dayjs.locale("es");
         const dateIng = item.fechaEntreno;
         const fecha = dayjs(dateIng).format("dddd, D [de] MMMM YYYY");
-        console.log(fecha);
         return (
           <div key={index} style={{ textAlign: "-webkit-center" }}>
             <Card

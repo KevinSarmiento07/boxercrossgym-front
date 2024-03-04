@@ -4,7 +4,6 @@ import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from "@mui/mate
 /* eslint-disable react/prop-types */
 export const OverviewDaysToExpire = (props) => {
   const { value, sx } = props;
-  console.log(value);
   return (
     <Card sx={sx} elevation={4}>
       <CardContent>

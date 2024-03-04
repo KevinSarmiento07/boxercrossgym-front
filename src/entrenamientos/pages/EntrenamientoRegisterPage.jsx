@@ -6,33 +6,13 @@ const initialStateEntreno = { id: 0, titulo: "", fecha: "", bloques: [] };
 export const EntrenamientoRegisterPage = () => {
   const { id } = useParams();
   const { isAdmin } = useSelector((state) => state.auth);
-  console.log(isAdmin);
-  console.log(id);
   const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
-  console.log(entrenamientosByDay);
-  const [entrenamientoSeleccionado, setEntrenamientoSeleccionado] =
-    useState(initialStateEntreno);
-  console.log(entrenamientoSeleccionado);
+  const [entrenamientoSeleccionado, setEntrenamientoSeleccionado] = useState(initialStateEntreno);
   useEffect(() => {
     if (id) {
-      const entrenamientoSelect = entrenamientosByDay.find(
-        (item) => item.id == id
-      );
-      console.log(entrenamientoSelect);
+      const entrenamientoSelect = entrenamientosByDay.find((item) => item.id == id);
       setEntrenamientoSeleccionado({ ...entrenamientoSelect });
-      console.log(entrenamientoSeleccionado);
     }
   }, [id]);
-  console.log(entrenamientoSeleccionado);
-  return (
-    <>
-      {isAdmin ? (
-        <EntrenamientoForm
-          entrenamientoSeleccionado={entrenamientoSeleccionado}
-        ></EntrenamientoForm>
-      ) : (
-        ""
-      )}
-    </>
-  );
+  return <>{isAdmin ? <EntrenamientoForm entrenamientoSeleccionado={entrenamientoSeleccionado}></EntrenamientoForm> : ""}</>;
 };

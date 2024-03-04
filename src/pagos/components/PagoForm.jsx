@@ -1,17 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  Box,
-  Container,
-  Grid,
-  TextField,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  OutlinedInput,
-  InputAdornment,
-} from "@mui/material";
+import { Box, Container, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem, OutlinedInput, InputAdornment } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useUsers } from "../../hooks/useUsers";
@@ -61,8 +49,6 @@ export const PagoForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(payForm);
     handlerAddPago(payForm);
     setPayForm(initialPayForm);
     setSelectedUser(null);
@@ -72,18 +58,12 @@ export const PagoForm = () => {
       <Container>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box component={"form"} onSubmit={onSubmit} alignItems={"center"}>
-            <Grid
-              container
-              rowSpacing={5}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
+            <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               <Grid item xs={12}>
                 <Autocomplete
                   noOptionsText={"No existe ningun usuario con ese nombre"}
                   id="free-solo-2-demo"
-                  getOptionLabel={(users) =>
-                    `${users.nombre} ${users.apellido}`
-                  }
+                  getOptionLabel={(users) => `${users.nombre} ${users.apellido}`}
                   isOptionEqualToValue={(option, value) => {
                     return option.id === value.id;
                   }}
@@ -95,7 +75,6 @@ export const PagoForm = () => {
                   )}
                   value={seletedUser}
                   onChange={(event, newValue) => {
-                    console.log(newValue);
                     setSelectedUser(newValue);
                     setPayForm(
                       newValue?.id != null
@@ -109,14 +88,7 @@ export const PagoForm = () => {
                           }
                     );
                   }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Cliente"
-                      name="cliente"
-                      required
-                    />
-                  )}
+                  renderInput={(params) => <TextField {...params} label="Cliente" name="cliente" required />}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -158,15 +130,11 @@ export const PagoForm = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="outlined-adornment-amount">
-                    Valor a pagar
-                  </InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-amount">Valor a pagar</InputLabel>
                   <OutlinedInput
                     required
                     id="outlined-adornment-amount"
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     value={valorPagado}
                     label="Valor a pagar"
                     name="valorPagado"
@@ -188,24 +156,14 @@ export const PagoForm = () => {
                   selectedSections={"day" | "month" | "year"}
                   name="fechaPago"
                   value={fechaPago == null ? null : dayjs(fechaPago)}
-                  onChange={(value, context) =>
-                    onDateChange(value, context, "fechaPago")
-                  }
+                  onChange={(value, context) => onDateChange(value, context, "fechaPago")}
                   format="YYYY-MM-DD"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <FormControl fullWidth>
                   <InputLabel id="tipo-pago">Tipo de pago</InputLabel>
-                  <Select
-                    labelId="tipo-pago"
-                    id="tipo-pago-select"
-                    label="Tipo de pago"
-                    name="tipoPago"
-                    value={tipoPago}
-                    onChange={onInputChange}
-                    required
-                  >
+                  <Select labelId="tipo-pago" id="tipo-pago-select" label="Tipo de pago" name="tipoPago" value={tipoPago} onChange={onInputChange} required>
                     <MenuItem value="" hidden></MenuItem>
                     <MenuItem value={"NEQUI"}>Nequi</MenuItem>
                     <MenuItem value={"BANCOLOMBIA"}>Bancolombia</MenuItem>
@@ -215,13 +173,7 @@ export const PagoForm = () => {
               </Grid>
             </Grid>
             <Grid marginTop={2} textAlign={"center"}>
-              <Button
-                variant="outlined"
-                type="submit"
-                color="secondary"
-                size="large"
-                sx={{ textTransform: "none" }}
-              >
+              <Button variant="outlined" type="submit" color="secondary" size="large" sx={{ textTransform: "none" }}>
                 Guardar
               </Button>
             </Grid>

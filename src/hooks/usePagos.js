@@ -29,7 +29,6 @@ export const usePagos = () => {
       const res = await findAll();
       dispatch(loadingPagos(res.data));
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -60,7 +59,6 @@ export const usePagos = () => {
       const res = await getDifferenceMonthCurrentAndBefore();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -72,7 +70,6 @@ export const usePagos = () => {
       const res = await getTotalEntry();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -84,7 +81,6 @@ export const usePagos = () => {
       const res = await getTotalEntryByMonthAndYearCurrent();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -96,7 +92,6 @@ export const usePagos = () => {
       const res = await getTotalEntryByMonthAndYearBefore();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -108,7 +103,6 @@ export const usePagos = () => {
       const res = await getLatestPayments();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }

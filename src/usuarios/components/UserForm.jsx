@@ -12,7 +12,6 @@ export const UserForm = ({ userSelected }) => {
   const [userForm, setUserForm] = useState(initialUserForm);
   const { login } = useAuth();
   const { nombre, apellido, email, telefono, password, fechaNacimiento, fechaInscripcion, cedula, sexo, antecedente, admin, entrenador } = userForm;
-  console.log(userForm);
   useEffect(() => {
     setUserForm({
       ...userSelected,
@@ -40,7 +39,6 @@ export const UserForm = ({ userSelected }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(userForm);
     handlerAddUser(userForm);
     setUserForm(initialUserForm);
   };

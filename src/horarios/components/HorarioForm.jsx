@@ -23,7 +23,6 @@ export const HorarioForm = ({ claseSelected }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(claseForm);
     handlerAddClase(claseForm);
     setClaseForm(initialClaseForm);
   };

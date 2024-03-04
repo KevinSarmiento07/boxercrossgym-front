@@ -1,23 +1,12 @@
 import { Alert, Chip } from "@mui/material";
 import { usePagos } from "../../hooks/usePagos";
 import { styled } from "@mui/material/styles";
-import {
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  tableCellClasses,
-} from "@mui/material";
+import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 
 export const PagoList = () => {
   const { pagos } = usePagos();
-  console.log(pagos);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,15 +36,9 @@ export const PagoList = () => {
                   <StyledTableCell align="right">Plan</StyledTableCell>
                   <StyledTableCell align="right">Tipo de Pago</StyledTableCell>
                   <StyledTableCell align="right">Valor</StyledTableCell>
-                  <StyledTableCell align="right">
-                    Fecha de Pago{" "}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    Fecha de Vencimiento
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    Estado del pago
-                  </StyledTableCell>
+                  <StyledTableCell align="right">Fecha de Pago </StyledTableCell>
+                  <StyledTableCell align="right">Fecha de Vencimiento</StyledTableCell>
+                  <StyledTableCell align="right">Estado del pago</StyledTableCell>
                   <StyledTableCell align="right">Editar</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -70,14 +53,9 @@ export const PagoList = () => {
                       <TableCell align="right">{pago.tipoPago}</TableCell>
                       <TableCell align="right">{pago.valorPagado}</TableCell>
                       <TableCell align="right">{pago.fechaPago}</TableCell>
+                      <TableCell align="right">{pago.fechaVencimiento}</TableCell>
                       <TableCell align="right">
-                        {pago.fechaVencimiento}
-                      </TableCell>
-                      <TableCell align="right">
-                        <Chip
-                          label={pago.estado ? "Vigente" : "Vencido"}
-                          color={pago.estado ? "success" : "error"}
-                        ></Chip>
+                        <Chip label={pago.estado ? "Vigente" : "Vencido"} color={pago.estado ? "success" : "error"}></Chip>
                       </TableCell>
                       <TableCell align="right">
                         <NavLink to={`#`}>

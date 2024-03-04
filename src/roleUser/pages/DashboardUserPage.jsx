@@ -14,15 +14,11 @@ export const DashboardUserPage = () => {
   const [arrTraining, setArrTraining] = useState([]);
   const [arrPayments, setArrPayments] = useState([]);
 
-  console.log(arrTraining);
-  console.log(arrPayments);
   useEffect(() => {
     getEntrenamientosByDate(dayjs(new Date()).format("YYYY-MM-DD")).then((res) => {
-      console.log(res);
       setArrTraining(res);
     });
     getLastPaymentUserAuth().then((res) => {
-      console.log(res);
       setArrPayments(res.data);
     });
   }, []);

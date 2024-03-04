@@ -1,14 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Avatar,
-  Button,
-  Grid,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useSelector } from "react-redux";
+import { Avatar, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useUsers } from "../hooks/useUsers";
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
@@ -30,16 +21,11 @@ const VisuallyHiddenInput = styled("input")({
 export const ProfilePage = () => {
   //const { user } = useSelector((state) => state.auth);
   const [fotoSelected, setFotoSelected] = useState({});
-  console.log(fotoSelected);
-  console.log(fotoSelected.name);
   const { initialUserForm, getInfoUser, handlerUploadUserPhoto } = useUsers();
   const [infoUser, setInfoUser] = useState(initialUserForm);
-  console.log(infoUser);
   useEffect(() => {
     getInfoUser().then((res) => {
-      console.log(res);
       const data = res.data;
-      console.log(data);
       setInfoUser({
         ...data,
       });
@@ -74,43 +60,20 @@ export const ProfilePage = () => {
         <Grid container columnSpacing={1} rowSpacing={2} marginTop={3}>
           <Grid item xs={12} sm={4}>
             <Paper elevation={8} sx={{ marginBottom: 2, paddingY: 5 }}>
-              <Stack
-                spacing={2}
-                justifyContent={"center"}
-                textAlign="center"
-                alignItems="center"
-              >
+              <Stack spacing={2} justifyContent={"center"} textAlign="center" alignItems="center">
                 <Avatar
-                  src={
-                    infoUser.foto === "" || infoUser.foto == null
-                      ? "/images/user.png"
-                      : `http://localhost:8080/users/uploads/img/${infoUser.foto}`
-                  }
-                  alt={
-                    infoUser.foto === "" || infoUser.foto == null
-                      ? "user"
-                      : infoUser.foto
-                  }
+                  src={infoUser.foto === "" || infoUser.foto == null ? "/images/user.png" : `http://localhost:8080/users/uploads/img/${infoUser.foto}`}
+                  alt={infoUser.foto === "" || infoUser.foto == null ? "user" : infoUser.foto}
                   sx={{ width: 170, height: 170, marginY: 5 }}
                 />
-                <Typography
-                  variant="h6"
-                  fontWeight="bold"
-                  marginY={15}
-                >{`${infoUser.nombre} ${infoUser.apellido}`}</Typography>
-                <Typography
-                  variant="subtitle2"
-                  fontWeight="bold"
-                  marginY={15}
-                >{`Fecha de nacimiento: ${infoUser.fechaNacimiento}`}</Typography>
+                <Typography variant="h6" fontWeight="bold" marginY={15}>{`${infoUser.nombre} ${infoUser.apellido}`}</Typography>
+                <Typography variant="subtitle2" fontWeight="bold" marginY={15}>{`Fecha de nacimiento: ${infoUser.fechaNacimiento}`}</Typography>
               </Stack>
             </Paper>
             <Paper elevation={8}>
               <Grid container margin={1} textAlign="center" width="auto">
                 <Grid item xs={12}>
-                  <Typography variant="h6">
-                    Selecciona una foto de perfil:
-                  </Typography>
+                  <Typography variant="h6">Selecciona una foto de perfil:</Typography>
                 </Grid>
                 <Grid item xs={12} sm={4} sx={{ textAlign: "-webkit-center" }}>
                   <img
@@ -142,14 +105,7 @@ export const ProfilePage = () => {
                   <Typography>{fotoSelected.name}</Typography>
                 </Grid>
                 <Grid item xs={12} alignSelf="center" textAlign="center">
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="error"
-                    sx={{ marginBottom: 2 }}
-                    onClick={uploadPhoto}
-                    disabled={fotoSelected.name == undefined ? true : false}
-                  >
+                  <Button fullWidth variant="outlined" color="error" sx={{ marginBottom: 2 }} onClick={uploadPhoto} disabled={fotoSelected.name == undefined ? true : false}>
                     Subir
                   </Button>
                 </Grid>
@@ -158,22 +114,11 @@ export const ProfilePage = () => {
           </Grid>
           <Grid item xs={12} sm={8}>
             <Paper elevation={8}>
-              <Typography
-                variant="h6"
-                paddingY={4}
-                paddingX={3}
-                fontWeight="bold"
-              >
+              <Typography variant="h6" paddingY={4} paddingX={3} fontWeight="bold">
                 Información General
               </Typography>
 
-              <Grid
-                container
-                marginX={3}
-                rowSpacing={3}
-                columnSpacing={1}
-                width="auto"
-              >
+              <Grid container marginX={3} rowSpacing={3} columnSpacing={1} width="auto">
                 <Grid item sm={6} xs={12}>
                   <TextField
                     fullWidth

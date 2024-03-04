@@ -10,7 +10,6 @@ import { AsistenciaTableRow } from "./AsistenciaTableRow";
 import { styled } from "@mui/material";
 
 export const AsistenciaTable = ({ data = [] }) => {
-  console.log(data);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,

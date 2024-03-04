@@ -1,43 +1,24 @@
 /* eslint-disable react/prop-types */
 
-import { Box, Collapse, TextField } from "@mui/material";
-import {
-  ListItem,
-  List,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-  ListItemButton,
-  Drawer,
-  Toolbar,
-} from "@mui/material";
+import { Box, Collapse } from "@mui/material";
+import { ListItem, List, ListItemText, ListItemIcon, Divider, ListItemButton, Drawer, Toolbar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
-export const NavListDrawer = ({
-  handleDrawerClose,
-  mobileOpen,
-  handleDrawerTransitionEnd,
-  navLinks,
-}) => {
+export const NavListDrawer = ({ handleDrawerClose, mobileOpen, handleDrawerTransitionEnd, navLinks }) => {
   const drawerWidth = 240;
   const [open, setOpen] = useState({});
 
   const handleClick = (id, name) => {
-    console.log(name);
     setOpen({
       [name]: !open[name],
     });
   };
 
   return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-      aria-label="mailbox folders"
-    >
+    <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
       <Drawer
         variant="temporary"
         open={mobileOpen}
@@ -69,21 +50,11 @@ export const NavListDrawer = ({
                       <ListItemText primary={item.tittle} />
                       {open[item.tittle] ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse
-                      in={open[item.tittle]}
-                      timeout="auto"
-                      unmountOnExit
-                    >
+                    <Collapse in={open[item.tittle]} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         {item.child.map((itemChild, j) => {
                           return (
-                            <ListItemButton
-                              sx={{ pl: 4 }}
-                              key={j}
-                              component={NavLink}
-                              to={itemChild.path}
-                              onClick={() => setOpen({ [item.title]: !open })}
-                            >
+                            <ListItemButton sx={{ pl: 4 }} key={j} component={NavLink} to={itemChild.path} onClick={() => setOpen({ [item.title]: !open })}>
                               <ListItemIcon>{itemChild.icon}</ListItemIcon>
                               <ListItemText primary={itemChild.tittle} />
                             </ListItemButton>
@@ -134,21 +105,11 @@ export const NavListDrawer = ({
                       <ListItemText primary={item.tittle} />
                       {open[item.tittle] ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse
-                      in={open[item.tittle]}
-                      timeout="auto"
-                      unmountOnExit
-                    >
+                    <Collapse in={open[item.tittle]} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         {item.child.map((itemChild, j) => {
                           return (
-                            <ListItemButton
-                              sx={{ pl: 4 }}
-                              key={j}
-                              component={NavLink}
-                              to={itemChild.path}
-                              onClick={() => setOpen({ [item.title]: !open })}
-                            >
+                            <ListItemButton sx={{ pl: 4 }} key={j} component={NavLink} to={itemChild.path} onClick={() => setOpen({ [item.title]: !open })}>
                               <ListItemIcon>{itemChild.icon}</ListItemIcon>
                               <ListItemText primary={itemChild.tittle} />
                             </ListItemButton>

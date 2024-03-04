@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Alert, Box, Button, Grid, IconButton, Paper, Typography } from "@mui/material";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,7 +11,6 @@ import { NavLink } from "react-router-dom";
 export const TestList = () => {
   const { handlerOpenForm, visibleForm, tests, getTests, handlerDeleteTest } = useTests();
   const [idTest, setIdTest] = useState(0);
-  console.log(visibleForm);
   const { login } = useAuth();
   const [open, setOpen] = useState(false);
   const handleOpen = (id) => {
@@ -18,7 +18,6 @@ export const TestList = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  console.log(tests);
 
   useEffect(() => {
     getTests();

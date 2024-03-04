@@ -22,9 +22,6 @@ export const BookingForm = () => {
   const [availableDays, setAvailableDays] = useState([]);
   const [bookingForm, setBookingForm] = useState(initialBookingForm);
   const [quantity, setQuantity] = useState(0);
-  console.log(bookingForm);
-  console.log(availableDays);
-  console.log(clases);
   useEffect(() => {
     getAvailableDaysByUser().then((res) => {
       setAvailableDays(res.data);
@@ -45,10 +42,8 @@ export const BookingForm = () => {
 
   const onChangeForm = ({ target }) => {
     const { name, value } = target;
-    console.log(name);
-    console.log(value);
     if (name === "clase") {
-      console.log("entro");
+      ("entro");
       setBookingForm({
         ...bookingForm,
         clase: {

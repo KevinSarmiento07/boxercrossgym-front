@@ -26,8 +26,6 @@ export const TestResultGeneralPage = () => {
   const [data, setData] = useState([]);
   const { getResultTestById } = useTests();
 
-  console.log(id);
-  console.log(data);
   useEffect(() => {
     getResultTestById(id).then((res) => {
       setData(res.data);

@@ -16,7 +16,6 @@ import { format } from "date-fns";
 
 export const AsistenciaTableRow = (props) => {
   const { row = {} } = props;
-  console.log(row);
   const fecha = new Date(row.fecha);
   const [open, setOpen] = React.useState(false);
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../services/authService";
 import { onLogin, onLogout } from "../store/slices/auth/authSlice";
@@ -7,19 +8,14 @@ import Swal from "sweetalert2";
 export const useAuth = () => {
   const dispatch = useDispatch();
 
-  const { user, isAdmin, isAuth, isEntrenador } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isAdmin, isAuth, isEntrenador } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const handlerLogin = async ({ username, password }) => {
-    console.log(username);
     try {
       const response = await loginUser({ username, password });
       const token = response.data.token;
-      console.log(token);
       const claims = JSON.parse(window.atob(token.split(".")[1]));
-      console.log(claims);
       const user = { username: claims.sub };
       dispatch(onLogin({ user, isAdmin: claims.isAdmin }));
 
@@ -45,7 +41,6 @@ export const useAuth = () => {
 
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };

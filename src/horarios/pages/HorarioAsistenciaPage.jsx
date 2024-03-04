@@ -9,7 +9,6 @@ export const HorarioAsistenciaPage = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     getBookingsData().then((res) => {
-      console.log(res);
       setData(res);
     });
   }, []);

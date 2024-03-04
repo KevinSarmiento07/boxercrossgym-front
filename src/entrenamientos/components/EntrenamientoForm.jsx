@@ -1,17 +1,4 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Button, Card, CardActions, CardContent, CardHeader, Container, Divider, Grid, TextField, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -25,30 +12,20 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 /* eslint-disable react/prop-types */
 
-export const EntrenamientoForm = ({
-  dateSelected,
-  entrenamientoSeleccionado,
-}) => {
+export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) => {
   const { isAdmin } = useSelector((state) => state.auth);
   const initialEntreno = {
     id: 0,
     fechaEntreno: "",
     titulo: "",
   };
-  const {
-    handleLoadBloque,
-    initialEntrenamientoForm,
-    handleSaveEntrenamiento,
-    handleDeleteBloqueById,
-  } = useEntrenamiento();
+  const { handleLoadBloque, initialEntrenamientoForm, handleSaveEntrenamiento, handleDeleteBloqueById } = useEntrenamiento();
 
   const [entrenamiento, setEntrenamiento] = useState(initialEntreno);
-  console.log(entrenamiento);
+  entrenamiento;
   const { bloques } = useSelector((state) => state.entrenamientos);
 
-  const [entrenamientoForm, setEntrenamientoForm] = useState(
-    initialEntrenamientoForm
-  );
+  const [entrenamientoForm, setEntrenamientoForm] = useState(initialEntrenamientoForm);
   const { fechaEntreno, titulo, nombre, descripcion, id } = entrenamientoForm;
   useEffect(() => {
     setEntrenamientoForm({
@@ -58,7 +35,6 @@ export const EntrenamientoForm = ({
   }, [dateSelected]);
 
   useEffect(() => {
-    console.log(entrenamientoSeleccionado);
     if (entrenamientoSeleccionado) {
       setEntrenamientoForm({
         ...entrenamientoForm,
@@ -70,9 +46,7 @@ export const EntrenamientoForm = ({
         ...entrenamiento,
         id: entrenamientoSeleccionado.id,
       });
-      entrenamientoSeleccionado.bloques?.map((bloque) =>
-        handleLoadBloque(bloque)
-      );
+      entrenamientoSeleccionado.bloques?.map((bloque) => handleLoadBloque(bloque));
     }
   }, [entrenamientoSeleccionado]);
 
@@ -88,18 +62,9 @@ export const EntrenamientoForm = ({
   const onSubmit = (e) => {
     e.preventDefault();
     if (bloques.length === 0) {
-      Swal.fire(
-        "Error",
-        "Debe haber al menos un bloque en el entrenamiento.",
-        "error"
-      );
+      Swal.fire("Error", "Debe haber al menos un bloque en el entrenamiento.", "error");
       return;
     }
-    console.log(e);
-    console.log("entro al submit");
-    console.log(entrenamiento);
-    console.log(bloques);
-    console.log(entrenamientoForm);
     handleSaveEntrenamiento({ entrenamiento, bloques });
     setEntrenamiento(initialEntreno);
     //setDateSelected(undefined);
@@ -113,11 +78,7 @@ export const EntrenamientoForm = ({
 
   const onClickAddBloque = (e, nombre, descripcion) => {
     if (!nombre || !descripcion) {
-      Swal.fire(
-        "Error",
-        "Los campos nombre y descripcion deben tener conntenido",
-        "error"
-      );
+      Swal.fire("Error", "Los campos nombre y descripcion deben tener conntenido", "error");
       return; // Sale de la función si algún campo está vacío
     }
     setEntrenamientoForm({
@@ -155,12 +116,7 @@ export const EntrenamientoForm = ({
         <Container>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Box component="form" onSubmit={onSubmit}>
-              <Grid
-                container
-                rowSpacing={2}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                marginTop={2}
-              >
+              <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} marginTop={2}>
                 <Grid item xs={12} sm={6} marginTop={0}>
                   <Grid item xs={10} marginBottom={3}>
                     <DatePicker
@@ -169,59 +125,26 @@ export const EntrenamientoForm = ({
                       fullWidth
                       name="fechaEntreno"
                       value={fechaEntreno == null ? null : dayjs(fechaEntreno)}
-                      onChange={(value, context) =>
-                        onDateChange(value, context, "fechaEntreno")
-                      }
+                      onChange={(value, context) => onDateChange(value, context, "fechaEntreno")}
                       format="YYYY-MM-DD"
                       required
                     />
                   </Grid>
                   <Grid item xs={10} marginBottom={5}>
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      label="Titulo"
-                      type="titulo"
-                      name="titulo"
-                      value={titulo}
-                      onChange={onInputChange}
-                      required
-                    />
+                    <TextField fullWidth variant="outlined" label="Titulo" type="titulo" name="titulo" value={titulo} onChange={onInputChange} required />
                   </Grid>
 
                   <Grid item xs={10} marginBottom={3}>
                     <Typography textAlign={"center"} variant="h6">
                       BLOQUES
                     </Typography>
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      label="Nombre"
-                      type="Nombre"
-                      name="nombre"
-                      value={nombre}
-                      onChange={onInputChange}
-                    />
+                    <TextField fullWidth variant="outlined" label="Nombre" type="Nombre" name="nombre" value={nombre} onChange={onInputChange} />
                   </Grid>
                   <Grid item xs={10} marginBottom={3}>
-                    <TextField
-                      fullWidth
-                      multiline
-                      rows={5}
-                      variant="outlined"
-                      label="Descripcion"
-                      type="Descripcion"
-                      name="descripcion"
-                      value={descripcion}
-                      onChange={onInputChange}
-                    />
+                    <TextField fullWidth multiline rows={5} variant="outlined" label="Descripcion" type="Descripcion" name="descripcion" value={descripcion} onChange={onInputChange} />
                   </Grid>
                   <Grid item xs={10} textAlign={"center"}>
-                    <Button
-                      variant={"contained"}
-                      color="error"
-                      onClick={(e) => onClickAddBloque(e, nombre, descripcion)}
-                    >
+                    <Button variant={"contained"} color="error" onClick={(e) => onClickAddBloque(e, nombre, descripcion)}>
                       Añadir Bloque
                     </Button>
                   </Grid>
@@ -230,13 +153,7 @@ export const EntrenamientoForm = ({
                   {bloques.length > 0 ? (
                     bloques.map((bloque, index) => {
                       return (
-                        <Grid
-                          item
-                          xs={10}
-                          textAlign={"center"}
-                          marginBottom={3}
-                          key={index}
-                        >
+                        <Grid item xs={10} textAlign={"center"} marginBottom={3} key={index}>
                           <Card
                             sx={{
                               backgroundColor: "#F2F2F2",
@@ -254,27 +171,14 @@ export const EntrenamientoForm = ({
                             />
                             <Divider />
                             <CardContent>
-                              <Typography component={"pre"}>
-                                {bloque.descripcion}
-                              </Typography>
+                              <Typography component={"pre"}>{bloque.descripcion}</Typography>
                             </CardContent>
                             <Divider />
                             <CardActions disableSpacing>
-                              <IconButton
-                                aria-label="add to favorites"
-                                onClick={() =>
-                                  onClickEditBloque(
-                                    index,
-                                    bloque.nombre,
-                                    bloque.descripcion
-                                  )
-                                }
-                              >
+                              <IconButton aria-label="add to favorites" onClick={() => onClickEditBloque(index, bloque.nombre, bloque.descripcion)}>
                                 <EditIcon />
                               </IconButton>
-                              <IconButton
-                                onClick={() => onClickDeleteBloque(index)}
-                              >
+                              <IconButton onClick={() => onClickDeleteBloque(index)}>
                                 <DeleteIcon />
                               </IconButton>
                             </CardActions>
@@ -283,11 +187,7 @@ export const EntrenamientoForm = ({
                       );
                     })
                   ) : (
-                    <Alert
-                      variant="filled"
-                      severity="error"
-                      sx={{ marginBottom: 5 }}
-                    >
+                    <Alert variant="filled" severity="error" sx={{ marginBottom: 5 }}>
                       No hay bloques en la lista
                     </Alert>
                   )}
@@ -302,11 +202,7 @@ export const EntrenamientoForm = ({
           </LocalizationProvider>
         </Container>
       ) : (
-        <Alert
-          variant="filled"
-          severity="error"
-          sx={{ marginBottom: 5, marginTop: 5 }}
-        >
+        <Alert variant="filled" severity="error" sx={{ marginBottom: 5, marginTop: 5 }}>
           No hay entrenamientos para este día
         </Alert>
       )}

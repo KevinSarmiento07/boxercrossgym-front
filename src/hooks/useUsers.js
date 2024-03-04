@@ -1,21 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
-import {
-  findAll,
-  getInfoUserAuthenticate,
-  getNewUsers,
-  getTotalUsersActives,
-  getTotalUsersInactives,
-  saveUser,
-  updateUserS,
-  uploadUserPhoto,
-} from "../services/userService";
-import {
-  addUser,
-  loadingUsers,
-  updateUser,
-} from "../store/slices/users/usersSlice";
+import { findAll, getInfoUserAuthenticate, getNewUsers, getTotalUsersActives, getTotalUsersInactives, saveUser, updateUserS, uploadUserPhoto } from "../services/userService";
+import { addUser, loadingUsers, updateUser } from "../store/slices/users/usersSlice";
 import { initialUserForm } from "../store/slices/users/usersSlice";
 import Swal from "sweetalert2";
 import { useAuth } from "./useAuth";
@@ -35,7 +22,6 @@ export const useUsers = () => {
       const result = await findAll();
       dispatch(loadingUsers(result.data));
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -43,7 +29,6 @@ export const useUsers = () => {
   };
 
   const handlerAddUser = async (user) => {
-    console.log(user);
     try {
       if (user.id == 0) {
         const res = await saveUser(user);
@@ -53,17 +38,10 @@ export const useUsers = () => {
         dispatch(updateUser(res.data));
       }
 
-      Swal.fire(
-        user.id === 0 ? "Usuario Creado" : "Usuario Actualizado",
-        user.id === 0
-          ? "El usuario ha sido creado con exito!"
-          : "El usuario ha sido actualizado con exito!",
-        "success"
-      );
+      Swal.fire(user.id === 0 ? "Usuario Creado" : "Usuario Actualizado", user.id === 0 ? "El usuario ha sido creado con exito!" : "El usuario ha sido actualizado con exito!", "success");
 
       navigate("/users");
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -75,7 +53,6 @@ export const useUsers = () => {
       const res = await getTotalUsersActives();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -87,7 +64,6 @@ export const useUsers = () => {
       const res = await getTotalUsersInactives();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -99,7 +75,6 @@ export const useUsers = () => {
       const res = await getNewUsers();
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -110,7 +85,6 @@ export const useUsers = () => {
     try {
       return await getInfoUserAuthenticate();
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
@@ -120,14 +94,9 @@ export const useUsers = () => {
   const handlerUploadUserPhoto = async (archivo, id) => {
     try {
       const res = await uploadUserPhoto(archivo, id);
-      Swal.fire(
-        "Foto Subida",
-        "La foto de perfil fue subida con exíto",
-        "success"
-      );
+      Swal.fire("Foto Subida", "La foto de perfil fue subida con exíto", "success");
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }

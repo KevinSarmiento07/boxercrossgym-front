@@ -3,8 +3,6 @@ import { Card, CardContent, CardHeader, Chip, Paper, Table, TableBody, TableCell
 /* eslint-disable react/prop-types */
 export const OverviewListPayment = (props) => {
   const { sx, data } = props;
-  console.log(sx);
-  console.log(data);
 
   return (
     <Card sx={{ sx }} raised elevation={8}>

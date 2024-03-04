@@ -20,21 +20,11 @@ const initialValue = dayjs();
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-  const isSelected =
-    !props.outsideCurrentMonth &&
-    highlightedDays.indexOf(props.day.date()) >= 0;
+  const isSelected = !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
 
   return (
-    <Badge
-      key={props.day.toString()}
-      overlap="circular"
-      badgeContent={isSelected ? "🔥" : undefined}
-    >
-      <PickersDay
-        {...other}
-        outsideCurrentMonth={outsideCurrentMonth}
-        day={day}
-      />
+    <Badge key={props.day.toString()} overlap="circular" badgeContent={isSelected ? "🔥" : undefined}>
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
   );
 }
@@ -51,14 +41,9 @@ const style = {
   borderRadius: 10,
 };
 export const CalendarioEntrenamiento = () => {
-  const {
-    getDaysForDate,
-    getEntrenamientosByDate,
-    handleCleanBloques,
-    initialEntrenamiento,
-  } = useEntrenamiento();
+  const { getDaysForDate, getEntrenamientosByDate, handleCleanBloques, initialEntrenamiento } = useEntrenamiento();
   const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
-  console.log(entrenamientosByDay);
+  entrenamientosByDay;
   const { login } = useAuth();
   const [entrenoOpen, setEntrenoOpen] = useState(false);
   const [entrenoFormOpen, setEntrenoFormOpen] = useState(false);
@@ -66,11 +51,9 @@ export const CalendarioEntrenamiento = () => {
   const [entrenoSelected, setEntrenoSelected] = useState(initialEntrenamiento);
 
   const [open, setOpen] = React.useState(true);
-  console.log(open);
   const navigate = useNavigate();
 
   const { id } = useParams();
-  console.log(id);
 
   const handleOpen = () => {
     setOpen(true);
@@ -105,10 +88,8 @@ export const CalendarioEntrenamiento = () => {
   const handleOnChange = (value, props) => {
     const date = dayjs(value).format("YYYY-MM-DD");
     getEntrenamientosByDate(date).then((res) => {
-      console.log(res);
       if (res.length == 0) {
         handleCleanBloques();
-        console.log(date);
         setDateSelected(date);
         setEntrenoFormOpen(true);
       } else {
@@ -123,22 +104,12 @@ export const CalendarioEntrenamiento = () => {
     <>
       {!open ? (
         <Grid display={"flex"} alignItems={"center"} justifyContent={"center"}>
-          <Button
-            size="large"
-            onClick={handleOpen}
-            variant="outlined"
-            color="error"
-          >
+          <Button size="large" onClick={handleOpen} variant="outlined" color="error">
             Buscar fecha
           </Button>
         </Grid>
       ) : (
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+        <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
@@ -160,14 +131,7 @@ export const CalendarioEntrenamiento = () => {
           </Box>
         </Modal>
       )}
-      {entrenoFormOpen ? (
-        <EntrenamientoForm
-          dateSelected={dateSelected}
-          setDateSelected={setDateSelected}
-        ></EntrenamientoForm>
-      ) : (
-        ""
-      )}
+      {entrenoFormOpen ? <EntrenamientoForm dateSelected={dateSelected} setDateSelected={setDateSelected}></EntrenamientoForm> : ""}
       {!entrenoOpen || <EntrenamientoView></EntrenamientoView>}
     </>
   );

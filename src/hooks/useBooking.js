@@ -12,10 +12,9 @@ export const useBooking = () => {
   const getListBookingsByUser = async () => {
     try {
       const res = await listBookingByUser();
-      console.log(res);
+      res;
       dispatch(loadingBookings(res.data));
     } catch (error) {
-      console.log(error);
       if (error.response?.status == 401) {
         handlerLogout();
       }
