@@ -23,10 +23,10 @@ export const DashboardUserPage = () => {
               <OverviewDateExpire date={"2024-03-03"} sx={{ height: "100%" }} progress={10} />
             </Grid>
             <Grid item xs={12} md={4}>
-              <OverviewTrainingDay sx={{ height: "100%" }} />
+              <OverviewTrainingDay sx={{ height: "100%" }} training={""} />
             </Grid>
             <Grid item xs={12} md={8}>
-              <OverviewListPayment sx={{ height: "100%" }} />
+              <OverviewListPayment sx={{ height: "100%" }} data={["test", "test2"]} />
             </Grid>
           </Grid>
         </Container>
