@@ -2,7 +2,7 @@
 import clasesApi from "../apis/clasesApi";
 
 /* eslint-disable no-unused-vars */
-const BASE_URL = "http://localhost:8080/clase";
+const BASE_URL = "";
 
 export const findAllClases = async () => {
   try {

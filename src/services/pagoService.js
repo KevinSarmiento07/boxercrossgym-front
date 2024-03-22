@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import pagosApi from "../apis/pagosApi";
 
-const BASE_URL = "http://localhost:8080/pago";
+const BASE_URL = "";
 
 export const findAll = async () => {
   try {

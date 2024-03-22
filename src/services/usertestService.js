@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import usertestApi from "../apis/usertestApi";
 
-const BASE_URL = "http://localhost:8080/usertest";
+const BASE_URL = "";
 
 export const saveUserTest = async (usuarioTest) => {
   try {

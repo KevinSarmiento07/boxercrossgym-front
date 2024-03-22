@@ -57,7 +57,7 @@ export const UserForm = ({ userSelected }) => {
                 value={nombre}
                 onChange={onInputChange}
                 required
-                error={errors.nombre && errors.nombre.length > 0}
+                error={errors?.nombre != undefined && errors?.nombre?.length > 0}
                 helperText={errors?.nombre && errors.nombre.length > 0 ? errors?.nombre : "Obligatorio"}
               />
             </Grid>
@@ -72,7 +72,7 @@ export const UserForm = ({ userSelected }) => {
                 value={apellido}
                 onChange={onInputChange}
                 required
-                error={errors.apellido && errors.apellido.length > 0}
+                error={errors.apellido != undefined && errors.apellido.length > 0}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -86,7 +86,7 @@ export const UserForm = ({ userSelected }) => {
                 value={email}
                 onChange={onInputChange}
                 required
-                error={errors?.email && errors?.email?.length > 0}
+                error={errors?.email != undefined && errors?.email?.length > 0}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -98,7 +98,7 @@ export const UserForm = ({ userSelected }) => {
                 name="password"
                 value={password}
                 onChange={onInputChange}
-                error={errors.password && errors.password.length > 0}
+                error={errors?.password != undefined && errors?.password.length > 0}
                 helperText={errors.password && errors.password.length > 0 ? errors.password : ""}
               />
             </Grid>
@@ -128,15 +128,15 @@ export const UserForm = ({ userSelected }) => {
               />
             </Grid>
             <Grid item xs={12} md={4}>
-              <FormControl fullWidth error={errors.sexo && errors.sexo.length > 0}>
-                <InputLabel error={errors.sexo && errors.sexo.length > 0} id="sexo">
+              <FormControl fullWidth error={errors?.sexo != undefined && errors?.sexo.length > 0}>
+                <InputLabel error={errors?.sexo != undefined && errors?.sexo.length > 0} id="sexo">
                   Sexo
                 </InputLabel>
                 <Select labelId="sexo" id="sexo-select" label="Sexo" name="sexo" value={sexo} onChange={onInputChange}>
                   <MenuItem value={"M"}>Masculino</MenuItem>
                   <MenuItem value={"F"}>Femenino</MenuItem>
                 </Select>
-                <FormHelperText>{errors.sexo}</FormHelperText>
+                <FormHelperText>{errors?.sexo}</FormHelperText>
               </FormControl>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -148,8 +148,8 @@ export const UserForm = ({ userSelected }) => {
                 name="telefono"
                 value={telefono}
                 onChange={onInputChange}
-                error={errors.telefono && errors.telefono.length > 0}
-                helperText={errors.telefono && errors.telefono.length > 0 ? errors.telefono : ""}
+                error={errors?.telefono != undefined && errors?.telefono.length > 0}
+                helperText={errors?.telefono && errors?.telefono.length > 0 ? errors?.telefono : ""}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -162,8 +162,8 @@ export const UserForm = ({ userSelected }) => {
                 value={cedula}
                 onChange={onInputChange}
                 required
-                error={errors.cedula && errors.cedula.length > 0}
-                helperText={errors.cedula && errors.cedula.length > 0 ? errors.cedula : "Obligatorio"}
+                error={errors?.cedula != undefined && errors?.cedula.length > 0}
+                helperText={errors?.cedula && errors?.cedula.length > 0 ? errors?.cedula : "Obligatorio"}
               />
             </Grid>
             <Grid item xs={12}>

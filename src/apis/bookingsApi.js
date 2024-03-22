@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const bookingsApi = axios.create({
-  baseURL: "http://localhost:8080/booking",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/booking`,
 });
 
 bookingsApi.interceptors.request.use((config) => {

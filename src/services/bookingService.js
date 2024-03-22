@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import bookingsApi from "../apis/bookingsApi";
 
-const URL_B = "http://localhost:8080/booking";
+const URL_B = "";
 
 export const listBookingByUser = async () => {
   try {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const clasesApi = axios.create({
-  baseURL: "http://localhost:8080/clase",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/clase`,
 });
 
 clasesApi.interceptors.request.use((config) => {

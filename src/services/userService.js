@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import usersApi from "../apis/usersApi";
 
-const BASE_URL = "http://localhost:8080/users";
+const BASE_URL = "";
 
 export const findAll = async () => {
   try {

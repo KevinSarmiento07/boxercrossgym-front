@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const pagosApi = axios.create({
-  baseURL: "http://localhost:8080/pago",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/pago`,
 });
 
 pagosApi.interceptors.request.use((config) => {

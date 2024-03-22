@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import entrenamientosApi from "../apis/entrenamientosApi";
 
-const BASE_URL = "http://localhost:8080/entrenamiento";
+const BASE_URL = "";
 
 export const findAllBloques = async () => {
   try {
