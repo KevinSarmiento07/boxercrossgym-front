@@ -2,13 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 import { findAll, getInfoUserAuthenticate, getNewUsers, getTotalUsersActives, getTotalUsersInactives, saveUser, updateUserS, uploadUserPhoto } from "../services/userService";
-import { addUser, loadingUsers, updateUser } from "../store/slices/users/usersSlice";
+import { addUser, loadingError, loadingUsers, updateUser } from "../store/slices/users/usersSlice";
 import { initialUserForm } from "../store/slices/users/usersSlice";
 import Swal from "sweetalert2";
 import { useAuth } from "./useAuth";
 
 export const useUsers = () => {
-  const { users } = useSelector((state) => state.users);
+  const { users, errors } = useSelector((state) => state.users);
 
   const { handlerLogout } = useAuth();
 
@@ -44,7 +44,18 @@ export const useUsers = () => {
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
+      } else if (error.response && error.response.status == 400) {
+        dispatch(loadingError(error.response.data));
+      } else if (error.response && error.response.status == 500 && error.response.data?.error?.includes("constraint")) {
+        if (error.response.data?.error?.includes("email_UNIQUE")) {
+          dispatch(loadingError({ email: "El correo electronico ya se encuentra registrado en la base de datos" }));
+        }
+        if (error.response.data?.error?.includes("cedula_UNIQUE")) {
+          dispatch(loadingError({ cedula: "La cedula ya se encuentra registrado en la base de datos" }));
+        }
       }
+
+      return;
     }
   };
 
@@ -113,5 +124,6 @@ export const useUsers = () => {
     getViewNewUsers,
     getInfoUser,
     handlerUploadUserPhoto,
+    errors,
   };
 };

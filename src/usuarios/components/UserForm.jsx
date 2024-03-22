@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, FormGroup, FormHelperText, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -8,7 +8,7 @@ import { useUsers } from "../../hooks/useUsers";
 import { useAuth } from "../../hooks/useAuth";
 
 export const UserForm = ({ userSelected }) => {
-  const { initialUserForm, handlerAddUser } = useUsers();
+  const { initialUserForm, handlerAddUser, errors } = useUsers();
   const [userForm, setUserForm] = useState(initialUserForm);
   const { login } = useAuth();
   const { nombre, apellido, email, telefono, password, fechaNacimiento, fechaInscripcion, cedula, sexo, antecedente, admin, entrenador } = userForm;
@@ -40,7 +40,7 @@ export const UserForm = ({ userSelected }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     handlerAddUser(userForm);
-    setUserForm(initialUserForm);
+    //setUserForm(initialUserForm);
   };
   return (
     <Container>
@@ -48,16 +48,59 @@ export const UserForm = ({ userSelected }) => {
         <Box component="form" onSubmit={onSubmit}>
           <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} marginTop={2}>
             <Grid item xs={12} md={6}>
-              <TextField fullWidth id="nombre" label="Nombre" variant="outlined" name="nombre" value={nombre} onChange={onInputChange} required />
+              <TextField
+                fullWidth
+                id="nombre"
+                label="Nombre"
+                variant="outlined"
+                name="nombre"
+                value={nombre}
+                onChange={onInputChange}
+                required
+                error={errors.nombre && errors.nombre.length > 0}
+                helperText={errors?.nombre && errors.nombre.length > 0 ? errors?.nombre : "Obligatorio"}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField fullWidth id="apellido" label="Apellido" variant="outlined" helperText={"Obligatorio"} name="apellido" value={apellido} onChange={onInputChange} required />
+              <TextField
+                fullWidth
+                id="apellido"
+                label="Apellido"
+                variant="outlined"
+                helperText={errors.apellido && errors.apellido.length > 0 ? errors.apellido : "Obligatorio"}
+                name="apellido"
+                value={apellido}
+                onChange={onInputChange}
+                required
+                error={errors.apellido && errors.apellido.length > 0}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField fullWidth variant="outlined" label="Email" type="email" helperText={"Obligatorio"} name="email" value={email} onChange={onInputChange} required />
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Email"
+                type="email"
+                helperText={errors?.email && errors?.email?.length > 0 ? errors?.email : "Obligatorio"}
+                name="email"
+                value={email}
+                onChange={onInputChange}
+                required
+                error={errors?.email && errors?.email?.length > 0}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField fullWidth variant="outlined" label="Password" type="password" name="password" value={password} onChange={onInputChange} />
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={onInputChange}
+                error={errors.password && errors.password.length > 0}
+                helperText={errors.password && errors.password.length > 0 ? errors.password : ""}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
               <DatePicker
@@ -69,6 +112,7 @@ export const UserForm = ({ userSelected }) => {
                 value={fechaNacimiento == null ? null : dayjs(fechaNacimiento)}
                 onChange={(value, context) => onDateChange(value, context, "fechaNacimiento")}
                 format="YYYY-MM-DD"
+                er
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -84,19 +128,43 @@ export const UserForm = ({ userSelected }) => {
               />
             </Grid>
             <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <InputLabel id="sexo">Sexo</InputLabel>
+              <FormControl fullWidth error={errors.sexo && errors.sexo.length > 0}>
+                <InputLabel error={errors.sexo && errors.sexo.length > 0} id="sexo">
+                  Sexo
+                </InputLabel>
                 <Select labelId="sexo" id="sexo-select" label="Sexo" name="sexo" value={sexo} onChange={onInputChange}>
                   <MenuItem value={"M"}>Masculino</MenuItem>
                   <MenuItem value={"F"}>Femenino</MenuItem>
                 </Select>
+                <FormHelperText>{errors.sexo}</FormHelperText>
               </FormControl>
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField fullWidth variant="outlined" label="Teléfono" type="text" name="telefono" value={telefono} onChange={onInputChange} />
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Teléfono"
+                type="text"
+                name="telefono"
+                value={telefono}
+                onChange={onInputChange}
+                error={errors.telefono && errors.telefono.length > 0}
+                helperText={errors.telefono && errors.telefono.length > 0 ? errors.telefono : ""}
+              />
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField fullWidth variant="outlined" label="Numero de documento" type="text" name="cedula" value={cedula} onChange={onInputChange} required />
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Numero de documento"
+                type="text"
+                name="cedula"
+                value={cedula}
+                onChange={onInputChange}
+                required
+                error={errors.cedula && errors.cedula.length > 0}
+                helperText={errors.cedula && errors.cedula.length > 0 ? errors.cedula : "Obligatorio"}
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField fullWidth variant="outlined" label="Información personal adicional" type="text" name="antecedente" value={antecedente} onChange={onInputChange} multiline />

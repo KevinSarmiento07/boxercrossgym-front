@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
@@ -33,7 +34,6 @@ const initialResultForm = {
 };
 export const ModalResultForm = ({ open, handleClose, idTest, setIdTest }) => {
   const { handlerSaveUserTest, usertests } = useTests();
-  console.log(usertests);
   useEffect(() => {
     setResultForm({
       ...resultForm,
