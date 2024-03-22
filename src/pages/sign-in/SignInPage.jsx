@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAuth } from "../../hooks/useAuth";
+import { NavLink } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -72,9 +73,9 @@ export const SignInPage = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <NavLink to={"/register"}>
+                  <Link variant="body2">{"Registrarse"}</Link>
+                </NavLink>
               </Grid>
             </Grid>
           </Box>
