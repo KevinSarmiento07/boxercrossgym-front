@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "./useAuth";
 
 export const useUsers = () => {
-  const { users, errors } = useSelector((state) => state.users);
+  const { users, errors, isLoading } = useSelector((state) => state.users);
 
   const { handlerLogout } = useAuth();
 
@@ -125,5 +125,6 @@ export const useUsers = () => {
     getInfoUser,
     handlerUploadUserPhoto,
     errors,
+    isLoading,
   };
 };

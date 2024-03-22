@@ -1,4 +1,4 @@
-import { Avatar, Chip, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from "@mui/material";
+import { Avatar, Chip, CircularProgress, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import { useUsers } from "../../hooks/useUsers";
@@ -8,7 +8,7 @@ import Alert from "@mui/material/Alert";
 
 /* eslint-disable react/prop-types */
 export const UsersList = () => {
-  const { users } = useUsers();
+  const { users, isLoading } = useUsers();
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -26,6 +26,13 @@ export const UsersList = () => {
     },
   }));
 
+  if (isLoading) {
+    return (
+      <div className="p-5 text-center">
+        <CircularProgress color="error" />
+      </div>
+    );
+  }
   return (
     <>
       {users.length > 0 ? (
