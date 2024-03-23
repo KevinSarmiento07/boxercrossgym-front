@@ -41,7 +41,14 @@ export const useAuth = () => {
 
       navigate("/dashboard");
     } catch (error) {
-      throw error;
+      console.log(error);
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error, usuario inactivo o credenciales erroneas.",
+        showConfirmButton: false,
+        timer: 2500,
+      });
     }
   };
 
