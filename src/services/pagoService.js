@@ -27,6 +27,14 @@ export const savePago = async (pago) => {
   }
 };
 
+export const updatePagoS = async (pago) => {
+  try {
+    return await pagosApi.put(`${BASE_URL}/${pago.id}`, pago);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getDifferenceMonthCurrentAndBefore = async () => {
   try {
     return await pagosApi.get(`${BASE_URL}/porcentaje`);

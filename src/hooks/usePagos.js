@@ -11,8 +11,9 @@ import {
   getTotalEntryByMonthAndYearBefore,
   getTotalEntryByMonthAndYearCurrent,
   savePago,
+  updatePagoS,
 } from "../services/pagoService";
-import { loadingPagos, initialPayForm, addPago } from "../store/slices/pagos/pagoSlice";
+import { loadingPagos, initialPayForm, addPago, updatePago } from "../store/slices/pagos/pagoSlice";
 import Swal from "sweetalert2";
 import { useAuth } from "./useAuth";
 
@@ -41,8 +42,13 @@ export const usePagos = () => {
 
   const handlerAddPago = async (pago) => {
     try {
-      const res = await savePago(pago);
-      dispatch(addPago(res.data));
+      if (pago.id == 0) {
+        const res = await savePago(pago);
+        dispatch(addPago(res.data));
+      } else {
+        await updatePagoS(pago);
+        dispatch(updatePago(pago));
+      }
 
       Swal.fire("Pago Creado", "El pago ha sido creado con exito!", "success");
 

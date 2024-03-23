@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { Box, Container, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem, OutlinedInput, InputAdornment } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -8,7 +9,7 @@ import { usePagos } from "../../hooks/usePagos";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-export const PagoForm = () => {
+export const PagoForm = ({ pagoSelected }) => {
   const { users, getUsers } = useUsers();
   const { initialPayForm, getPlanes, handlerAddPago } = usePagos();
 
@@ -16,8 +17,9 @@ export const PagoForm = () => {
   const [planes, setPlanes] = useState([{ id: 0 }]);
   const [seletedUser, setSelectedUser] = useState(null);
 
-  const { id, fechaPago, plan, tipoPago, valorPagado } = payForm;
+  const { id, fechaPago, plan, tipoPago, valorPagado, fechaVencimiento } = payForm;
 
+  console.log(pagoSelected);
   useEffect(() => {
     getUsers();
     getPlanes().then(async (res) => {
@@ -26,11 +28,19 @@ export const PagoForm = () => {
   }, []);
 
   useEffect(() => {
-    setPayForm({
-      ...payForm,
-      valorPagado: plan.valor,
-    });
+    if (pagoSelected.id === 0) {
+      setPayForm({
+        ...payForm,
+        valorPagado: plan.valor,
+      });
+    }
   }, [plan]);
+
+  useEffect(() => {
+    setPayForm({
+      ...pagoSelected,
+    });
+  }, [pagoSelected]);
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -59,38 +69,51 @@ export const PagoForm = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box component={"form"} onSubmit={onSubmit} alignItems={"center"}>
             <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-              <Grid item xs={12}>
-                <Autocomplete
-                  noOptionsText={"No existe ningun usuario con ese nombre"}
-                  id="free-solo-2-demo"
-                  getOptionLabel={(users) => `${users.nombre} ${users.apellido}`}
-                  isOptionEqualToValue={(option, value) => {
-                    return option.id === value.id;
-                  }}
-                  options={users}
-                  renderOption={(props, users) => (
-                    <Box component="li" {...props} key={users.id}>
-                      {users.nombre} {users.apellido}
-                    </Box>
-                  )}
-                  value={seletedUser}
-                  onChange={(event, newValue) => {
-                    setSelectedUser(newValue);
-                    setPayForm(
-                      newValue?.id != null
-                        ? {
-                            ...payForm,
-                            usuario: { id: newValue.id },
-                          }
-                        : {
-                            ...payForm,
-                            usuario: { id: 0 },
-                          }
-                    );
-                  }}
-                  renderInput={(params) => <TextField {...params} label="Cliente" name="cliente" required />}
-                />
-              </Grid>
+              {payForm.id > 0 ? (
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Usuario"
+                    defaultValue={`${payForm.usuario.nombre} ${payForm.usuario.apellido}`}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                </Grid>
+              ) : (
+                <Grid item xs={12}>
+                  <Autocomplete
+                    noOptionsText={"No existe ningun usuario con ese nombre"}
+                    id="free-solo-2-demo"
+                    getOptionLabel={(users) => `${users.nombre} ${users.apellido}`}
+                    isOptionEqualToValue={(option, value) => {
+                      return option.id === value.id;
+                    }}
+                    options={users}
+                    renderOption={(props, users) => (
+                      <Box component="li" {...props} key={users.id}>
+                        {users.nombre} {users.apellido}
+                      </Box>
+                    )}
+                    value={seletedUser}
+                    onChange={(event, newValue) => {
+                      setSelectedUser(newValue);
+                      setPayForm(
+                        newValue?.id != null
+                          ? {
+                              ...payForm,
+                              usuario: { id: newValue.id },
+                            }
+                          : {
+                              ...payForm,
+                              usuario: { id: 0 },
+                            }
+                      );
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Cliente" name="cliente" required />}
+                  />
+                </Grid>
+              )}
               <Grid item xs={12} md={6}>
                 <FormControl fullWidth>
                   <InputLabel id="plan">Plan a escoger</InputLabel>
@@ -160,13 +183,27 @@ export const PagoForm = () => {
                   format="YYYY-MM-DD"
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              {payForm.id <= 0 || (
+                <Grid item xs={12} sm={6}>
+                  <DatePicker
+                    required
+                    sx={{ width: "100%" }}
+                    label="Fecha de vencimiento"
+                    selectedSections={"day" | "month" | "year"}
+                    name="fechaVencimiento"
+                    value={fechaVencimiento == null ? null : dayjs(fechaVencimiento)}
+                    onChange={(value, context) => onDateChange(value, context, "fechaVencimiento")}
+                    format="YYYY-MM-DD"
+                  />
+                </Grid>
+              )}
+              <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <InputLabel id="tipo-pago">Tipo de pago</InputLabel>
                   <Select labelId="tipo-pago" id="tipo-pago-select" label="Tipo de pago" name="tipoPago" value={tipoPago} onChange={onInputChange} required>
-                    <MenuItem value="" hidden></MenuItem>
+                    <MenuItem value="">Selecciona una opción</MenuItem>
                     <MenuItem value={"NEQUI"}>Nequi</MenuItem>
-                    <MenuItem value={"BANCOLOMBIA"}>Bancolombia</MenuItem>
+                    <MenuItem value={"EFECTIVO"}>Efectivo</MenuItem>
                     <MenuItem value={"DAVIVIENDA"}>Davivienda</MenuItem>
                   </Select>
                 </FormControl>

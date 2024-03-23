@@ -58,7 +58,7 @@ export const PagoList = () => {
                         <Chip label={pago.estado ? "Vigente" : "Vencido"} color={pago.estado ? "success" : "error"}></Chip>
                       </TableCell>
                       <TableCell align="right">
-                        <NavLink to={`#`}>
+                        <NavLink to={`/payments/edit/${pago.id}`}>
                           <EditIcon />
                         </NavLink>
                       </TableCell>
