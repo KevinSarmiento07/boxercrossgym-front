@@ -28,6 +28,8 @@ import { TestPage } from "../tests/pages/TestPage";
 import { TestRegisterPage } from "../tests/pages/TestRegisterPage";
 import { TestResultPage } from "../tests/pages/TestResultPage";
 import { TestResultGeneralPage } from "../tests/pages/TestResultGeneralPage";
+import EmailIcon from "@mui/icons-material/Email";
+import { EmailPage } from "../emails/pages/EmailPage";
 const navLinks = [
   {
     tittle: "Dashboard",
@@ -125,6 +127,11 @@ const navLinks = [
     ],
   },
   {
+    tittle: "Send Email",
+    path: "/email",
+    icon: <EmailIcon />,
+  },
+  {
     tittle: "Perfil",
     path: "/profile",
     icon: <AccountCircleIcon />,
@@ -158,6 +165,8 @@ export const UserRoutes = () => {
           <Route path="/test/register" element={<TestRegisterPage />} />
           <Route path="/test/my-results" element={<TestResultPage />} />
           <Route path="tests/:id" element={<TestResultGeneralPage />} />
+
+          <Route path="/email" element={<EmailPage />} />
 
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>
