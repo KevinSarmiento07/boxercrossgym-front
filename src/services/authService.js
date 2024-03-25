@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import axios from "axios";
 
 export const loginUser = async ({ username, password }) => {
@@ -7,7 +8,6 @@ export const loginUser = async ({ username, password }) => {
       password,
     });
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

@@ -19,7 +19,6 @@ export const PagoForm = ({ pagoSelected }) => {
 
   const { id, fechaPago, plan, tipoPago, valorPagado, fechaVencimiento } = payForm;
 
-  console.log(pagoSelected);
   useEffect(() => {
     getUsers();
     getPlanes().then(async (res) => {

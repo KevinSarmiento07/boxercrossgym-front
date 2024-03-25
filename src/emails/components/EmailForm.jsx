@@ -200,11 +200,6 @@ export const EmailForm = () => {
     e.preventDefault();
 
     handlerSendEmails(email.usuarios, email.option, email.asunto, email.body);
-    console.log(email);
-    console.log(groupedOptions);
-    console.log(value);
-    console.log(getListboxProps);
-
     setEmail(initialEmails);
     setOption("");
   };
