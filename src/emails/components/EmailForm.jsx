@@ -148,10 +148,17 @@ const Listbox = styled("ul")(
   }
 `
 );
-export const EmailForm = () => {
-  const { users = [], getUsers } = useUsers();
-  const [option, setOption] = useState("");
 
+const initialEmails = {
+  usuarios: [],
+  option: 0,
+  asunto: "",
+  body: "",
+};
+export const EmailForm = () => {
+  const [email, setEmail] = useState(initialEmails);
+  const { users = [], getUsers, handlerSendEmails } = useUsers();
+  const [option, setOption] = useState("");
   const handleChange = (event) => {
     setOption(event.target.value);
   };
@@ -166,11 +173,40 @@ export const EmailForm = () => {
     getOptionLabel: (option) => option.email,
   });
 
+  useEffect(() => {
+    setEmail({
+      ...email,
+      usuarios: value,
+    });
+  }, [value]);
+
+  useEffect(() => {
+    setEmail({
+      ...email,
+      option: option,
+    });
+  }, [option]);
+
+  const handleChangeEmail = ({ target }) => {
+    const { name, value } = target;
+
+    setEmail({
+      ...email,
+      [name]: value,
+    });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
+
+    handlerSendEmails(email.usuarios, email.option, email.asunto, email.body);
+    console.log(email);
     console.log(groupedOptions);
     console.log(value);
     console.log(getListboxProps);
+
+    setEmail(initialEmails);
+    setOption("");
   };
   return (
     <div>
@@ -220,11 +256,11 @@ export const EmailForm = () => {
 
         <div className="mt-3">
           <div className="mb-4">
-            <TextField fullWidth id="asunto" label="Asunto" variant="outlined" />
+            <TextField fullWidth id="asunto" name="asunto" label="Asunto" value={email.asunto} variant="outlined" onChange={handleChangeEmail} />
           </div>
 
           <div>
-            <TextField multiline rows={5} fullWidth id="cuerpo" label="Cuerpo" variant="outlined" />
+            <TextField multiline rows={5} fullWidth id="cuerpo" name="body" value={email.body} onChange={handleChangeEmail} label="Cuerpo" variant="outlined" />
           </div>
         </div>
 

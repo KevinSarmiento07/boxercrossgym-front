@@ -69,3 +69,11 @@ export const uploadUserPhoto = async (archivo, id) => {
     throw error;
   }
 };
+
+export const sendEmails = async (usuarios, option, asunto, body) => {
+  try {
+    return await usersApi.post(`${BASE_URL}/send-mail`, usuarios, { params: { option: option, asunto: asunto, body: body } });
+  } catch (error) {
+    throw error;
+  }
+};

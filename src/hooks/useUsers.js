@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
-import { findAll, getInfoUserAuthenticate, getNewUsers, getTotalUsersActives, getTotalUsersInactives, saveUser, updateUserS, uploadUserPhoto } from "../services/userService";
+import { findAll, getInfoUserAuthenticate, getNewUsers, getTotalUsersActives, getTotalUsersInactives, saveUser, sendEmails, updateUserS, uploadUserPhoto } from "../services/userService";
 import { addUser, loadingError, loadingUsers, updateUser } from "../store/slices/users/usersSlice";
 import { initialUserForm } from "../store/slices/users/usersSlice";
 import Swal from "sweetalert2";
@@ -114,6 +114,19 @@ export const useUsers = () => {
     }
   };
 
+  const handlerSendEmails = async (usuarios, option, asunto, body) => {
+    try {
+      await sendEmails(usuarios, option, asunto, body);
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+      Swal.fire("Error", "Ocurrio un error al enviar los correos, intentalo de nuevo.", "error");
+    }
+
+    Swal.fire("Emails enviados", "Los correos fueron enviados corectamente", "success");
+  };
+
   return {
     getUsers,
     users,
@@ -126,5 +139,6 @@ export const useUsers = () => {
     handlerUploadUserPhoto,
     errors,
     isLoading,
+    handlerSendEmails,
   };
 };
