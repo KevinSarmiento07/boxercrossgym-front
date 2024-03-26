@@ -45,10 +45,7 @@ export const SignInPage = () => {
     const username = data.get("username");
     const password = data.get("password");
 
-    handlerLogin({ username, password }, handleFalse).catch((error) => {
-      console.log(error);
-      setLoading(false);
-    });
+    handlerLogin({ username, password }, handleFalse);
   };
   return (
     <ThemeProvider theme={defaultTheme}>
