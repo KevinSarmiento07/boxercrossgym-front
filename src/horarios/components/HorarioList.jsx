@@ -1,15 +1,4 @@
-import {
-  Grid,
-  Paper,
-  Switch,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  tableCellClasses,
-} from "@mui/material";
+import { Grid, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from "@mui/material";
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useClases } from "../../hooks/useClases";
@@ -36,13 +25,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const arrSemanas = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO"];
+
 export const HorarioList = () => {
-  const {
-    clases = [],
-    getClases,
-    handlerUpdateEnabled,
-    handlerDeleteClase,
-  } = useClases();
+  const { clases = [], getClases, handlerUpdateEnabled, handlerDeleteClase } = useClases();
 
   useEffect(() => {
     getClases();
@@ -52,16 +38,14 @@ export const HorarioList = () => {
     <>
       {clases.length > 0 ? (
         <Grid marginTop={3} sx={{ textAlign: "-webkit-center" }}>
-          <TableContainer
-            component={Paper}
-            elevation={3}
-            sx={{ maxWidth: 1200 }}
-          >
+          <TableContainer component={Paper} elevation={3} sx={{ maxWidth: 1200 }}>
             <Table padding="normal" size="small">
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Horario</StyledTableCell>
                   <StyledTableCell>dias</StyledTableCell>
+                  <StyledTableCell>dias</StyledTableCell>
+                  <StyledTableCell>Entrenador</StyledTableCell>
                   <StyledTableCell align="right">Editar</StyledTableCell>
                   <StyledTableCell align="right">Eliminar</StyledTableCell>
                   <StyledTableCell align="right">Habilitado</StyledTableCell>
@@ -69,10 +53,18 @@ export const HorarioList = () => {
               </TableHead>
               <TableBody>
                 {clases.map((clase) => {
+                  let dias = clase.diasSemana.map((numero) => arrSemanas[numero]);
+                  clase.diasSemana;
                   return (
                     <StyledTableRow hover key={clase.id}>
                       <TableCell>{clase.horario}</TableCell>
                       <TableCell>{clase.dias}</TableCell>
+                      <TableCell>
+                        {dias.map((value) => {
+                          return value + " ";
+                        })}
+                      </TableCell>
+                      <TableCell>{`${clase?.usuario?.nombre} ${clase?.usuario?.apellido}`}</TableCell>
                       <TableCell align="right">
                         <NavLink to={`/class/schedule/${clase.id}`}>
                           <EditIcon />
@@ -84,14 +76,7 @@ export const HorarioList = () => {
                         </Button>
                       </TableCell>
                       <TableCell align="right">
-                        <Switch
-                          color="error"
-                          checked={clase.enabled}
-                          value={clase.id}
-                          onChange={({ target }) =>
-                            handlerUpdateEnabled(target.value)
-                          }
-                        />
+                        <Switch color="error" checked={clase.enabled} value={clase.id} onChange={({ target }) => handlerUpdateEnabled(target.value)} />
                       </TableCell>
                     </StyledTableRow>
                   );
