@@ -52,19 +52,20 @@ export const HorarioList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {clases.map((clase) => {
-                  let dias = clase.diasSemana.map((numero) => arrSemanas[numero]);
-                  clase.diasSemana;
+                {clases?.map((clase) => {
+                  let dias = clase?.diasSemana?.map((numero) => arrSemanas[numero]);
                   return (
                     <StyledTableRow hover key={clase.id}>
                       <TableCell>{clase.horario}</TableCell>
                       <TableCell>{clase.dias}</TableCell>
                       <TableCell>
-                        {dias.map((value) => {
-                          return value + " ";
-                        })}
+                        {dias != undefined && dias.length > 0
+                          ? dias?.map((value) => {
+                              return value + " ";
+                            })
+                          : "No hay dias asignados."}
                       </TableCell>
-                      <TableCell>{`${clase?.usuario?.nombre} ${clase?.usuario?.apellido}`}</TableCell>
+                      <TableCell>{clase.usuario ? `${clase?.usuario?.nombre} ${clase?.usuario?.apellido}` : "No hay un entrenador asignado."}</TableCell>
                       <TableCell align="right">
                         <NavLink to={`/class/schedule/${clase.id}`}>
                           <EditIcon />

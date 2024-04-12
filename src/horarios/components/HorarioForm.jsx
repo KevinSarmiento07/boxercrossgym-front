@@ -85,7 +85,7 @@ export const HorarioForm = ({ claseSelected }) => {
             <Grid item xs={12} md={6}>
               <div>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+                  <InputLabel id="demo-multiple-checkbox-label">Dias</InputLabel>
                   <Select
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
