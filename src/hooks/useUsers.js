@@ -1,7 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
-import { findAll, getInfoUserAuthenticate, getNewUsers, getTotalUsersActives, getTotalUsersInactives, saveUser, sendEmails, updateUserS, uploadUserPhoto } from "../services/userService";
+import {
+  findAll,
+  findAllByRole,
+  getInfoUserAuthenticate,
+  getNewUsers,
+  getTotalUsersActives,
+  getTotalUsersInactives,
+  saveUser,
+  sendEmails,
+  updateUserS,
+  uploadUserPhoto,
+} from "../services/userService";
 import { addUser, loadingError, loadingUsers, updateUser } from "../store/slices/users/usersSlice";
 import { initialUserForm } from "../store/slices/users/usersSlice";
 import Swal from "sweetalert2";
@@ -21,6 +32,16 @@ export const useUsers = () => {
     try {
       const result = await findAll();
       dispatch(loadingUsers(result.data));
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
+  const getUsersByRole = async (role) => {
+    try {
+      return await findAllByRole(role);
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
@@ -129,6 +150,7 @@ export const useUsers = () => {
 
   return {
     getUsers,
+    getUsersByRole,
     users,
     initialUserForm,
     handlerAddUser,

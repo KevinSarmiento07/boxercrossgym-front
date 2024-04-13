@@ -4,7 +4,6 @@ export const initialClaseForm = {
   id: 0,
   horario: "",
   enabled: true,
-  dias: "",
   diasSemana: [],
   usuario: {},
 };

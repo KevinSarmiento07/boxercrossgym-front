@@ -43,8 +43,7 @@ export const HorarioList = () => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Horario</StyledTableCell>
-                  <StyledTableCell>dias</StyledTableCell>
-                  <StyledTableCell>dias</StyledTableCell>
+                  <StyledTableCell>Dias</StyledTableCell>
                   <StyledTableCell>Entrenador</StyledTableCell>
                   <StyledTableCell align="right">Editar</StyledTableCell>
                   <StyledTableCell align="right">Eliminar</StyledTableCell>
@@ -57,7 +56,6 @@ export const HorarioList = () => {
                   return (
                     <StyledTableRow hover key={clase.id}>
                       <TableCell>{clase.horario}</TableCell>
-                      <TableCell>{clase.dias}</TableCell>
                       <TableCell>
                         {dias != undefined && dias.length > 0
                           ? dias?.map((value) => {
