@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useBooking } from "../../hooks/useBooking";
 import { useClases } from "../../hooks/useClases";
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
 import "dayjs/locale/es";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
@@ -91,17 +91,22 @@ export const BookingForm = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <FormControl fullWidth>
+              <FormControl fullWidth disabled={!bookingForm.fecha} error={!bookingForm.fecha}>
                 <InputLabel id="clase">Clase</InputLabel>
                 <Select label="Clase" labelId="clase" id="claseForm" name="clase" value={bookingForm.clase.id} onChange={onChangeForm}>
                   {clases.map((clase) => {
-                    return (
-                      <MenuItem key={clase.id} value={clase.id}>
-                        {`${clase.horario} ${clase.dias}`}
-                      </MenuItem>
-                    );
+                    let dayNumber = dayjs(bookingForm.fecha);
+                    dayNumber = (dayNumber + 6) % 7;
+                    if (clase.diasSemana.includes(dayNumber)) {
+                      return (
+                        <MenuItem key={clase.id} value={clase.id}>
+                          {`${clase.horario}, Entrenador: ${clase.usuario.nombre} ${clase.usuario.apellido}`}
+                        </MenuItem>
+                      );
+                    }
                   })}
                 </Select>
+                {bookingForm.fecha ? "" : <FormHelperText>Debe seleccionar una fecha primero</FormHelperText>}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4} textAlign="center" alignSelf="center">
