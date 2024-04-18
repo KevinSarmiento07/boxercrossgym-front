@@ -11,7 +11,7 @@ export const useAuth = () => {
   const { user, isAdmin, isAuth, isEntrenador } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const handlerLogin = async ({ username, password }) => {
+  const handlerLogin = async ({ username, password }, handleFalse) => {
     try {
       const response = await loginUser({ username, password });
       const token = response.data.token;
@@ -41,6 +41,7 @@ export const useAuth = () => {
 
       navigate("/dashboard");
     } catch (error) {
+      handleFalse();
       Swal.fire({
         position: "top-end",
         icon: "error",

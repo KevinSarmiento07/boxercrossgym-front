@@ -4,7 +4,8 @@ export const initialClaseForm = {
   id: 0,
   horario: "",
   enabled: true,
-  dias: "",
+  diasSemana: [],
+  usuario: {},
 };
 
 export const clasesSlice = createSlice({
@@ -36,12 +37,9 @@ export const clasesSlice = createSlice({
       });
     },
     deleteClase: (state, action) => {
-      state.clases = state.clases.filter(
-        (clase) => clase.id !== action.payload
-      );
+      state.clases = state.clases.filter((clase) => clase.id !== action.payload);
     },
   },
 });
 
-export const { loadingClases, addClase, updateClaseSlice, deleteClase } =
-  clasesSlice.actions;
+export const { loadingClases, addClase, updateClaseSlice, deleteClase } = clasesSlice.actions;

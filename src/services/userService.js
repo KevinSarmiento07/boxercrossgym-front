@@ -11,6 +11,14 @@ export const findAll = async () => {
   }
 };
 
+export const findAllByRole = async (role) => {
+  try {
+    return await usersApi.get(`${BASE_URL}/by-role`, { params: { role: role } });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const saveUser = async (user) => {
   try {
     return await usersApi.post(BASE_URL, user);

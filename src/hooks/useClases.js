@@ -32,13 +32,20 @@ export const useClases = () => {
         res = await updateClase(clase);
         dispatch(updateClaseSlice(res.data));
       }
+      Swal.fire("Horario añadito con éxito", "El horario se agregó correctamente", "success");
+      navigate("/class/schedule");
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
+      } else if (error.response && error.response.status == 400) {
+        //dispatch(loadingError(error.response.data));
+      } else if (error.response && error.response.status == 500 && error.response.data?.error?.includes("constraint")) {
+        if (error.response.data?.error?.includes("UK_usuario_horario")) {
+          Swal.fire("Error", "Ya existe una clase con el mismo horario y entrenador reigstrada.", "error");
+          //dispatch(loadingError({ email: "El correo electronico ya se encuentra registrado en la base de datos" }));
+        }
       }
     }
-    Swal.fire("Horario añadito con éxito", "El horario se agregó correctamente", "success");
-    navigate("/class/schedule");
   };
 
   const handlerUpdateEnabled = async (id) => {
