@@ -19,6 +19,7 @@ export const BookingList = () => {
               <TableRow>
                 <TableCell>Fecha</TableCell>
                 <TableCell>Horario</TableCell>
+                <TableCell>Entrenador</TableCell>
                 <TableCell>Eliminar</TableCell>
               </TableRow>
             </TableHead>
@@ -28,6 +29,7 @@ export const BookingList = () => {
                   <TableRow key={booking.id}>
                     <TableCell>{dayjs(booking.fecha).format("dddd, D [de] MMMM YYYY")}</TableCell>
                     <TableCell>{booking.clase.horario}</TableCell>
+                    <TableCell>{`${booking.clase.usuario.nombre} ${booking.clase.usuario.apellido}`}</TableCell>
                     <TableCell>
                       <Button onClick={() => handlerDeleteBookingById(booking.id)} color="error">
                         <DeleteIcon />
