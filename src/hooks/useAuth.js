@@ -14,7 +14,6 @@ export const useAuth = () => {
   const handlerLogin = async ({ username, password }, handleFalse) => {
     try {
       const response = await loginUser({ username, password });
-      console.log(response);
       const token = response.data.token;
       const claims = JSON.parse(window.atob(token.split(".")[1]));
       const user = { username: claims.sub };
