@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const initialStateEntreno = { id: 0, titulo: "", fecha: "", bloques: [] };
 export const EntrenamientoRegisterPage = () => {
   const { id } = useParams();
-  const { isAdmin } = useSelector((state) => state.auth);
+  const { isAdmin, isEntrenador } = useSelector((state) => state.auth);
   const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
   const [entrenamientoSeleccionado, setEntrenamientoSeleccionado] = useState(initialStateEntreno);
   useEffect(() => {
@@ -14,5 +14,5 @@ export const EntrenamientoRegisterPage = () => {
       setEntrenamientoSeleccionado({ ...entrenamientoSelect });
     }
   }, [id]);
-  return <>{isAdmin ? <EntrenamientoForm entrenamientoSeleccionado={entrenamientoSeleccionado}></EntrenamientoForm> : ""}</>;
+  return <>{isAdmin || isEntrenador ? <EntrenamientoForm entrenamientoSeleccionado={entrenamientoSeleccionado}></EntrenamientoForm> : ""}</>;
 };

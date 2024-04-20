@@ -4,9 +4,25 @@ import { useSelector } from "react-redux";
 import { SignInPage } from "./pages/sign-in/SignInPage";
 import { RoleUserRoute } from "./routes/RoleUserRoute";
 import { RegisterFormPage } from "./pages/sign-in/RegisterFormPage";
+import { RoleCoachRout } from "./routes/RoleCoachRout";
 
 export const AppRoutes = () => {
-  const { isAuth, isAdmin } = useSelector((state) => state.auth);
+  const { isAuth, isAdmin, isEntrenador } = useSelector((state) => state.auth);
+
+  if (isAuth && isAdmin) {
+    return (
+      <Routes>
+        <Route path="/*" element={<UserRoutes />}></Route>
+      </Routes>
+    );
+  }
+  if (isAuth && isEntrenador) {
+    return (
+      <Routes>
+        <Route path="/*" element={<RoleCoachRout />}></Route>
+      </Routes>
+    );
+  }
   return (
     <Routes>
       {isAuth ? (

@@ -13,7 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 /* eslint-disable react/prop-types */
 
 export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) => {
-  const { isAdmin } = useSelector((state) => state.auth);
+  const { isAdmin, isEntrenador } = useSelector((state) => state.auth);
   const initialEntreno = {
     id: 0,
     fechaEntreno: "",
@@ -112,7 +112,7 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
 
   return (
     <>
-      {isAdmin ? (
+      {isAdmin || isEntrenador ? (
         <Container>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Box component="form" onSubmit={onSubmit}>
