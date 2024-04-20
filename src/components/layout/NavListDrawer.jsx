@@ -8,6 +8,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
 export const NavListDrawer = ({ handleDrawerClose, mobileOpen, handleDrawerTransitionEnd, navLinks }) => {
+  console.log(navLinks);
   const drawerWidth = 240;
   const [open, setOpen] = useState({});
 
