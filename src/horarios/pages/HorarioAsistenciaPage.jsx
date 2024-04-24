@@ -15,12 +15,7 @@ export const HorarioAsistenciaPage = () => {
 
   return (
     <>
-      <Typography
-        variant="h2"
-        textAlign={"center"}
-        fontWeight={"bold"}
-        marginY={"5"}
-      >
+      <Typography variant="h2" textAlign={"center"} fontWeight={"bold"} marginY={"5"}>
         Asistencia
       </Typography>
       <AsistenciaTable data={data}></AsistenciaTable>
