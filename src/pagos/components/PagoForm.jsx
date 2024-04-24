@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { usePagos } from "../../hooks/usePagos";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Swal from "sweetalert2";
 
 export const PagoForm = ({ pagoSelected }) => {
   const { users, getUsers } = useUsers();
@@ -58,6 +59,10 @@ export const PagoForm = ({ pagoSelected }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (payForm.fechaPago == null) {
+      Swal.fire("Error", "La fecha de pago no puede estar vacia.", "error");
+      return;
+    }
     handlerAddPago(payForm);
     setPayForm(initialPayForm);
     setSelectedUser(null);
@@ -114,14 +119,14 @@ export const PagoForm = ({ pagoSelected }) => {
                 </Grid>
               )}
               <Grid item xs={12} md={6}>
-                <FormControl fullWidth>
+                <FormControl fullWidth required>
                   <InputLabel id="plan">Plan a escoger</InputLabel>
                   <Select
                     required
                     labelId="plan"
                     id="plan-select"
                     label="Plan a escoger"
-                    value={plan.id}
+                    value={plan.id > 0 ? plan.id : ""}
                     name="plan"
                     onChange={({ target }) => {
                       const { name, value } = target;
@@ -137,9 +142,6 @@ export const PagoForm = ({ pagoSelected }) => {
                       });
                     }}
                   >
-                    <MenuItem value={0} key={0}>
-                      Escoger una opción
-                    </MenuItem>
                     {planes.map((p) => {
                       return (
                         <MenuItem value={p.id} key={p.id}>
@@ -151,7 +153,7 @@ export const PagoForm = ({ pagoSelected }) => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
+                <FormControl fullWidth required>
                   <InputLabel htmlFor="outlined-adornment-amount">Valor a pagar</InputLabel>
                   <OutlinedInput
                     required
@@ -172,7 +174,6 @@ export const PagoForm = ({ pagoSelected }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DatePicker
-                  required
                   sx={{ width: "100%" }}
                   label="Fecha de pago"
                   selectedSections={"day" | "month" | "year"}
@@ -197,7 +198,7 @@ export const PagoForm = ({ pagoSelected }) => {
                 </Grid>
               )}
               <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
+                <FormControl fullWidth required>
                   <InputLabel id="tipo-pago">Tipo de pago</InputLabel>
                   <Select labelId="tipo-pago" id="tipo-pago-select" label="Tipo de pago" name="tipoPago" value={tipoPago} onChange={onInputChange} required>
                     <MenuItem value="">Selecciona una opción</MenuItem>

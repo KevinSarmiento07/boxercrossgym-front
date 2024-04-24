@@ -149,7 +149,7 @@ export const UserForm = ({ userSelected }) => {
                 value={telefono}
                 onChange={onInputChange}
                 error={errors?.telefono != undefined && errors?.telefono.length > 0}
-                helperText={errors?.telefono && errors?.telefono.length > 0 ? errors?.telefono : ""}
+                helperText={errors?.telefono && errors?.telefono.length > 0 ? errors?.telefono : "Obligatorio"}
               />
             </Grid>
             <Grid item xs={12} md={4}>

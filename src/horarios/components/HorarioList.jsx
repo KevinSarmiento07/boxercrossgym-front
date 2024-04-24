@@ -2,8 +2,8 @@ import { Grid, Paper, Switch, Table, TableBody, TableCell, TableContainer, Table
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useClases } from "../../hooks/useClases";
-import { NavLink } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
+//import { NavLink } from "react-router-dom";
+//import EditIcon from "@mui/icons-material/Edit";
 import { useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/base";
@@ -45,7 +45,7 @@ export const HorarioList = () => {
                   <StyledTableCell>Horario</StyledTableCell>
                   <StyledTableCell>Dias</StyledTableCell>
                   <StyledTableCell>Entrenador</StyledTableCell>
-                  <StyledTableCell align="right">Editar</StyledTableCell>
+                  {/*<StyledTableCell align="right">Editar</StyledTableCell>*/}
                   <StyledTableCell align="right">Eliminar</StyledTableCell>
                   <StyledTableCell align="right">Habilitado</StyledTableCell>
                 </TableRow>
@@ -64,11 +64,12 @@ export const HorarioList = () => {
                           : "No hay dias asignados."}
                       </TableCell>
                       <TableCell>{clase.usuario ? `${clase?.usuario?.nombre} ${clase?.usuario?.apellido}` : "No hay un entrenador asignado."}</TableCell>
-                      <TableCell align="right">
+                      {/** <TableCell align="right">
                         <NavLink to={`/class/schedule/${clase.id}`}>
                           <EditIcon />
                         </NavLink>
-                      </TableCell>
+                      </TableCell>*/}
+
                       <TableCell align="right">
                         <Button onClick={() => handlerDeleteClase(clase.id)}>
                           <DeleteIcon />

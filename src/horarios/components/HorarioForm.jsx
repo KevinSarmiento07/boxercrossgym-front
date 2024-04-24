@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import { Box, Button, Container, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useClases } from "../../hooks/useClases";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -11,6 +11,9 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import { useUsers } from "../../hooks/useUsers";
 import Swal from "sweetalert2";
+import { DateTimeField, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -39,9 +42,9 @@ export const HorarioForm = ({ claseSelected }) => {
   const { getUsersByRole } = useUsers();
   const [claseForm, setClaseForm] = useState(initialClaseForm);
   const [coaches, setCoaches] = useState([]);
-  const { horario } = claseForm;
   const [dayName, setDayName] = useState([]);
   const [coach, setCoach] = useState("");
+  const [hour, setHour] = useState(null);
 
   const handleChangeCoach = (event) => {
     setCoach(event.target.value);
@@ -63,11 +66,6 @@ export const HorarioForm = ({ claseSelected }) => {
     });
   }, [claseSelected]);
 
-  const onInputChange = ({ target }) => {
-    const { name, value } = target;
-    setClaseForm({ ...claseForm, [name]: value });
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (coach.id <= 0 || coach.id == undefined) {
@@ -79,6 +77,7 @@ export const HorarioForm = ({ claseSelected }) => {
       });
     }
 
+    setHour(null);
     handlerAddClase(claseForm);
     setClaseForm(initialClaseForm);
     setCoach("");
@@ -100,60 +99,70 @@ export const HorarioForm = ({ claseSelected }) => {
     );
   };
 
+  const onChangeHour = (e) => {
+    setClaseForm({
+      ...claseForm,
+      horario: dayjs(e).format("HH:mm"),
+    });
+    setHour(e);
+  };
+
   return (
     <>
       <Container>
         <Box component="form" onSubmit={onSubmit}>
-          <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} marginTop={2}>
-            <Grid item xs={12}>
-              <TextField fullWidth id="outlined-basic" label="Horario" variant="outlined" name="horario" value={horario} onChange={onInputChange} required />
-            </Grid>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} marginTop={2}>
+              <Grid item xs={12}>
+                <DateTimeField required fullWidth label="Escribe la hora en horas y minutos (24H)" value={hour} defaultValue={null} format="HH:mm" onChange={onChangeHour} />
+              </Grid>
 
-            <Grid item xs={12}>
-              <div>
+              <Grid item xs={12}>
+                <div>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-multiple-checkbox-label">Dias</InputLabel>
+                    <Select
+                      required
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={dayName}
+                      onChange={handleChange}
+                      input={<OutlinedInput label="Tag" />}
+                      renderValue={(selected) => selected.join(", ")}
+                      MenuProps={MenuProps}
+                    >
+                      {names.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          <Checkbox checked={dayName.indexOf(name) > -1} />
+                          <ListItemText primary={name} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-multiple-checkbox-label">Dias</InputLabel>
-                  <Select
-                    required
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={dayName}
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Tag" />}
-                    renderValue={(selected) => selected.join(", ")}
-                    MenuProps={MenuProps}
-                  >
-                    {names.map((name) => (
-                      <MenuItem key={name} value={name}>
-                        <Checkbox checked={dayName.indexOf(name) > -1} />
-                        <ListItemText primary={name} />
-                      </MenuItem>
-                    ))}
+                  <InputLabel id="demo-simple-select-label">Entrenador</InputLabel>
+                  <Select labelId="demo-simple-select-label" id="demo-simple-select" value={coach} label="Entrenador" onChange={handleChangeCoach} required>
+                    {coaches.map((value, index) => {
+                      return (
+                        <MenuItem key={index} value={value}>
+                          {`${value.nombre} ${value.apellido}`}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
-              </div>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Entrenador</InputLabel>
-                <Select labelId="demo-simple-select-label" id="demo-simple-select" value={coach} label="Entrenador" onChange={handleChangeCoach} required>
-                  {coaches.map((value, index) => {
-                    return (
-                      <MenuItem key={index} value={value}>
-                        {`${value.nombre} ${value.apellido}`}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+            <Grid marginTop={2} textAlign={"center"}>
+              <Button variant="outlined" type="submit" color="error" size="large" sx={{ textTransform: "none" }}>
+                Guardar
+              </Button>
             </Grid>
-          </Grid>
-          <Grid marginTop={2} textAlign={"center"}>
-            <Button variant="outlined" type="submit" color="error" size="large" sx={{ textTransform: "none" }}>
-              Guardar
-            </Button>
-          </Grid>
+          </LocalizationProvider>
         </Box>
       </Container>
     </>

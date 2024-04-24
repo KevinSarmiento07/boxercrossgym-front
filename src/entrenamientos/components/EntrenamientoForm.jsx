@@ -65,6 +65,10 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
       Swal.fire("Error", "Debe haber al menos un bloque en el entrenamiento.", "error");
       return;
     }
+    if (entrenamiento.fechaEntreno == undefined || !entrenamiento.fechaEntreno.length > 0) {
+      Swal.fire("Error", "La fecha del entrenamiento no puede estar vacia.", "error");
+      return;
+    }
     handleSaveEntrenamiento({ entrenamiento, bloques });
     setEntrenamiento(initialEntreno);
     //setDateSelected(undefined);

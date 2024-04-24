@@ -67,12 +67,21 @@ export const useUsers = () => {
         handlerLogout();
       } else if (error.response && error.response.status == 400) {
         dispatch(loadingError(error.response.data));
-      } else if (error.response && error.response.status == 500 && error.response.data?.error?.includes("constraint")) {
+      } else if (error.response && error.response.status == 500 && (error.response.data?.error?.includes("constraint") || error.response.data?.error?.includes("truncation"))) {
         if (error.response.data?.error?.includes("email_UNIQUE")) {
           dispatch(loadingError({ email: "El correo electronico ya se encuentra registrado en la base de datos" }));
         }
         if (error.response.data?.error?.includes("cedula_UNIQUE")) {
           dispatch(loadingError({ cedula: "La cedula ya se encuentra registrado en la base de datos" }));
+        }
+        if (error.response.data?.error?.includes("telefono_UNIQUE")) {
+          dispatch(loadingError({ telefono: "El telefono ya se encuentra registrado en la base de datos" }));
+        }
+        if (error.response.data?.error?.includes("long for column 'telefono'")) {
+          dispatch(loadingError({ telefono: "El numero telefonico supera el limite de digitos (10)" }));
+        }
+        if (error.response.data?.error?.includes("long for column 'cedula'")) {
+          dispatch(loadingError({ cedula: "El numero de documento supera el limite de digitos (45)" }));
         }
       }
 
