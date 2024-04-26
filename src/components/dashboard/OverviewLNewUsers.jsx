@@ -2,20 +2,7 @@
 import { formatDistanceToNow } from "date-fns";
 import ArrowRightIcon from "@heroicons/react/24/solid/ArrowRightIcon";
 import EllipsisVerticalIcon from "@heroicons/react/24/solid/EllipsisVerticalIcon";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardHeader,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  SvgIcon,
-} from "@mui/material";
+import { Box, Button, Card, CardActions, CardHeader, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, SvgIcon } from "@mui/material";
 import { es } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
 
@@ -38,7 +25,7 @@ export const OverviewLNewUsers = (props) => {
                 {user.foto ? (
                   <Box
                     component="img"
-                    src={`http://localhost:8080/users/uploads/img/${user.foto}`}
+                    src={`${import.meta.url.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`}
                     sx={{
                       borderRadius: 1,
                       height: 48,
