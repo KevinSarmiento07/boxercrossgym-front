@@ -56,7 +56,7 @@ export const UsersList = () => {
                     <StyledTableRow hover key={user.id}>
                       <TableCell sx={{ padding: 1 }}>
                         {user.foto ? (
-                          <Avatar alt={user.foto} src={`http://localhost:8080/users/uploads/img/${user.foto}`} sx={{ width: 50, height: 50 }} />
+                          <Avatar alt={user.foto} src={`${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`} sx={{ width: 50, height: 50 }} />
                         ) : (
                           <Avatar alt="user" src="/images/user.png" sx={{ width: 50, height: 50 }} />
                         )}
