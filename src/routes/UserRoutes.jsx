@@ -32,7 +32,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import { EmailPage } from "../emails/pages/EmailPage";
 const navLinks = [
   {
-    tittle: "Dashboard",
+    tittle: "Inicio",
     path: "/Dashboard",
     icon: <DashboardIcon />,
   },

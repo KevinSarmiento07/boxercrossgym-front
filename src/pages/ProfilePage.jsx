@@ -62,7 +62,7 @@ export const ProfilePage = () => {
             <Paper elevation={8} sx={{ marginBottom: 2, paddingY: 5 }}>
               <Stack spacing={2} justifyContent={"center"} textAlign="center" alignItems="center">
                 <Avatar
-                  src={infoUser.foto === "" || infoUser.foto == null ? "/images/user.png" : `http://localhost:8080/users/uploads/img/${infoUser.foto}`}
+                  src={infoUser.foto === "" || infoUser.foto == null ? "/images/user.png" : `${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${infoUser.foto}`}
                   alt={infoUser.foto === "" || infoUser.foto == null ? "user" : infoUser.foto}
                   sx={{ width: 170, height: 170, marginY: 5 }}
                 />

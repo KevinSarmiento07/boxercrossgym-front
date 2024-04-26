@@ -17,7 +17,7 @@ import { TestResultPage } from "../tests/pages/TestResultPage";
 import { TestResultGeneralPage } from "../tests/pages/TestResultGeneralPage";
 const navLinks = [
   {
-    tittle: "Dashboard",
+    tittle: "Inicio",
     path: "/dashboard",
     icon: <DashboardIcon />,
   },

@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useUsers } from "../../hooks/useUsers";
 import { useAuth } from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 export const UserForm = ({ userSelected }) => {
   const { initialUserForm, handlerAddUser, errors } = useUsers();
@@ -25,6 +26,19 @@ export const UserForm = ({ userSelected }) => {
   };
 
   const onDateChange = (value, context, name) => {
+    if (name === "fechaNacimiento") {
+      if (value !== null) {
+        const selectedDate = value;
+        const today = dayjs();
+
+        const eightYearsAgo = today.subtract(8, "year");
+
+        if (selectedDate.isAfter(eightYearsAgo)) {
+          Swal.fire("Error", "La fecha de nacimiento debe ser al menos 8 años antes de la fecha actual.", "error");
+          return;
+        }
+      }
+    }
     const fecha = dayjs(value).format("YYYY-MM-DD");
     setUserForm({
       ...userForm,

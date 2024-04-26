@@ -17,11 +17,7 @@ export const BookingPage = () => {
       <Divider />
       {bookings.length === 0 ? (
         <Grid item xs={12} textAlign={"center"} marginTop={5}>
-          <Alert
-            variant="filled"
-            severity="error"
-            sx={{ justifyContent: "center" }}
-          >
+          <Alert variant="filled" severity="error" sx={{ justifyContent: "center" }}>
             No hay clases reservadas
           </Alert>
         </Grid>

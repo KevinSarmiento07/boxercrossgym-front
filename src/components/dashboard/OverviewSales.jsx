@@ -1,14 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import ArrowRightIcon from "@heroicons/react/24/solid/ArrowRightIcon";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Divider,
-  SvgIcon,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, Divider, SvgIcon } from "@mui/material";
 import { alpha, useTheme } from "@mui/material/styles";
 import { Chart } from "../chart";
 import { Suspense } from "react";
@@ -72,20 +65,7 @@ const useChartOptions = () => {
         color: theme.palette.divider,
         show: true,
       },
-      categories: [
-        "Ene",
-        "Feb",
-        "Mar",
-        "Abr",
-        "May",
-        "Jun",
-        "Jul",
-        "Ago",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dic",
-      ],
+      categories: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
       labels: {
         offsetY: 5,
         style: {
@@ -113,17 +93,12 @@ export const OverviewSales = (props) => {
       <CardHeader title="Ventas" />
       <CardContent>
         <Suspense>
-          <Chart
-            height={350}
-            options={chartOptions}
-            series={chartSeries}
-            type="bar"
-            width="100%"
-          />
+          <Chart height={350} options={chartOptions} series={chartSeries} type="bar" width="100%" />
         </Suspense>
       </CardContent>
       <Divider />
-      <CardActions sx={{ justifyContent: "flex-end" }}>
+      {/**
+       * <CardActions sx={{ justifyContent: "flex-end" }}>
         <NavLink to={"/payments"}>
           <Button
             color="inherit"
@@ -138,6 +113,8 @@ export const OverviewSales = (props) => {
           </Button>
         </NavLink>
       </CardActions>
+       * 
+       */}
     </Card>
   );
 };
