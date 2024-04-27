@@ -25,7 +25,7 @@ export const OverviewLNewUsers = (props) => {
                 {user.foto ? (
                   <Box
                     component="img"
-                    src={`${import.meta.url.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`}
+                    src={`${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`}
                     sx={{
                       borderRadius: 1,
                       height: 48,

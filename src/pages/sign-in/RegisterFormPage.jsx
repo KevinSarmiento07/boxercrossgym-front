@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useUsers } from "../../hooks/useUsers";
 import { useAuth } from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 export const RegisterFormPage = () => {
   const { initialUserForm, handlerAddUser, errors } = useUsers();
@@ -19,6 +20,19 @@ export const RegisterFormPage = () => {
   };
 
   const onDateChange = (value, context, name) => {
+    if (name === "fechaNacimiento") {
+      if (value !== null) {
+        const selectedDate = value;
+        const today = dayjs();
+
+        const eightYearsAgo = today.subtract(8, "year");
+
+        if (selectedDate.isAfter(eightYearsAgo)) {
+          Swal.fire("Error", "La fecha de nacimiento debe ser al menos 8 años antes de la fecha actual.", "error");
+          return;
+        }
+      }
+    }
     const fecha = dayjs(value).format("YYYY-MM-DD");
     setUserForm({
       ...userForm,
@@ -147,7 +161,7 @@ export const RegisterFormPage = () => {
                   value={telefono}
                   onChange={onInputChange}
                   error={errors?.telefono != undefined && errors?.telefono.length > 0}
-                  helperText={errors?.telefono && errors?.telefono.length > 0 ? errors?.telefono : ""}
+                  helperText={errors?.telefono && errors?.telefono.length > 0 ? errors?.telefono : "Obligatorio"}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
