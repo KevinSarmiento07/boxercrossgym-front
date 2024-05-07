@@ -4,12 +4,14 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useEntrenamiento } from "../../hooks/useEntrenamiento";
+import { useExercise } from "../../hooks/useExercise";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Autocomplete from '@mui/material/Autocomplete';
 /* eslint-disable react/prop-types */
 
 export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) => {
@@ -27,6 +29,11 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
 
   const [entrenamientoForm, setEntrenamientoForm] = useState(initialEntrenamientoForm);
   const { fechaEntreno, titulo, nombre, descripcion, id } = entrenamientoForm;
+
+  const { getExercises } = useExercise();
+  const [exercises, setExercises] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setEntrenamientoForm({
       ...entrenamientoForm,
@@ -71,6 +78,21 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
     setEntrenamientoForm(initialEntrenamientoForm);
   };
 
+  useEffect(() => {
+    async function fetchExercises() {
+      try {
+        const exercises = await getExercises(); // Obtener los ejercicios desde el backend
+        setExercises(exercises);
+      } catch (error) {
+        console.error('Error fetching exercises:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchExercises();
+  }, []);
+
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setEntrenamientoForm({ ...entrenamientoForm, [name]: value });
@@ -109,7 +131,6 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
   const onClickDeleteBloque = (index) => {
     handleDeleteBloqueById(index);
   };
-
   return (
     <>
       {isAdmin ? (
@@ -139,6 +160,21 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
                       BLOQUES
                     </Typography>
                     <TextField fullWidth variant="outlined" label="Nombre" type="Nombre" name="nombre" value={nombre} onChange={onInputChange} />
+                  </Grid>
+                  <Grid item xs={10} marginBottom={3}>
+                    <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={exercises}
+                        loading={loading}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Ejercicios" variant="outlined"/>}
+                        type="Ejercicio" 
+                        name="ejercicio"
+                    />
+                    {/* <Button variant={"outlined"}  color="error" onClick={(e) => onClickExercise(e, ejercicio)}>
+                      Agregar Ejercicio
+                    </Button> */}
                   </Grid>
                   <Grid item xs={10} marginBottom={3}>
                     <TextField fullWidth multiline rows={5} variant="outlined" label="Descripcion" type="Descripcion" name="descripcion" value={descripcion} onChange={onInputChange} />
