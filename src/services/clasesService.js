@@ -12,6 +12,14 @@ export const findAllClases = async () => {
   }
 };
 
+export const findAllClassEnabled = async () => {
+  try {
+    return await clasesApi.get(`${BASE_URL}/enabled`);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createClase = async (clase) => {
   try {
     return await clasesApi.post(BASE_URL, clase);

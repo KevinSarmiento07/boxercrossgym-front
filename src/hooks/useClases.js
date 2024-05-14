@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { createClase, deleteClaseById, findAllClases, getBookings, updateClase, updateEnabled } from "../services/clasesService";
+import { createClase, deleteClaseById, findAllClases, findAllClassEnabled, getBookings, updateClase, updateEnabled } from "../services/clasesService";
 import { addClase, loadingClases, initialClaseForm, updateClaseSlice, deleteClase } from "../store/slices/clases/clasesSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -15,6 +15,16 @@ export const useClases = () => {
     try {
       const res = await findAllClases();
       dispatch(loadingClases(res.data));
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
+  const getClassEnabled = async () => {
+    try {
+      return await findAllClassEnabled();
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
@@ -86,6 +96,7 @@ export const useClases = () => {
   return {
     clases,
     getClases,
+    getClassEnabled,
     handlerAddClase,
     initialClaseForm,
     handlerUpdateEnabled,

@@ -18,7 +18,8 @@ const initialBookingForm = {
 export const BookingForm = () => {
   dayjs.locale("es");
   const { getAvailableDaysByUser, handlerAddBooking, getQuantityClientPerClass } = useBooking();
-  const { clases, getClases } = useClases();
+  const { getClassEnabled } = useClases();
+  const [clases, setClases] = useState([]);
   const [availableDays, setAvailableDays] = useState([]);
   const [bookingForm, setBookingForm] = useState(initialBookingForm);
   const [quantity, setQuantity] = useState(0);
@@ -26,7 +27,9 @@ export const BookingForm = () => {
     getAvailableDaysByUser().then((res) => {
       setAvailableDays(res.data);
     });
-    getClases();
+    getClassEnabled().then((res) => {
+      setClases(res.data);
+    });
   }, []);
   useEffect(() => {
     if (bookingForm.fecha != "" && bookingForm.clase.id > 0) {
