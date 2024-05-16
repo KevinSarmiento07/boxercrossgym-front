@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Alert, Chip } from "@mui/material";
 import { usePagos } from "../../hooks/usePagos";
 import { styled } from "@mui/material/styles";
@@ -5,7 +6,7 @@ import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, Ta
 import { NavLink } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 
-export const PagoList = () => {
+export const PagoList = ({ search }) => {
   const { pagos } = usePagos();
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -43,28 +44,32 @@ export const PagoList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pagos.map((pago) => {
-                  return (
-                    <StyledTableRow hover key={pago.id}>
-                      <TableCell sx={{ padding: 1 }}>
-                        {pago.usuario.nombre} {pago.usuario.apellido}
-                      </TableCell>
-                      <TableCell align="right">{pago.plan.nombre}</TableCell>
-                      <TableCell align="right">{pago.tipoPago}</TableCell>
-                      <TableCell align="right">{pago.valorPagado}</TableCell>
-                      <TableCell align="right">{pago.fechaPago}</TableCell>
-                      <TableCell align="right">{pago.fechaVencimiento}</TableCell>
-                      <TableCell align="right">
-                        <Chip label={pago.estado ? "Vigente" : "Vencido"} color={pago.estado ? "success" : "error"}></Chip>
-                      </TableCell>
-                      <TableCell align="right">
-                        <NavLink to={`/payments/edit/${pago.id}`}>
-                          <EditIcon />
-                        </NavLink>
-                      </TableCell>
-                    </StyledTableRow>
-                  );
-                })}
+                {pagos
+                  .filter((item) => {
+                    return search.toLowerCase() === "" ? item : item.usuario.nombre.toLowerCase().includes(search.toLowerCase()) || item.usuario.apellido.toLowerCase().includes(search.toLowerCase());
+                  })
+                  .map((pago) => {
+                    return (
+                      <StyledTableRow hover key={pago.id}>
+                        <TableCell sx={{ padding: 1 }}>
+                          {pago.usuario.nombre} {pago.usuario.apellido}
+                        </TableCell>
+                        <TableCell align="right">{pago.plan.nombre}</TableCell>
+                        <TableCell align="right">{pago.tipoPago}</TableCell>
+                        <TableCell align="right">{pago.valorPagado}</TableCell>
+                        <TableCell align="right">{pago.fechaPago}</TableCell>
+                        <TableCell align="right">{pago.fechaVencimiento}</TableCell>
+                        <TableCell align="right">
+                          <Chip label={pago.estado ? "Vigente" : "Vencido"} color={pago.estado ? "success" : "error"}></Chip>
+                        </TableCell>
+                        <TableCell align="right">
+                          <NavLink to={`/payments/edit/${pago.id}`}>
+                            <EditIcon />
+                          </NavLink>
+                        </TableCell>
+                      </StyledTableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>

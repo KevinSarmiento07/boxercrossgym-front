@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
 /* eslint-disable react/prop-types */
-export const UsersList = () => {
+export const UsersList = ({ search }) => {
   const { users, isLoading } = useUsers();
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -51,31 +51,35 @@ export const UsersList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users.map((user) => {
-                  return (
-                    <StyledTableRow hover key={user.id}>
-                      <TableCell sx={{ padding: 1 }}>
-                        {user.foto ? (
-                          <Avatar alt={user.foto} src={`${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`} sx={{ width: 50, height: 50 }} />
-                        ) : (
-                          <Avatar alt="user" src="/images/user.png" sx={{ width: 50, height: 50 }} />
-                        )}
-                      </TableCell>
-                      <TableCell align="right">{user.nombre}</TableCell>
-                      <TableCell align="right">{user.apellido}</TableCell>
-                      <TableCell align="right">{user.email}</TableCell>
-                      <TableCell align="right">{user.telefono}</TableCell>
-                      <TableCell align="right">
-                        <Chip label={user.enabled ? "Activo" : "Inactivo"} color={user.enabled ? "success" : "error"}></Chip>
-                      </TableCell>
-                      <TableCell align="right">
-                        <NavLink to={`/users/edit/${user.id}`}>
-                          <EditIcon />
-                        </NavLink>
-                      </TableCell>
-                    </StyledTableRow>
-                  );
-                })}
+                {users
+                  .filter((item) => {
+                    return search.toLowerCase() === "" ? item : item.nombre.toLowerCase().includes(search.toLowerCase()) || item.apellido.toLowerCase().includes(search.toLowerCase());
+                  })
+                  .map((user) => {
+                    return (
+                      <StyledTableRow hover key={user.id}>
+                        <TableCell sx={{ padding: 1 }}>
+                          {user.foto ? (
+                            <Avatar alt={user.foto} src={`${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`} sx={{ width: 50, height: 50 }} />
+                          ) : (
+                            <Avatar alt="user" src="/images/user.png" sx={{ width: 50, height: 50 }} />
+                          )}
+                        </TableCell>
+                        <TableCell align="right">{user.nombre}</TableCell>
+                        <TableCell align="right">{user.apellido}</TableCell>
+                        <TableCell align="right">{user.email}</TableCell>
+                        <TableCell align="right">{user.telefono}</TableCell>
+                        <TableCell align="right">
+                          <Chip label={user.enabled ? "Activo" : "Inactivo"} color={user.enabled ? "success" : "error"}></Chip>
+                        </TableCell>
+                        <TableCell align="right">
+                          <NavLink to={`/users/edit/${user.id}`}>
+                            <EditIcon />
+                          </NavLink>
+                        </TableCell>
+                      </StyledTableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
