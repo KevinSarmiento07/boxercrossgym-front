@@ -7,6 +7,7 @@ import { clasesSlice } from "./slices/clases/clasesSlice";
 import { bookingSlice } from "./slices/booking/bookingSlice";
 import { testSlice } from "./slices/test/testSlice";
 import { usertestSlice } from "./slices/test/usertestSlice";
+import { planSlice } from "./slices/plans/planSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     bookings: bookingSlice.reducer,
     tests: testSlice.reducer,
     usertests: usertestSlice.reducer,
+    plan: planSlice.reducer,
   },
 });

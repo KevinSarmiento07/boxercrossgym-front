@@ -30,6 +30,9 @@ import { TestResultPage } from "../tests/pages/TestResultPage";
 import { TestResultGeneralPage } from "../tests/pages/TestResultGeneralPage";
 import EmailIcon from "@mui/icons-material/Email";
 import { EmailPage } from "../emails/pages/EmailPage";
+import { PlanPage } from "../plan/pages/PlanPage";
+import { PlanRegisterPage } from "../plan/pages/PlanRegisterPage";
+import PixIcon from "@mui/icons-material/Pix";
 const navLinks = [
   {
     tittle: "Inicio",
@@ -67,6 +70,16 @@ const navLinks = [
         tittle: "Nuevo Pago",
         path: "/payments/register",
         icon: <AddCardIcon />,
+      },
+      {
+        tittle: "Planes",
+        path: "/planes",
+        icon: <PixIcon />,
+      },
+      {
+        tittle: "Agregar Plan",
+        path: "/planes/register",
+        icon: <PixIcon />,
       },
     ],
   },
@@ -167,6 +180,9 @@ export const UserRoutes = () => {
           <Route path="tests/:id" element={<TestResultGeneralPage />} />
 
           <Route path="/email" element={<EmailPage />} />
+
+          <Route path="/planes" element={<PlanPage />} />
+          <Route path="/planes/register" element={<PlanRegisterPage />} />
 
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>
