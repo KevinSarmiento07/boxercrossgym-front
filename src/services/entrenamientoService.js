@@ -11,6 +11,14 @@ export const findAllBloques = async () => {
   }
 };
 
+export const deleteEntrenamiento = async (id) => {
+  try {
+    return await entrenamientosApi.delete(`${BASE_URL}/${id}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const saveEntrenamiento = async (entrenamiento) => {
   try {
     return await entrenamientosApi.post(BASE_URL, entrenamiento);

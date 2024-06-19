@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   findAll,
   findAllByRole,
+  findById,
   getInfoUserAuthenticate,
   getNewUsers,
   getTotalUsersActives,
@@ -21,7 +22,7 @@ import { useAuth } from "./useAuth";
 export const useUsers = () => {
   const { users, errors, isLoading } = useSelector((state) => state.users);
 
-  const { handlerLogout } = useAuth();
+  const { handlerLogout, login } = useAuth();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +33,17 @@ export const useUsers = () => {
     try {
       const result = await findAll();
       dispatch(loadingUsers(result.data));
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
+  const getUserById = async (id) => {
+    try {
+      const result = await findById(id);
+      return result.data;
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
@@ -61,7 +73,16 @@ export const useUsers = () => {
 
       Swal.fire(user.id === 0 ? "Usuario Creado" : "Usuario Actualizado", user.id === 0 ? "El usuario ha sido creado con exito!" : "El usuario ha sido actualizado con exito!", "success");
 
-      navigate("/users");
+      if (login.isAdmin) {
+        navigate("/users");
+      }
+      if (login.isEntrenador) {
+        navigate("/");
+      }
+
+      if (login.user) {
+        navigate("/");
+      }
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
@@ -160,6 +181,7 @@ export const useUsers = () => {
   return {
     getUsers,
     getUsersByRole,
+    getUserById,
     users,
     initialUserForm,
     handlerAddUser,

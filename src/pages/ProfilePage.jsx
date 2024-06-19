@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Avatar, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Grid, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useUsers } from "../hooks/useUsers";
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Swal from "sweetalert2";
+import EditIcon from "@mui/icons-material/Edit";
+import { NavLink } from "react-router-dom";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -21,9 +23,10 @@ const VisuallyHiddenInput = styled("input")({
 export const ProfilePage = () => {
   //const { user } = useSelector((state) => state.auth);
   const [fotoSelected, setFotoSelected] = useState({});
-  const { initialUserForm, getInfoUser, handlerUploadUserPhoto } = useUsers();
+  const { initialUserForm, getInfoUser, handlerUploadUserPhoto, getUsers } = useUsers();
   const [infoUser, setInfoUser] = useState(initialUserForm);
   useEffect(() => {
+    getUsers();
     getInfoUser().then((res) => {
       const data = res.data;
       setInfoUser({
@@ -51,6 +54,7 @@ export const ProfilePage = () => {
     });
     setFotoSelected({});
   };
+
   return (
     <>
       <Typography variant="h2" fontWeight="bold" textAlign="center">
@@ -115,7 +119,12 @@ export const ProfilePage = () => {
           <Grid item xs={12} sm={8}>
             <Paper elevation={8}>
               <Typography variant="h6" paddingY={4} paddingX={3} fontWeight="bold">
-                Información General
+                Información General{" "}
+                <NavLink to={`/users/edit/${infoUser.id}`}>
+                  <IconButton sx={{ float: "inline-end" }}>
+                    <EditIcon />
+                  </IconButton>
+                </NavLink>
               </Typography>
 
               <Grid container marginX={3} rowSpacing={3} columnSpacing={1} width="auto">
@@ -205,7 +214,7 @@ export const ProfilePage = () => {
                     minRows={4}
                     rows={4}
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="filled"
                   />

@@ -15,6 +15,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { TestPage } from "../tests/pages/TestPage";
 import { TestResultPage } from "../tests/pages/TestResultPage";
 import { TestResultGeneralPage } from "../tests/pages/TestResultGeneralPage";
+import { RegisterPage } from "../usuarios/pages/RegisterPage";
 const navLinks = [
   {
     tittle: "Inicio",
@@ -81,6 +82,7 @@ export const RoleUserRoute = () => {
           <Route path="/tests" element={<TestPage />}></Route>
           <Route path="/test/my-results" element={<TestResultPage />} />
           <Route path="tests/:id" element={<TestResultGeneralPage />} />
+          <Route path="/users/edit/:id" element={<RegisterPage></RegisterPage>} />
           <Route></Route>
         </Route>
       </Routes>

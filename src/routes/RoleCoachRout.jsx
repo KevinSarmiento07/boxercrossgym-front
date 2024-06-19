@@ -19,6 +19,7 @@ import { TestRegisterPage } from "../tests/pages/TestRegisterPage";
 import { TestResultPage } from "../tests/pages/TestResultPage";
 import { TestResultGeneralPage } from "../tests/pages/TestResultGeneralPage";
 import { DashboardUserPage } from "../roleUser/pages/DashboardUserPage";
+import { RegisterPage } from "../usuarios/pages/RegisterPage";
 const navLinks = [
   {
     tittle: "Inicio",
@@ -102,7 +103,7 @@ export const RoleCoachRout = () => {
           <Route path="/test/register" element={<TestRegisterPage />} />
           <Route path="/test/my-results" element={<TestResultPage />} />
           <Route path="tests/:id" element={<TestResultGeneralPage />} />
-
+          <Route path="/users/edit/:id" element={<RegisterPage></RegisterPage>} />
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>
       </Routes>

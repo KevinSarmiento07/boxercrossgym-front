@@ -11,9 +11,13 @@ import dayjs from "dayjs";
 import "dayjs/locale/es";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
+import { useEntrenamiento } from "../../hooks/useEntrenamiento";
 
 export const EntrenamientoView = () => {
   const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
+  const { handlerDeleteEntrenamiento } = useEntrenamiento();
   return (
     <>
       {entrenamientosByDay.map((item, index) => {
@@ -77,6 +81,30 @@ export const EntrenamientoView = () => {
                     <EditIcon size="small" sx={{ color: "black" }}></EditIcon>
                   </Button>
                 </NavLink>
+                <Button
+                  onClick={() => {
+                    Swal.fire({
+                      title: "¿Estás seguro que desea eliminar el entrenamiento?",
+                      text: "No podrá revertir los cambios!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Si, eliminar!",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        Swal.fire({
+                          title: "Deleted!",
+                          text: "Your file has been deleted.",
+                          icon: "success",
+                        });
+                        handlerDeleteEntrenamiento(item.id);
+                      }
+                    });
+                  }}
+                >
+                  <DeleteIcon size="small" sx={{ color: "black" }}></DeleteIcon>
+                </Button>
               </CardActions>
             </Card>
           </div>

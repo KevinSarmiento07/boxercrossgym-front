@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
-import { findAllByDate, findDaysOfMonthWithTraining, saveEntrenamiento, updateEntrenamiento } from "../services/entrenamientoService";
+import { deleteEntrenamiento, findAllByDate, findDaysOfMonthWithTraining, saveEntrenamiento, updateEntrenamiento } from "../services/entrenamientoService";
 import { initialEntrenamiento, loadBloques, initialEntrenamientoForm, addEntrenamiento, cleanBloques, deleteBloque, loadEntrenamientosByDay } from "../store/slices/entrenamiento/entrenamentoSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -53,11 +53,19 @@ export const useEntrenamiento = () => {
 
       Swal.fire("Entrenamiento Guardado", "El entrenamiento ha sido guardado con exito", "success");
 
-      navigate("/users");
+      navigate("/");
     } catch (error) {
       if (error.response?.status == 401) {
         handlerLogout();
       }
+    }
+  };
+
+  const handlerDeleteEntrenamiento = async (id) => {
+    try {
+      await deleteEntrenamiento(id);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -78,5 +86,6 @@ export const useEntrenamiento = () => {
     handleSaveEntrenamiento,
     handleCleanBloques,
     handleDeleteBloqueById,
+    handlerDeleteEntrenamiento,
   };
 };

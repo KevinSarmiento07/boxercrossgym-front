@@ -99,23 +99,29 @@ export const UserForm = ({ userSelected }) => {
                 name="email"
                 value={email}
                 onChange={onInputChange}
+                disabled={login.isAdmin ? false : true}
                 required
                 error={errors?.email != undefined && errors?.email?.length > 0}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="Password"
-                type="password"
-                name="password"
-                value={password}
-                onChange={onInputChange}
-                error={errors?.password != undefined && errors?.password.length > 0}
-                helperText={errors.password && errors.password.length > 0 ? errors.password : ""}
-              />
-            </Grid>
+            {userForm.id > 0 ? (
+              ""
+            ) : (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  label="Password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={onInputChange}
+                  error={errors?.password != undefined && errors?.password.length > 0}
+                  helperText={errors.password && errors.password.length > 0 ? errors.password : ""}
+                />
+              </Grid>
+            )}
+
             <Grid item xs={12} md={6}>
               <DatePicker
                 sx={{ width: "100%" }}
@@ -126,7 +132,6 @@ export const UserForm = ({ userSelected }) => {
                 value={fechaNacimiento == null ? null : dayjs(fechaNacimiento)}
                 onChange={(value, context) => onDateChange(value, context, "fechaNacimiento")}
                 format="YYYY-MM-DD"
-                er
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -139,6 +144,10 @@ export const UserForm = ({ userSelected }) => {
                 value={fechaInscripcion == null ? null : dayjs(fechaInscripcion)}
                 onChange={(value, context) => onDateChange(value, context, "fechaInscripcion")}
                 format="YYYY-MM-DD"
+                disabled={userForm.id > 0 ? true : false}
+                InputProps={{
+                  readOnly: userForm.id > 0 ? true : false,
+                }}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -176,6 +185,10 @@ export const UserForm = ({ userSelected }) => {
                 value={cedula}
                 onChange={onInputChange}
                 required
+                disabled={login.isAdmin ? false : true}
+                InputProps={{
+                  readOnly: userForm.id > 0 ? true : false,
+                }}
                 error={errors?.cedula != undefined && errors?.cedula.length > 0}
                 helperText={errors?.cedula && errors?.cedula.length > 0 ? errors?.cedula : "Obligatorio"}
               />

@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 export const RegisterPage = () => {
-  const { users = [], initialUserForm } = useUsers();
-
+  const { users = [], initialUserForm, getUsers } = useUsers();
   const [userSelected, setUserSelected] = useState(initialUserForm);
 
   const { id } = useParams();
-
+  useEffect(() => {
+    getUsers();
+  }, []);
   useEffect(() => {
     const user = users.find((user) => user.id == id) || initialUserForm;
     setUserSelected(user);
@@ -19,7 +20,7 @@ export const RegisterPage = () => {
   return (
     <>
       <Typography align="center" variant="h3" fontWeight={"bold"}>
-        {id > 0 ? "Editar Usuario" : "Registrar nuevo usuario"}
+        {id > 0 ? "Editar Información" : "Registrar nuevo usuario"}
       </Typography>
       <UserForm userSelected={userSelected}></UserForm>
     </>
