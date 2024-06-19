@@ -3,7 +3,8 @@ import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, Table
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Alert from "@mui/material/Alert";
-
+import EditIcon from "@mui/icons-material/Edit";
+import { NavLink } from "react-router-dom";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -33,6 +34,7 @@ export const PlanList = () => {
                   <StyledTableCell align="right">Nombre</StyledTableCell>
                   <StyledTableCell align="right">Valor</StyledTableCell>
                   <StyledTableCell align="right">Duración</StyledTableCell>
+                  <StyledTableCell align="right">Editar</StyledTableCell>
                   <StyledTableCell align="right">Eliminar</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -43,6 +45,11 @@ export const PlanList = () => {
                       <TableCell align="right">{plan.nombre}</TableCell>
                       <TableCell align="right">{plan.valor}</TableCell>
                       <TableCell align="right">{plan.duracion}</TableCell>
+                      <TableCell align="right">
+                        <NavLink to={`/planes/edit/${plan.id}`}>
+                          <EditIcon />
+                        </NavLink>
+                      </TableCell>
                       <TableCell align="right">
                         <Button color="error" onClick={() => handlerDeletePlan(plan.id)}>
                           <DeleteIcon />

@@ -1,10 +1,20 @@
+/* eslint-disable react/prop-types */
 import { Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import { usePlan } from "../../hooks/usePlan";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const PlanForm = () => {
+export const PlanForm = ({ planSelected }) => {
   const { initialPlanForm, handlerAddPlan } = usePlan();
   const [planForm, setPlanForm] = useState(initialPlanForm);
+
+  //console.log(planSelected);
+
+  useEffect(() => {
+    console.log(planSelected);
+    setPlanForm({
+      ...planSelected,
+    });
+  }, [planSelected]);
 
   const handlerChange = (e) => {
     const { value, name } = e.target;
@@ -38,6 +48,7 @@ export const PlanForm = () => {
               label="Valor"
               name="valor"
               defaultValue={planForm.valor}
+              value={planForm.valor}
               onChange={handlerChange}
               type="number"
               inputProps={{
@@ -51,7 +62,7 @@ export const PlanForm = () => {
         <div className="my-4 col-span-2">
           <FormControl fullWidth>
             <InputLabel htmlFor="duracion">Duración (días)</InputLabel>
-            <OutlinedInput id="duracion" label="Duración (días)" name="duracion" defaultValue={planForm.duracion} onChange={handlerChange} required />
+            <OutlinedInput id="duracion" label="Duración (días)" name="duracion" defaultValue={planForm.duracion} value={planForm.duracion} onChange={handlerChange} required />
           </FormControl>
         </div>
 

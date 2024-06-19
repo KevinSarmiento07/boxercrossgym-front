@@ -183,6 +183,7 @@ export const UserRoutes = () => {
 
           <Route path="/planes" element={<PlanPage />} />
           <Route path="/planes/register" element={<PlanRegisterPage />} />
+          <Route path="/planes/edit/:id" element={<PlanRegisterPage />} />
 
           <Route path="/" element={<Navigate to={"/dashboard"}></Navigate>} />
         </Route>

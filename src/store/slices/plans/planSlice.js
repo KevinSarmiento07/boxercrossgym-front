@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialPlanForm = {
   id: 0,
-  nombre: "MENSUALIDAD",
+  nombre: "",
   valor: 0,
   duracion: 0,
 };

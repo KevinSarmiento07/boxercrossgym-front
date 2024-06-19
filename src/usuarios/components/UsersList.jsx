@@ -5,7 +5,9 @@ import { useUsers } from "../../hooks/useUsers";
 import { NavLink } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
-
+import PersonIcon from "@mui/icons-material/Person";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import Person4Icon from "@mui/icons-material/Person4";
 /* eslint-disable react/prop-types */
 export const UsersList = ({ search }) => {
   const { users, isLoading } = useUsers();
@@ -25,6 +27,8 @@ export const UsersList = ({ search }) => {
       border: 0,
     },
   }));
+
+  console.log(users);
 
   if (isLoading) {
     return (
@@ -47,7 +51,8 @@ export const UsersList = ({ search }) => {
                   <StyledTableCell align="right">Email</StyledTableCell>
                   <StyledTableCell align="right">Telefono</StyledTableCell>
                   <StyledTableCell align="right">Estado</StyledTableCell>
-                  <StyledTableCell align="right">Update</StyledTableCell>
+                  <StyledTableCell align="right">Modificar</StyledTableCell>
+                  <StyledTableCell align="right">Rol</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -76,6 +81,11 @@ export const UsersList = ({ search }) => {
                           <NavLink to={`/users/edit/${user.id}`}>
                             <EditIcon />
                           </NavLink>
+                        </TableCell>
+                        <TableCell>
+                          {user.admin ? <Person4Icon /> : ""}
+                          {user.entrenador ? <FitnessCenterIcon /> : ""}
+                          {!user.admin && !user.entrenador ? <PersonIcon /> : ""}
                         </TableCell>
                       </StyledTableRow>
                     );
