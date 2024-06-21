@@ -12,7 +12,6 @@ export const PlanRegisterPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(plans);
     const plan = plans.find((item) => {
       if (item.id == id) {
         return item;

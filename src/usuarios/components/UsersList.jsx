@@ -28,8 +28,6 @@ export const UsersList = ({ search }) => {
     },
   }));
 
-  console.log(users);
-
   if (isLoading) {
     return (
       <div className="p-5 text-center">

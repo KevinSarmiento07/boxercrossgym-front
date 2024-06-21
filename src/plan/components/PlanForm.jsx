@@ -7,10 +7,8 @@ export const PlanForm = ({ planSelected }) => {
   const { initialPlanForm, handlerAddPlan } = usePlan();
   const [planForm, setPlanForm] = useState(initialPlanForm);
 
-  //console.log(planSelected);
 
   useEffect(() => {
-    console.log(planSelected);
     setPlanForm({
       ...planSelected,
     });
