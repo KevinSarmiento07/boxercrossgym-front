@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useBooking } from "../../hooks/useBooking";
@@ -67,6 +68,20 @@ export const BookingForm = () => {
       Swal.fire("Error", "La clase está llena, agenda en otro horario", "error");
       return;
     }
+    const dateNow = dayjs();
+    const { id } = bookingForm.clase;
+    const { fecha } = bookingForm;
+    const clase = clases.find((item) => item.id === id);
+    const horario = clase.horario;
+    const dateTimeValid = dayjs(`${fecha} ${horario}`);
+    console.log(dateTimeValid);
+
+    if (dateNow.isAfter(dateTimeValid)) {
+      console.log("la fecha ya pasó");
+      Swal.fire("ERROR", "La fecha y hora seleccionada ya pasarón, seleccionada una clase disponible", "error");
+      return;
+    }
+
     handlerAddBooking(bookingForm);
     setBookingForm(initialBookingForm);
     setQuantity(0);
