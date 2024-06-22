@@ -62,11 +62,13 @@ export const UsersList = ({ search }) => {
                     return (
                       <StyledTableRow hover key={user.id}>
                         <TableCell sx={{ padding: 1 }}>
-                          {user.foto ? (
-                            <Avatar alt={user.foto} src={`${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`} sx={{ width: 50, height: 50 }} />
-                          ) : (
-                            <Avatar alt="user" src="/images/user.png" sx={{ width: 50, height: 50 }} />
-                          )}
+                          <NavLink to={`/profile/${user.id}`}>
+                            {user.foto ? (
+                              <Avatar alt={user.foto} src={`${import.meta.env.VITE_API_BASE_URL}/users/uploads/img/${user.foto}`} sx={{ width: 50, height: 50 }} />
+                            ) : (
+                              <Avatar alt="user" src="/images/user.png" sx={{ width: 50, height: 50 }} />
+                            )}
+                          </NavLink>
                         </TableCell>
                         <TableCell align="right">{user.nombre}</TableCell>
                         <TableCell align="right">{user.apellido}</TableCell>

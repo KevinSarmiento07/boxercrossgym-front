@@ -1,63 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Avatar, Button, Grid, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
-import { useUsers } from "../hooks/useUsers";
+import { Avatar, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Swal from "sweetalert2";
-import EditIcon from "@mui/icons-material/Edit";
+import { useParams } from "react-router-dom";
+import { useUsers } from "../../hooks/useUsers";
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
-
-export const ProfilePage = () => {
+export const ProfileUserPage = () => {
   //const { user } = useSelector((state) => state.auth);
-  const [fotoSelected, setFotoSelected] = useState({});
-  const { initialUserForm, getInfoUser, handlerUploadUserPhoto, getUsers } = useUsers();
+  const { id } = useParams();
+  const { initialUserForm, users } = useUsers();
   const [infoUser, setInfoUser] = useState(initialUserForm);
+
   useEffect(() => {
-    getUsers();
-    getInfoUser().then((res) => {
-      const data = res.data;
-      setInfoUser({
-        ...data,
-      });
+    const user = users.find((item) => item.id == id);
+    console.log(user);
+    setInfoUser({
+      ...user,
     });
-  }, []);
-
-  const selectedPhoto = (e) => {
-    const { target } = e;
-    const selectedFile = target.files[0];
-
-    if (!selectedFile) {
-      return;
-    }
-    if (selectedFile.type.indexOf("image") < 0) {
-      Swal.fire("Error upload: ", "Debe seleccionar una foto", "error");
-      return;
-    }
-    setFotoSelected(selectedFile);
-  };
-  const uploadPhoto = () => {
-    handlerUploadUserPhoto(fotoSelected, infoUser.id).then((user) => {
-      setInfoUser(user);
-    });
-    setFotoSelected({});
-  };
+  }, [id]);
 
   return (
     <>
       <Typography variant="h2" fontWeight="bold" textAlign="center">
-        Perfil Personal
+        Perfil del Usuario
       </Typography>
       {infoUser.id > 0 ? (
         <Grid container columnSpacing={1} rowSpacing={2} marginTop={3}>
@@ -73,56 +37,13 @@ export const ProfilePage = () => {
                 <Typography variant="subtitle2" fontWeight="bold" marginY={15}>{`Fecha de nacimiento: ${infoUser.fechaNacimiento}`}</Typography>
               </Stack>
             </Paper>
-            <Paper elevation={8}>
-              <Grid container margin={1} textAlign="center" width="auto">
-                <Grid item xs={12}>
-                  <Typography variant="h6">Selecciona una foto de perfil:</Typography>
-                </Grid>
-                <Grid item xs={12} sm={4} sx={{ textAlign: "-webkit-center" }}>
-                  <img
-                    src="/images/user.png"
-                    style={{
-                      border: 0,
-                      objectFit: "scale-down",
-                      width: 100,
-                      height: 100,
-                      borderRadius: 100,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={8} alignSelf="center">
-                  <Button
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    color="error"
-                    size="small"
-                    sx={{ marginBottom: 2 }}
-                    onChange={selectedPhoto}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Cargar Imagen
-                    <VisuallyHiddenInput type="file" />
-                  </Button>
-                  <Typography>{fotoSelected.name}</Typography>
-                </Grid>
-                <Grid item xs={12} alignSelf="center" textAlign="center">
-                  <Button fullWidth variant="outlined" color="error" sx={{ marginBottom: 2 }} onClick={uploadPhoto} disabled={fotoSelected.name == undefined ? true : false}>
-                    Subir
-                  </Button>
-                </Grid>
-              </Grid>
-            </Paper>
           </Grid>
           <Grid item xs={12} sm={8}>
             <Paper elevation={8}>
               <Typography variant="h6" paddingY={4} paddingX={3} fontWeight="bold">
                 Información General{" "}
-                <IconButton sx={{ float: "inline-end" }}>
-                  <EditIcon />
-                </IconButton>
               </Typography>
+
               <Grid container marginX={3} rowSpacing={3} columnSpacing={1} width="auto">
                 <Grid item sm={6} xs={12}>
                   <TextField

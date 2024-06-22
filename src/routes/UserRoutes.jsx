@@ -33,6 +33,7 @@ import { EmailPage } from "../emails/pages/EmailPage";
 import { PlanPage } from "../plan/pages/PlanPage";
 import { PlanRegisterPage } from "../plan/pages/PlanRegisterPage";
 import PixIcon from "@mui/icons-material/Pix";
+import { ProfileUserPage } from "../usuarios/pages/ProfileUserPage";
 const navLinks = [
   {
     tittle: "Inicio",
@@ -173,6 +174,7 @@ export const UserRoutes = () => {
           <Route path="/training/register" element={<EntrenamientoRegisterPage />} />
 
           <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+          <Route path="/profile/:id" element={<ProfileUserPage />} />
 
           <Route path="/tests" element={<TestPage />}></Route>
           <Route path="/test/register" element={<TestRegisterPage />} />
