@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import "dayjs/locale/en";
 import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
 import Badge from "@mui/material/Badge";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -16,6 +19,8 @@ import { EntrenamientoView } from "./EntrenamientoView";
 import { useAuth } from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
 
+dayjs.extend(localizedFormat);
+dayjs.locale("en");
 const initialValue = dayjs();
 
 function ServerDay(props) {
