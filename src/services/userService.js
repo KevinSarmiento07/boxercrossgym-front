@@ -93,3 +93,29 @@ export const sendEmails = async (usuarios, option, asunto, body) => {
     throw error;
   }
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    return await usersApi.post(`${BASE_URL}/forgot-password`, {}, { params: { email } });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const validateToken = async (token) => {
+  let formData = new FormData();
+  formData.append("token", token);
+  try {
+    return await usersApi.post(`${BASE_URL}/confirm-token`, formData);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const changePassword = async (data) => {
+  try {
+    return await usersApi.post(`${BASE_URL}/change-password`, data);
+  } catch (error) {
+    throw error;
+  }
+};

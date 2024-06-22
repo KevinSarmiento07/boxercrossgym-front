@@ -5,6 +5,7 @@ import {
   findAll,
   findAllByRole,
   findById,
+  forgotPassword,
   getInfoUserAuthenticate,
   getNewUsers,
   getTotalUsersActives,
@@ -178,6 +179,19 @@ export const useUsers = () => {
     Swal.fire("Emails enviados", "Los correos fueron enviados corectamente", "success");
   };
 
+  const handlerForgotPasword = async (email) => {
+    try {
+      return await forgotPassword(email);
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+      if (error.response?.status == 500) {
+        Swal.fire("Error", "Ocurrio un error verifica el correo electronica e intentalo de nuevo.", "error");
+      }
+    }
+  };
+
   return {
     getUsers,
     getUsersByRole,
@@ -193,5 +207,6 @@ export const useUsers = () => {
     errors,
     isLoading,
     handlerSendEmails,
+    handlerForgotPasword,
   };
 };

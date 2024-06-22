@@ -5,7 +5,6 @@ import { styled } from "@mui/system";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -96,9 +95,9 @@ export const SignInPage = () => {
 
             <Grid container>
               <Grid item xs>
-                <Link href="#" color={"error"} variant="body2">
+                <NavLink to={"/forgot-password"} className="text-red-600 underline cursor-pointer">
                   Forgot password?
-                </Link>
+                </NavLink>
               </Grid>
               <Grid item>
                 <NavLink to={"/register"} className="text-red-600 underline cursor-pointer">
