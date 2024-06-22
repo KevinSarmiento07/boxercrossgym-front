@@ -74,7 +74,6 @@ export const BookingForm = () => {
     const clase = clases.find((item) => item.id === id);
     const horario = clase.horario;
     const dateTimeValid = dayjs(`${fecha} ${horario}`);
-    console.log(dateTimeValid);
 
     if (dateNow.isAfter(dateTimeValid)) {
       console.log("la fecha ya pasó");
