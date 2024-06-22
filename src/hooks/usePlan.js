@@ -43,6 +43,9 @@ export const usePlan = () => {
     } catch (error) {
       if (error.response?.status === 401) {
         handlerLogout();
+      } else {
+        Swal.fire("ERROR", "El plan contiene pagos ya registrados", "error");
+        return;
       }
     }
     Swal.fire("Eliminado", "Se ha eliminado el plan correctamente", "success");
