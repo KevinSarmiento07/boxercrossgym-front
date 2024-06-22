@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable react/prop-types */
 import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, FormGroup, FormHelperText, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -12,7 +13,7 @@ export const UserForm = ({ userSelected }) => {
   const { initialUserForm, handlerAddUser, errors } = useUsers();
   const [userForm, setUserForm] = useState(initialUserForm);
   const { login } = useAuth();
-  const { nombre, apellido, email, telefono, password, fechaNacimiento, fechaInscripcion, cedula, sexo, antecedente, admin, entrenador } = userForm;
+  const { nombre, apellido, email, telefono, password, fechaNacimiento, fechaInscripcion, cedula, sexo, antecedente, admin, entrenador, id } = userForm;
   useEffect(() => {
     setUserForm({
       ...userSelected,
@@ -53,6 +54,14 @@ export const UserForm = ({ userSelected }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (id <= 0) {
+      const fecha = dayjs().format("YYYY-MM-DD");
+      setUserForm({
+        ...userForm,
+        fechaInscripcion: fecha,
+      });
+    }
+
     handlerAddUser(userForm);
     //setUserForm(initialUserForm);
   };
@@ -134,22 +143,27 @@ export const UserForm = ({ userSelected }) => {
                 format="YYYY-MM-DD"
               />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <DatePicker
-                sx={{ width: "100%" }}
-                label="Fecha de Inscripción"
-                defaultValue={dayjs(new Date())}
-                selectedSections={"day" | "month" | "year"}
-                name="fechaInscripcion"
-                value={fechaInscripcion == null ? null : dayjs(fechaInscripcion)}
-                onChange={(value, context) => onDateChange(value, context, "fechaInscripcion")}
-                format="YYYY-MM-DD"
-                disabled={userForm.id > 0 ? true : false}
-                InputProps={{
-                  readOnly: userForm.id > 0 ? true : false,
-                }}
-              />
-            </Grid>
+            {id > 0 ? (
+              <Grid item xs={12} md={6}>
+                <DatePicker
+                  sx={{ width: "100%" }}
+                  label="Fecha de Inscripción"
+                  defaultValue={dayjs(new Date())}
+                  selectedSections={"day" | "month" | "year"}
+                  name="fechaInscripcion"
+                  value={fechaInscripcion == null ? null : dayjs(fechaInscripcion)}
+                  onChange={(value, context) => onDateChange(value, context, "fechaInscripcion")}
+                  format="YYYY-MM-DD"
+                  disabled={userForm.id > 0 ? true : false}
+                  InputProps={{
+                    readOnly: userForm.id > 0 ? true : false,
+                  }}
+                />
+              </Grid>
+            ) : (
+              ""
+            )}
+
             <Grid item xs={12} md={4}>
               <FormControl fullWidth error={errors?.sexo != undefined && errors?.sexo.length > 0}>
                 <InputLabel error={errors?.sexo != undefined && errors?.sexo.length > 0} id="sexo">
