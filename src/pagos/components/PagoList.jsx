@@ -52,7 +52,6 @@ export const PagoList = ({ search }) => {
   }));
 
   const onClickCongelar = (e, id) => {
-    console.log(e);
     setId(id);
     handleOpen();
     console.log(id);
@@ -60,7 +59,6 @@ export const PagoList = ({ search }) => {
 
   const onSubmitCongelar = (e) => {
     e.preventDefault();
-    console.log(e);
 
     const formData = new FormData(e.target);
     console.log(formData);

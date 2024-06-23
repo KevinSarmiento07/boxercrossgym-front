@@ -202,6 +202,7 @@ export const PagoForm = ({ pagoSelected }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DatePicker
+                  disabled={payForm.id > 0}
                   sx={{ width: "100%" }}
                   label="Fecha de pago"
                   selectedSections={"day" | "month" | "year"}
@@ -214,6 +215,7 @@ export const PagoForm = ({ pagoSelected }) => {
               {payForm.id <= 0 || (
                 <Grid item xs={12} sm={6}>
                   <DatePicker
+                    disabled={payForm.id > 0}
                     required
                     sx={{ width: "100%" }}
                     label="Fecha de vencimiento"
