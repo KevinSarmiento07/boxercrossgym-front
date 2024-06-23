@@ -7,7 +7,6 @@ export const PlanForm = ({ planSelected }) => {
   const { initialPlanForm, handlerAddPlan } = usePlan();
   const [planForm, setPlanForm] = useState(initialPlanForm);
 
-
   useEffect(() => {
     setPlanForm({
       ...planSelected,
@@ -61,6 +60,21 @@ export const PlanForm = ({ planSelected }) => {
           <FormControl fullWidth>
             <InputLabel htmlFor="duracion">Duración (días)</InputLabel>
             <OutlinedInput id="duracion" label="Duración (días)" name="duracion" defaultValue={planForm.duracion} value={planForm.duracion} onChange={handlerChange} required />
+          </FormControl>
+        </div>
+
+        <div className="my-4 col-span-2">
+          <FormControl fullWidth>
+            <InputLabel htmlFor="duracion">Cantidad de dias permitidos para congelar. (días)</InputLabel>
+            <OutlinedInput
+              id="diasCongelar"
+              label="Cantidad de dias permitidos para congelar. (días)"
+              name="diasCongelar"
+              defaultValue={planForm.diasCongelar}
+              value={planForm.diasCongelar}
+              onChange={handlerChange}
+              required
+            />
           </FormControl>
         </div>
 

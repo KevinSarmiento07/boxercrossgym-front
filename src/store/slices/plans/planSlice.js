@@ -5,6 +5,7 @@ export const initialPlanForm = {
   nombre: "",
   valor: 0,
   duracion: 0,
+  diasCongelar: 0,
 };
 
 export const planSlice = createSlice({

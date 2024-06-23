@@ -62,7 +62,6 @@ export const useTests = () => {
               Swal.fire("!Test Eliminado!", "El test ha sido eliminado con exito", "success");
             })
             .catch((error) => {
-              console.log("entro en error");
               console.log(error);
               Swal.fire("Error", "El test contiene resultados y no puede ser borrados.", "error");
               return;

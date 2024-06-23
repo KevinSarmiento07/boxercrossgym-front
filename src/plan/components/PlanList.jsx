@@ -34,6 +34,7 @@ export const PlanList = () => {
                   <StyledTableCell align="right">Nombre</StyledTableCell>
                   <StyledTableCell align="right">Valor</StyledTableCell>
                   <StyledTableCell align="right">Duración</StyledTableCell>
+                  <StyledTableCell align="right">Días para congelar</StyledTableCell>
                   <StyledTableCell align="right">Editar</StyledTableCell>
                   <StyledTableCell align="right">Eliminar</StyledTableCell>
                 </TableRow>
@@ -45,6 +46,7 @@ export const PlanList = () => {
                       <TableCell align="right">{plan.nombre}</TableCell>
                       <TableCell align="right">{plan.valor}</TableCell>
                       <TableCell align="right">{plan.duracion}</TableCell>
+                      <TableCell align="right">{plan.diasCongelar}</TableCell>
                       <TableCell align="right">
                         <NavLink to={`/planes/edit/${plan.id}`}>
                           <EditIcon />

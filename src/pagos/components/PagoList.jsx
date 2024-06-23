@@ -17,6 +17,7 @@ export const PagoList = ({ search }) => {
     },
   }));
 
+  //console.log(pagos);
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
