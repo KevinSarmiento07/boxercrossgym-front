@@ -94,3 +94,11 @@ export const uploadPhoto = async (archivo, id) => {
     throw error;
   }
 };
+
+export const congelarPlan = async (body) => {
+  try {
+    return await pagosApi.post(`${BASE_URL}/congelar`, body);
+  } catch (error) {
+    throw error;
+  }
+};
