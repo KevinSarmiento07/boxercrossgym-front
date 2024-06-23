@@ -30,9 +30,6 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
   const [entrenamientoForm, setEntrenamientoForm] = useState(initialEntrenamientoForm);
   const { fechaEntreno, titulo, nombre, descripcion, id } = entrenamientoForm;
 
-  const { getExercises } = useExercise();
-  const [exercises, setExercises] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setEntrenamientoForm({
@@ -78,21 +75,6 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
     setEntrenamientoForm(initialEntrenamientoForm);
   };
 
-  useEffect(() => {
-    async function fetchExercises() {
-      try {
-        const exercises = await getExercises(); // Obtener los ejercicios desde el backend
-        setExercises(exercises);
-      } catch (error) {
-        console.error('Error fetching exercises:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchExercises();
-  }, []);
-
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setEntrenamientoForm({ ...entrenamientoForm, [name]: value });
@@ -131,6 +113,20 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
   const onClickDeleteBloque = (index) => {
     handleDeleteBloqueById(index);
   };
+
+
+  /**
+   * 
+   * 
+   */
+
+  const { getExercises, exercises } = useExercise();
+  const [seletedExcercise, setSeletedExcercise] = useState(null);
+
+
+  useEffect(() => {
+         getExercises();
+  }, []);
   return (
     <>
       {isAdmin ? (
@@ -163,14 +159,23 @@ export const EntrenamientoForm = ({ dateSelected, entrenamientoSeleccionado }) =
                   </Grid>
                   <Grid item xs={10} marginBottom={3}>
                     <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
+                        noOptionsText={"No hay entrenamientos registrados"}
                         options={exercises}
-                        loading={loading}
+                        getOptionLabel={(exercises) => `${exercises.nombre}`}
+                        isOptionEqualToValue={(option, value) => {
+                          return option.id === value.id;
+                        }}
                         sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Ejercicios" variant="outlined"/>}
-                        type="Ejercicio" 
-                        name="ejercicio"
+                        renderOption={(props, exercises) => (
+                          <Box component="li" {...props} key={exercises.id}>
+                            {exercises.nombre}
+                          </Box>
+                        )}
+                        value={seletedExcercise}
+                        onChange={(event, newValue) => {
+                          setSeletedExcercise(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Ejercicios" name="exercise" required />}
                     />
                     {/* <Button variant={"outlined"}  color="error" onClick={(e) => onClickExercise(e, ejercicio)}>
                       Agregar Ejercicio

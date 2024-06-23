@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const exercisesApi = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/exercises`,
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/exercise`,
 });
 
 exercisesApi.interceptors.request.use((config) => {
