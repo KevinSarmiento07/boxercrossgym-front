@@ -138,7 +138,7 @@ export const CalendarioEntrenamiento = () => {
         </Modal>
       )}
       {entrenoFormOpen ? <EntrenamientoForm dateSelected={dateSelected} setDateSelected={setDateSelected}></EntrenamientoForm> : ""}
-      {!entrenoOpen || <EntrenamientoView></EntrenamientoView>}
+      {!entrenoOpen || <EntrenamientoView handleOpen={handleOpen}></EntrenamientoView>}
     </>
   );
 };

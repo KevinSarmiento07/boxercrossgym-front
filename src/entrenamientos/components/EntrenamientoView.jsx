@@ -9,15 +9,16 @@ import { Alert, Divider, Grid } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import { useEntrenamiento } from "../../hooks/useEntrenamiento";
 
-export const EntrenamientoView = () => {
+export const EntrenamientoView = ({ handleOpen }) => {
   const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
   const { handlerDeleteEntrenamiento } = useEntrenamiento();
+  const navigate = useNavigate();
   return (
     <>
       {entrenamientosByDay.map((item, index) => {
@@ -94,12 +95,16 @@ export const EntrenamientoView = () => {
                       confirmButtonText: "Si, eliminar.",
                     }).then((result) => {
                       if (result.isConfirmed) {
-                        Swal.fire({
-                          title: "Eliminado",
-                          text: "Entrenamiento eliminado.",
-                          icon: "success",
+                        handlerDeleteEntrenamiento(item.id).then(() => {
+                          Swal.fire({
+                            title: "Eliminado",
+                            text: "Entrenamiento eliminado.",
+                            icon: "success",
+                          }).then(() => {
+                            handleOpen();
+                          });
                         });
-                        handlerDeleteEntrenamiento(item.id);
+                        //navigate("/training/register");
                       }
                     });
                   }}
