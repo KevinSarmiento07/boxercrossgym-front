@@ -14,10 +14,12 @@ import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import { useEntrenamiento } from "../../hooks/useEntrenamiento";
+import { useAuth } from "../../hooks/useAuth";
 
 export const EntrenamientoView = ({ handleOpen }) => {
   const { entrenamientosByDay } = useSelector((state) => state.entrenamientos);
   const { handlerDeleteEntrenamiento } = useEntrenamiento();
+  const { login } = useAuth();
   return (
     <>
       {entrenamientosByDay.map((item, index) => {
@@ -76,40 +78,48 @@ export const EntrenamientoView = ({ handleOpen }) => {
                 </Box>
               </CardContent>
               <CardActions>
-                <NavLink to={`/training/edit/${item.id}`}>
-                  <Button>
-                    <EditIcon size="small" sx={{ color: "black" }}></EditIcon>
-                  </Button>
-                </NavLink>
-                <Button
-                  onClick={() => {
-                    Swal.fire({
-                      title: "¿Estás seguro que desea eliminar el entrenamiento?",
-                      text: "No podrá revertir los cambios",
-                      icon: "warning",
-                      showCancelButton: true,
-                      confirmButtonColor: "#3085d6",
-                      cancelButtonColor: "#d33",
-                      cancelButtonText: "Cancelar",
-                      confirmButtonText: "Si, eliminar.",
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        handlerDeleteEntrenamiento(item.id).then(() => {
-                          Swal.fire({
-                            title: "Eliminado",
-                            text: "Entrenamiento eliminado.",
-                            icon: "success",
-                          }).then(() => {
-                            handleOpen();
+                {login.isAdmin || login.isEntrenador ? (
+                  <NavLink to={`/training/edit/${item.id}`}>
+                    <Button>
+                      <EditIcon size="small" sx={{ color: "black" }}></EditIcon>
+                    </Button>
+                  </NavLink>
+                ) : (
+                  ""
+                )}
+                {login.isAdmin || login.isEntrenador ? (
+                  <Button
+                    onClick={() => {
+                      Swal.fire({
+                        title: "¿Estás seguro que desea eliminar el entrenamiento?",
+                        text: "No podrá revertir los cambios",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        cancelButtonText: "Cancelar",
+                        confirmButtonText: "Si, eliminar.",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          handlerDeleteEntrenamiento(item.id).then(() => {
+                            Swal.fire({
+                              title: "Eliminado",
+                              text: "Entrenamiento eliminado.",
+                              icon: "success",
+                            }).then(() => {
+                              handleOpen();
+                            });
                           });
-                        });
-                        //navigate("/training/register");
-                      }
-                    });
-                  }}
-                >
-                  <DeleteIcon size="small" sx={{ color: "black" }}></DeleteIcon>
-                </Button>
+                          //navigate("/training/register");
+                        }
+                      });
+                    }}
+                  >
+                    <DeleteIcon size="small" sx={{ color: "black" }}></DeleteIcon>
+                  </Button>
+                ) : (
+                  ""
+                )}
               </CardActions>
             </Card>
           </div>
