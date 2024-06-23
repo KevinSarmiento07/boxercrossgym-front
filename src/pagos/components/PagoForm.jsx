@@ -1,19 +1,32 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { Box, Container, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem, OutlinedInput, InputAdornment } from "@mui/material";
+import { Box, Container, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem, OutlinedInput, InputAdornment, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useUsers } from "../../hooks/useUsers";
+import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { usePagos } from "../../hooks/usePagos";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Swal from "sweetalert2";
-
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Download } from "@mui/icons-material";
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 export const PagoForm = ({ pagoSelected }) => {
   const { users, getUsers } = useUsers();
-  const { initialPayForm, getPlanes, handlerAddPago } = usePagos();
-
+  const { initialPayForm, getPlanes, handlerAddPago, handlerUploadPaymentPhoto } = usePagos();
+  const [fotoSelected, setFotoSelected] = useState({});
   const [payForm, setPayForm] = useState(initialPayForm);
   const [planes, setPlanes] = useState([{ id: 0 }]);
   const [seletedUser, setSelectedUser] = useState(null);
@@ -57,15 +70,31 @@ export const PagoForm = ({ pagoSelected }) => {
     });
   };
 
+  const selectedPhoto = (e) => {
+    const { target } = e;
+    const selectedFile = target.files[0];
+
+    if (!selectedFile) {
+      return;
+    }
+    if (selectedFile.type.indexOf("image") < 0) {
+      Swal.fire("Error upload: ", "Debe seleccionar una foto", "error");
+      return;
+    }
+    setFotoSelected(selectedFile);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (payForm.fechaPago == null) {
       Swal.fire("Error", "La fecha de pago no puede estar vacia.", "error");
       return;
     }
-    handlerAddPago(payForm);
+    handlerAddPago(payForm, fotoSelected);
     setPayForm(initialPayForm);
     setSelectedUser(null);
+    console.log("entro en error");
+    setFotoSelected({});
   };
   return (
     <>
@@ -208,6 +237,31 @@ export const PagoForm = ({ pagoSelected }) => {
                   </Select>
                 </FormControl>
               </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                disabled={payForm.id > 0}
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                color="error"
+                size="small"
+                sx={{ marginY: 3 }}
+                onChange={selectedPhoto}
+                startIcon={<CloudUploadIcon />}
+              >
+                Cargar comprobante pago
+                <VisuallyHiddenInput type="file" />
+              </Button>
+              <Typography>{fotoSelected.name}</Typography>
+              {!payForm.id > 0 || (
+                <Button color="error" variant="outlined">
+                  <a href={`${import.meta.env.VITE_API_BASE_URL}/pago/uploads/img/${payForm.fotoEvidencia}`} download>
+                    Descargar Compronte
+                  </a>
+                </Button>
+              )}
             </Grid>
             <Grid marginTop={2} textAlign={"center"}>
               <Button variant="outlined" type="submit" color="secondary" size="large" sx={{ textTransform: "none" }}>

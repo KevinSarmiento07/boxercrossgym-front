@@ -5,10 +5,12 @@ import { styled } from "@mui/material/styles";
 import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import { Download } from "@mui/icons-material";
+import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 
 export const PagoList = ({ search }) => {
   const { pagos } = usePagos();
-
+  console.log(pagos);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -40,6 +42,7 @@ export const PagoList = ({ search }) => {
                   <StyledTableCell align="right">Fecha de Pago </StyledTableCell>
                   <StyledTableCell align="right">Fecha de Vencimiento</StyledTableCell>
                   <StyledTableCell align="right">Estado del pago</StyledTableCell>
+                  <StyledTableCell align="center">Comprobante de Pago</StyledTableCell>
                   <StyledTableCell align="right">Editar</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -61,6 +64,15 @@ export const PagoList = ({ search }) => {
                         <TableCell align="right">{pago.fechaVencimiento}</TableCell>
                         <TableCell align="right">
                           <Chip label={pago.estado ? "Vigente" : "Vencido"} color={pago.estado ? "success" : "error"}></Chip>
+                        </TableCell>
+                        <TableCell align="center">
+                          {pago?.fotoEvidencia !== undefined && pago?.fotoEvidencia?.length > 0 ? (
+                            <a href={`${import.meta.env.VITE_API_BASE_URL}/pago/uploads/img/${pago.fotoEvidencia}`} download>
+                              <Download />
+                            </a>
+                          ) : (
+                            <HourglassDisabledIcon />
+                          )}
                         </TableCell>
                         <TableCell align="right">
                           <NavLink to={`/payments/edit/${pago.id}`}>

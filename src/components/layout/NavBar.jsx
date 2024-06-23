@@ -61,7 +61,7 @@ export const NavBar = ({ navLinks = [] }) => {
               BOXERCROSSGYM APP
             </Typography>
             <Button onClick={handlerLogout} variant="contained" color="error" sx={{}}>
-              Logout
+              CERRAR SESIÓN
             </Button>
           </Toolbar>
         </AppBar>

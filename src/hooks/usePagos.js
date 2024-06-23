@@ -12,6 +12,7 @@ import {
   getTotalEntryByMonthAndYearCurrent,
   savePago,
   updatePagoS,
+  uploadPhoto,
 } from "../services/pagoService";
 import { loadingPagos, initialPayForm, addPago, updatePago } from "../store/slices/pagos/pagoSlice";
 import Swal from "sweetalert2";
@@ -40,10 +41,16 @@ export const usePagos = () => {
     return await findAllPlan();
   };
 
-  const handlerAddPago = async (pago) => {
+  const handlerAddPago = async (pago, fotoSelected) => {
     try {
       if (pago.id == 0) {
         const res = await savePago(pago);
+        if (fotoSelected != undefined && fotoSelected != null && fotoSelected?.name?.length > 0) {
+          handlerUploadPaymentPhoto(fotoSelected, res.data.id).then(() => {
+            getPagos();
+          });
+        }
+
         dispatch(addPago(res.data));
       } else {
         await updatePagoS(pago);
@@ -128,6 +135,16 @@ export const usePagos = () => {
     }
   };
 
+  const handlerUploadPaymentPhoto = async (archivo, id) => {
+    try {
+      return await uploadPhoto(archivo, id);
+    } catch (error) {
+      if (error.response?.status == 401) {
+        handlerLogout();
+      }
+    }
+  };
+
   return {
     pagos,
     getPagos,
@@ -140,5 +157,6 @@ export const usePagos = () => {
     getOverviewSalesYearBefore,
     getOverviewNewPayments,
     getLastPaymentUserAuth,
+    handlerUploadPaymentPhoto,
   };
 };

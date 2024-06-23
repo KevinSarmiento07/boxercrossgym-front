@@ -82,3 +82,15 @@ export const getLastPaymentAuth = async () => {
     throw error;
   }
 };
+
+export const uploadPhoto = async (archivo, id) => {
+  let formData = new FormData();
+  formData.append("archivo", archivo);
+  formData.append("id", id);
+
+  try {
+    return await pagosApi.post(`${BASE_URL}/upload`, formData);
+  } catch (error) {
+    throw error;
+  }
+};
