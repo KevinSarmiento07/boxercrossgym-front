@@ -55,9 +55,18 @@ export const useTests = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await deleteTest(id);
-          dispatch(removeTest(id));
-          Swal.fire("!Test Eliminado!", "El test ha sido eliminado con exito", "success");
+          await deleteTest(id)
+            .then((res) => {
+              console.log(res);
+              dispatch(removeTest(id));
+              Swal.fire("!Test Eliminado!", "El test ha sido eliminado con exito", "success");
+            })
+            .catch((error) => {
+              console.log("entro en error");
+              console.log(error);
+              Swal.fire("Error", "El test contiene resultados y no puede ser borrados.", "error");
+              return;
+            });
         } catch (error) {
           if (error.response?.status == 401) {
             handlerLogout();
