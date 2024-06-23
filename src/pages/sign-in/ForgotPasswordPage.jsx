@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
@@ -38,13 +39,9 @@ export const ForgotPasswordPage = () => {
   const onClickEnviar = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(e);
-    console.log(email);
 
     forgotPassword(email)
       .then((res) => {
-        console.log(res);
-
         setLoading(false);
         setIsVisibleFormToken(true);
       })

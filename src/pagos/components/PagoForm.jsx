@@ -93,7 +93,6 @@ export const PagoForm = ({ pagoSelected }) => {
     handlerAddPago(payForm, fotoSelected);
     setPayForm(initialPayForm);
     setSelectedUser(null);
-    console.log("entro en error");
     setFotoSelected({});
   };
   return (

@@ -10,7 +10,6 @@ import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 
 export const PagoList = ({ search }) => {
   const { pagos } = usePagos();
-  console.log(pagos);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,

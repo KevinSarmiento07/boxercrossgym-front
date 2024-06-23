@@ -76,7 +76,6 @@ export const BookingForm = () => {
     const dateTimeValid = dayjs(`${fecha} ${horario}`);
 
     if (dateNow.isAfter(dateTimeValid)) {
-      console.log("la fecha ya pasó");
       Swal.fire("ERROR", "La fecha y hora seleccionada ya pasarón, seleccionada una clase disponible", "error");
       return;
     }

@@ -69,7 +69,6 @@ export const TokenComponent = () => {
         isVisiblePass(false);
         setPass(initialPass);
       });
-    console.log("entro aqui");
   };
   return (
     <div>
