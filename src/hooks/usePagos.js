@@ -57,6 +57,9 @@ export const usePagos = () => {
       if (error.response?.status == 401) {
         handlerLogout();
       }
+      if (error.response?.status == 409) {
+        Swal.fire("ERROR", "La persona tiene pagos vigentes activos", "error");
+      }
     }
   };
 

@@ -12,7 +12,6 @@ export const ProfileUserPage = () => {
 
   useEffect(() => {
     const user = users.find((item) => item.id == id);
-    console.log(user);
     setInfoUser({
       ...user,
     });
