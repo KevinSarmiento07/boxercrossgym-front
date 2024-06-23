@@ -240,24 +240,13 @@ export const PagoForm = ({ pagoSelected }) => {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button
-                disabled={payForm.id > 0}
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                color="error"
-                size="small"
-                sx={{ marginY: 3 }}
-                onChange={selectedPhoto}
-                startIcon={<CloudUploadIcon />}
-              >
+              <Button component="label" role={undefined} variant="contained" tabIndex={-1} color="error" size="small" sx={{ marginY: 3 }} onChange={selectedPhoto} startIcon={<CloudUploadIcon />}>
                 Cargar comprobante pago
                 <VisuallyHiddenInput type="file" />
               </Button>
               <Typography>{fotoSelected.name}</Typography>
               {!payForm.id > 0 || (
-                <Button color="error" variant="outlined">
+                <Button disabled={payForm.fotoEvidencia == null} color="error" variant="outlined">
                   <a href={`${import.meta.env.VITE_API_BASE_URL}/pago/uploads/img/${payForm.fotoEvidencia}`} download>
                     Descargar Compronte
                   </a>

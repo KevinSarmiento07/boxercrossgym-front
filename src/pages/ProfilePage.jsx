@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
+import { NavLink } from "react-router-dom";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -119,9 +120,11 @@ export const ProfilePage = () => {
             <Paper elevation={8}>
               <Typography variant="h6" paddingY={4} paddingX={3} fontWeight="bold">
                 Información General{" "}
-                <IconButton sx={{ float: "inline-end" }}>
-                  <EditIcon />
-                </IconButton>
+                <NavLink to={`/users/edit/${infoUser.id}`}>
+                  <IconButton sx={{ float: "inline-end" }}>
+                    <EditIcon />
+                  </IconButton>
+                </NavLink>
               </Typography>
               <Grid container marginX={3} rowSpacing={3} columnSpacing={1} width="auto">
                 <Grid item sm={6} xs={12}>

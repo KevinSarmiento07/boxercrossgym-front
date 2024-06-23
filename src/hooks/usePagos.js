@@ -53,7 +53,12 @@ export const usePagos = () => {
 
         dispatch(addPago(res.data));
       } else {
-        await updatePagoS(pago);
+        const res = await updatePagoS(pago);
+        if (fotoSelected != undefined && fotoSelected != null && fotoSelected?.name?.length > 0) {
+          handlerUploadPaymentPhoto(fotoSelected, res.data.id).then(() => {
+            getPagos();
+          });
+        }
         dispatch(updatePago(pago));
       }
 

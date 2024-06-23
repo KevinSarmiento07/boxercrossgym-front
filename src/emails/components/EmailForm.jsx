@@ -251,11 +251,11 @@ export const EmailForm = () => {
 
         <div className="mt-3">
           <div className="mb-4">
-            <TextField fullWidth id="asunto" name="asunto" label="Asunto" value={email.asunto} variant="outlined" onChange={handleChangeEmail} />
+            <TextField fullWidth id="asunto" name="asunto" label="Asunto" value={email.asunto} variant="outlined" onChange={handleChangeEmail} required />
           </div>
 
           <div>
-            <TextField multiline rows={5} fullWidth id="cuerpo" name="body" value={email.body} onChange={handleChangeEmail} label="Cuerpo" variant="outlined" />
+            <TextField multiline rows={5} fullWidth id="cuerpo" name="body" value={email.body} onChange={handleChangeEmail} label="Cuerpo" variant="outlined" required />
           </div>
         </div>
 
