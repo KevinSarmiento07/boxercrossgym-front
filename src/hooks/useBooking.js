@@ -30,13 +30,14 @@ export const useBooking = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, borrar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Si, borrar.",
       }).then(async (result) => {
         if (result.isConfirmed) {
           await deleteBookingById(id);
           dispatch(deleteBooking(id));
           Swal.fire({
-            title: "Eliminado!",
+            title: "¡Eliminado!",
             text: "La reserva ha sido eliminada con éxito.",
             icon: "success",
           });

@@ -85,17 +85,18 @@ export const EntrenamientoView = () => {
                   onClick={() => {
                     Swal.fire({
                       title: "¿Estás seguro que desea eliminar el entrenamiento?",
-                      text: "No podrá revertir los cambios!",
+                      text: "No podrá revertir los cambios",
                       icon: "warning",
                       showCancelButton: true,
                       confirmButtonColor: "#3085d6",
                       cancelButtonColor: "#d33",
-                      confirmButtonText: "Si, eliminar!",
+                      cancelButtonText: "Cancelar",
+                      confirmButtonText: "Si, eliminar.",
                     }).then((result) => {
                       if (result.isConfirmed) {
                         Swal.fire({
-                          title: "Deleted!",
-                          text: "Your file has been deleted.",
+                          title: "Eliminado",
+                          text: "Entrenamiento eliminado.",
                           icon: "success",
                         });
                         handlerDeleteEntrenamiento(item.id);

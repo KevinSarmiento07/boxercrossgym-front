@@ -72,7 +72,7 @@ export const useUsers = () => {
         dispatch(updateUser(res.data));
       }
 
-      Swal.fire(user.id === 0 ? "Usuario Creado" : "Usuario Actualizado", user.id === 0 ? "El usuario ha sido creado con exito!" : "El usuario ha sido actualizado con exito!", "success");
+      Swal.fire(user.id === 0 ? "Usuario Creado" : "Usuario Actualizado", user.id === 0 ? "El usuario ha sido creado con exito" : "El usuario ha sido actualizado con exito", "success");
 
       if (login.isAdmin) {
         navigate("/users");

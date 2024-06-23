@@ -57,7 +57,7 @@ export const usePagos = () => {
         dispatch(updatePago(pago));
       }
 
-      Swal.fire("Pago Creado", "El pago ha sido creado con exito!", "success");
+      Swal.fire("Pago Creado", "El pago ha sido creado con exito", "success");
 
       navigate("/payments");
     } catch (error) {

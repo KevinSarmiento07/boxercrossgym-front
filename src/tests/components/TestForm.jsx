@@ -38,7 +38,7 @@ export const TestForm = () => {
       <Modal open={visibleForm} onClose={handlerCloseForm} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography variant="h4" textAlign="center" fontWeight="bold">
-            New Tests
+            Nuevo Test
           </Typography>
           <Container>
             <Box component="form" marginTop={4} onSubmit={onSubmit}>

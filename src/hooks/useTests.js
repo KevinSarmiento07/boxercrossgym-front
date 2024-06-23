@@ -44,19 +44,20 @@ export const useTests = () => {
 
   const handlerDeleteTest = async (id) => {
     Swal.fire({
-      title: "Esta seguro que desea eliminar?",
-      text: "Cuidado el test sera eliminado!",
+      title: "¿Esta seguro que desea eliminar?",
+      text: "¡Cuidado el test sera eliminado!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminar!",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "¡Si, eliminar!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           await deleteTest(id);
           dispatch(removeTest(id));
-          Swal.fire("Test Eliminado!", "El test ha sido eliminado con exito!", "success");
+          Swal.fire("!Test Eliminado!", "El test ha sido eliminado con exito", "success");
         } catch (error) {
           if (error.response?.status == 401) {
             handlerLogout();
