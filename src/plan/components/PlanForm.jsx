@@ -2,18 +2,24 @@
 import { Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import { usePlan } from "../../hooks/usePlan";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export const PlanForm = ({ planSelected }) => {
   const { initialPlanForm, handlerAddPlan } = usePlan();
   const [planForm, setPlanForm] = useState(initialPlanForm);
-
+  console.log(planForm);
   useEffect(() => {
-    setPlanForm({
-      ...planSelected,
-    });
+    console.log("entro aca");
+    if (planSelected?.id > 0) {
+      console.log("entro en if");
+      setPlanForm({
+        ...planSelected,
+      });
+    }
   }, [planSelected]);
 
   const handlerChange = (e) => {
+    console.log(planForm);
     const { value, name } = e.target;
     setPlanForm({
       ...planForm,
@@ -23,6 +29,12 @@ export const PlanForm = ({ planSelected }) => {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
+
+    console.log(planForm);
+    if (planForm.duracion <= 0 || planForm.valor <= 0) {
+      Swal.fire("Error", "La duración y el valor del plan no pueden ser cero.", "error");
+      return;
+    }
 
     handlerAddPlan(planForm);
 

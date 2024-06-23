@@ -213,7 +213,7 @@ export const ProfilePage = () => {
                     minRows={4}
                     rows={4}
                     InputProps={{
-                      readOnly: false,
+                      readOnly: true,
                     }}
                     variant="filled"
                   />
