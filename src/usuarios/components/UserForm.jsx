@@ -54,10 +54,6 @@ export const UserForm = ({ userSelected }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (fechaInscripcion == null || fechaInscripcion == undefined) {
-      Swal.fire("Error", "La fecha de nacimiento no puede estar vacia.", "error");
-      return;
-    }
 
     if (id <= 0) {
       const fecha = dayjs().format("YYYY-MM-DD");

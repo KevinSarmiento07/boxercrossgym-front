@@ -72,6 +72,7 @@ export const BookingForm = () => {
     const { id } = bookingForm.clase;
     const { fecha } = bookingForm;
     const clase = clases.find((item) => item.id === id);
+    console.log(clase);
     const horario = clase.horario;
     const dateTimeValid = dayjs(`${fecha} ${horario}`);
 
