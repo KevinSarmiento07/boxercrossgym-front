@@ -19,6 +19,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MapIcon from '@mui/icons-material/Map';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { BookingPage } from "../booking/pages/BookingPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
@@ -33,6 +35,8 @@ import { EmailPage } from "../emails/pages/EmailPage";
 import { PlanPage } from "../plan/pages/PlanPage";
 import { PlanRegisterPage } from "../plan/pages/PlanRegisterPage";
 import PixIcon from "@mui/icons-material/Pix";
+import { MapaPage } from "../mapas/pages/MapaPage";
+import { ChatAlimentacionPage } from "../alimenticiaia/pages/ChatAlimentacionPage";
 const navLinks = [
   {
     tittle: "Inicio",
@@ -145,6 +149,16 @@ const navLinks = [
     icon: <EmailIcon />,
   },
   {
+    tittle: "Mapa",	
+    path: "/mapa",
+    icon: <MapIcon />,
+  },
+  {
+    tittle: "Chat Alimenticiso",	
+    path: "/chatAlimenticio",
+    icon: <AutoAwesomeIcon />,
+  },
+  {
     tittle: "Perfil",
     path: "/profile",
     icon: <AccountCircleIcon />,
@@ -156,7 +170,8 @@ export const UserRoutes = () => {
       <Routes>
         <Route path="/" element={<NavBar navLinks={navLinks}></NavBar>}>
           <Route path="/dashboard" element={<DashboardPage></DashboardPage>} />
-
+          <Route path="/mapa" element={<MapaPage></MapaPage>} />
+          <Route path="/chatAlimenticio" element={<ChatAlimentacionPage></ChatAlimentacionPage>} />
           <Route path="/class/schedule" element={<HorarioPage></HorarioPage>} />
           <Route path="/class/schedule/:id" element={<HorarioPage></HorarioPage>} />
           <Route path="/class/presence" element={<HorarioAsistenciaPage></HorarioAsistenciaPage>} />
